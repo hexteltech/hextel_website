@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-surface: #fffdf9;
+  --color-on-surface: #161616;
+  --color-accent: #b98b6e;
+  --site-header-height: 69px;
+  --rounded-lg: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+::selection {
+  background-color: rgba(185, 139, 110, 0.2);
+  color: #161616;
+}
+
+/* Custom photo blob clip matching the hero design */
+.hero-photo-blob {
+  clip-path: polygon(
+    22% 8%, 64% 0%, 84% 5%, 98% 9%, 100% 20%, 
+    98% 38%, 96% 52%, 86% 58%, 74% 66%, 62% 74%, 
+    57% 90%, 43% 97%, 29% 100%, 15% 93%, 10% 78%, 
+    5% 62%, 2% 48%, 10% 34%, 16% 16%
+  );
+}
