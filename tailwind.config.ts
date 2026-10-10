@@ -10,16 +10,16 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          dark: "#161616",
-          light: "#fffdf9",
-          accent: "#b98b6e",
-          primary: "#161616",
+          dark: "#5C1F1F",
+          light: "#EDE9E1",
+          accent: "#B88849",
+          primary: "#5C1F1F",
         },
         surface: {
-          DEFAULT: "#fffdf9",
-          dim: "#f4f0e9",
-          container: "#eee8df",
-          highest: "#b9aea2",
+          DEFAULT: "#EDE9E1",
+          dim: "#E3DDD3",
+          container: "#DCD5C8",
+          highest: "#C8BEAD",
         },
       },
       fontFamily: {

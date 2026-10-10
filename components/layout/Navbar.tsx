@@ -83,7 +83,7 @@ export default function Navbar() {
               {/* Start a Project CTA Button */}
               <Link
                 href="#contact"
-                className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase transition-all duration-200 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-dark active:scale-[0.98]"
+                className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase transition-all duration-200 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light active:scale-[0.98]"
               >
                 Start a project
               </Link>

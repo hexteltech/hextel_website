@@ -48,7 +48,7 @@ export default function Accordion({ items, className }: AccordionProps) {
                 <span
                   className={cn(
                     "w-8 h-8 rounded-full border border-brand-dark/15 flex items-center justify-center shrink-0 text-brand-dark transition-transform duration-300",
-                    isOpen && "rotate-180 bg-brand-accent text-brand-dark border-brand-accent"
+                    isOpen && "rotate-180 bg-brand-accent text-brand-light border-brand-accent"
                   )}
                   aria-hidden="true"
                 >

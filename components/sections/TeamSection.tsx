@@ -85,7 +85,7 @@ export default function TeamSection() {
             <div className="pt-4">
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-200 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-dark shadow-md active:scale-[0.98]"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-200 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light shadow-md active:scale-[0.98]"
               >
                 Start a conversation
               </Link>

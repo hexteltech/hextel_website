@@ -42,7 +42,7 @@ export default function FloatingBar() {
         type="button"
         onClick={scrollToTop}
         className={cn(
-          "w-12 h-12 rounded-full border border-brand-dark/10 bg-white/90 text-brand-dark/70 shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-dark hover:scale-105 active:scale-95",
+          "w-12 h-12 rounded-full border border-brand-dark/15 bg-brand-light/95 text-brand-dark/80 shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-light hover:scale-105 active:scale-95",
           showScrollTop
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-2 pointer-events-none hidden"
@@ -67,7 +67,7 @@ export default function FloatingBar() {
       {/* Call CTA Button */}
       <a
         href={`tel:${BRAND_CONFIG.phone.replace(/\s+/g, "")}`}
-        className="w-12 h-12 rounded-full border border-brand-dark/10 bg-white/90 text-brand-dark/70 shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-dark hover:scale-105 active:scale-95"
+        className="w-12 h-12 rounded-full border border-brand-dark/15 bg-brand-light/95 text-brand-dark/80 shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-light hover:scale-105 active:scale-95"
         aria-label="Call Hextel Tech"
       >
         <svg

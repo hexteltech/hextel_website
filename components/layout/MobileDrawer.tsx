@@ -41,7 +41,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
       {/* Backdrop Overlay */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-brand-dark/70 backdrop-blur-sm transition-opacity"
       />
 
       {/* Drawer Sheet */}
@@ -104,7 +104,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           <Link
             href="#contact"
             onClick={onClose}
-            className="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-dark transition-all active:scale-[0.98]"
+            className="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light transition-all active:scale-[0.98]"
           >
             Start a project
           </Link>

@@ -222,7 +222,7 @@ export default function ContactForm() {
           "w-full py-4 px-6 rounded-xl font-semibold text-xs uppercase tracking-widest transition-all duration-200 flex items-center justify-center gap-2",
           status === "loading"
             ? "bg-brand-dark/60 text-white cursor-not-allowed"
-            : "bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-dark shadow-lg active:scale-[0.98]"
+            : "bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light shadow-lg active:scale-[0.98]"
         )}
       >
         {status === "loading" ? (

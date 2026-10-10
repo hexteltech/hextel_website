@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --color-surface: #fffdf9;
-  --color-on-surface: #161616;
-  --color-accent: #b98b6e;
+  --color-surface: #EDE9E1;
+  --color-on-surface: #5C1F1F;
+  --color-accent: #B88849;
   --site-header-height: 69px;
   --rounded-lg: 1.25rem;
 }
@@ -17,8 +17,8 @@ html {
 }
 
 ::selection {
-  background-color: rgba(185, 139, 110, 0.2);
-  color: #161616;
+  background-color: rgba(184, 136, 73, 0.25);
+  color: #5C1F1F;
 }
 
 /* Custom photo blob clip matching the hero design */

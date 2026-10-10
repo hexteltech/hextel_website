@@ -63,7 +63,7 @@ export default function ProjectsSection() {
                   </h3>
                 </div>
 
-                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 ml-4 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors duration-300">
+                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 ml-4 group-hover:bg-brand-accent group-hover:text-brand-light transition-colors duration-300">
                   <span className="text-lg leading-none transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                     ↗
                   </span>

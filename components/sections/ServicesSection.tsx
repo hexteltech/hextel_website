@@ -83,7 +83,7 @@ export default function ServicesSection() {
               <div>
                 {/* Icon & Number Row */}
                 <div className="flex items-center justify-between mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-brand-dark/5 flex items-center justify-center text-brand-dark group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-brand-dark/5 flex items-center justify-center text-brand-dark group-hover:bg-brand-accent group-hover:text-brand-light transition-colors duration-300">
                     <ServiceIcon iconName={service.iconName} />
                   </div>
                   <span className="text-sm font-semibold tracking-wider text-brand-dark/40 group-hover:text-brand-accent transition-colors">
