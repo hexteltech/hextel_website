@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 
 const TEAM_AVATARS = [
   { src: "/images/t001-nova-avatar-01-220.webp", alt: "Hextel Tech team member" },
@@ -18,19 +19,21 @@ export default function TeamSection() {
     <section id="about" className="bg-brand-light py-20 sm:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Team Photo */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-brand-dark/5 shadow-xl">
-            <Image
-              src="/images/t001-nova-about-team.webp"
-              alt="Hextel Tech team collaborating in modern workspace"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-center"
-            />
-          </div>
+          {/* Team Photo with Soft Zoom & Reveal */}
+          <FadeIn direction="right" duration={0.7}>
+            <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-brand-dark/5 shadow-xl">
+              <Image
+                src="/images/t001-nova-about-team.webp"
+                alt="Hextel Tech team collaborating in modern workspace"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+          </FadeIn>
 
           {/* Text Content */}
-          <div className="flex flex-col space-y-6 lg:space-y-8">
+          <FadeIn direction="left" delay={0.15} duration={0.7} className="flex flex-col space-y-6 lg:space-y-8">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
                 Our Team & Values
@@ -44,13 +47,13 @@ export default function TeamSection() {
               We are a dedicated team of engineers, architects, and visual designers who combine deep passion for modern cloud technology with a sharp eye for functional design. Every digital solution is engineered around your enterprise goals and target audience.
             </p>
 
-            {/* Avatar Stack & Credentials */}
+            {/* Avatar Stack & Credentials with Hover Animation */}
             <div className="flex items-center gap-4 py-2">
               <div className="flex -space-x-3 overflow-hidden">
                 {TEAM_AVATARS.map((avatar, idx) => (
                   <div
                     key={idx}
-                    className="relative w-12 h-12 rounded-full ring-2 ring-brand-light overflow-hidden shadow-sm"
+                    className="relative w-12 h-12 rounded-full ring-2 ring-brand-light overflow-hidden shadow-sm hover:scale-110 hover:z-10 transition-transform duration-200"
                   >
                     <Image
                       src={avatar.src}
@@ -69,28 +72,30 @@ export default function TeamSection() {
               </div>
             </div>
 
-            {/* Value Pillars List */}
-            <ul className="space-y-3 pt-2">
+            {/* Value Pillars List with Stagger */}
+            <StaggerContainer staggerDelay={0.1} className="space-y-3 pt-2">
               {VALUE_PROPS.map((prop, idx) => (
-                <li key={idx} className="flex items-center gap-3 text-sm font-medium text-brand-dark/90">
-                  <span className="w-5 h-5 rounded-full bg-brand-accent/20 text-brand-dark flex items-center justify-center text-xs font-bold shrink-0">
-                    ✓
-                  </span>
-                  <span>{prop}</span>
-                </li>
+                <StaggerItem key={idx}>
+                  <div className="flex items-center gap-3 text-sm font-medium text-brand-dark/90 hover:translate-x-1 transition-transform duration-200">
+                    <span className="w-5 h-5 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0">
+                      ✓
+                    </span>
+                    <span>{prop}</span>
+                  </div>
+                </StaggerItem>
               ))}
-            </ul>
+            </StaggerContainer>
 
             {/* CTA */}
             <div className="pt-4">
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-200 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light shadow-md active:scale-[0.98]"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-300 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
               >
                 Start a conversation
               </Link>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>
