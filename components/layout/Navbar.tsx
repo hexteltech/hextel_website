@@ -51,26 +51,26 @@ export default function Navbar() {
             {/* Brand Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5"
+              className="flex items-center gap-2 group focus:outline-none shrink-0 py-1"
               aria-label={BRAND_CONFIG.name}
             >
               {/* Light Mode Logo */}
               <Image
-                src="/images/hextel-logo.png"
+                src="/images/hextel-logo-horizontal.png"
                 alt="Hextel Technologies"
-                width={291}
-                height={327}
+                width={206}
+                height={72}
                 priority
-                className="h-10 sm:h-12 w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
+                className="h-9 sm:h-10 w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
-                src="/images/hextel-logo-white.png"
+                src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
-                width={291}
-                height={327}
+                width={206}
+                height={72}
                 priority
-                className="h-10 sm:h-12 w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
+                className="h-9 sm:h-10 w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
 

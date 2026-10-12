@@ -35,11 +35,11 @@ export default function Footer() {
               aria-label={BRAND_CONFIG.name}
             >
               <Image
-                src="/images/hextel-logo-white.png"
+                src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
-                width={291}
-                height={327}
-                className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                width={206}
+                height={72}
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">
