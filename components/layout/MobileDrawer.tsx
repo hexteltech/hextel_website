@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BRAND_CONFIG } from "@/lib/constants";
+import { BRAND_CONFIG, SERVICE_COLUMNS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import LanguageSelector from "@/components/ui/LanguageSelector";
+import { ServiceIcon } from "./ServicesDropdown";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -15,12 +16,13 @@ interface MobileDrawerProps {
 }
 
 export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
+  const [servicesExpanded, setServicesExpanded] = useState(false);
   const { resolvedTheme, toggleTheme } = useTheme();
   const { t } = useLanguage();
 
   const navLinks = [
     { label: t.nav.home, href: "/#home" },
-    { label: t.nav.services, href: "/#services" },
+    { label: t.nav.services, href: "/#services", isServices: true },
     { label: t.nav.about, href: "/#about" },
     { label: t.nav.blog, href: "/#blog" },
     { label: t.nav.howWeBuild, href: "/#how-we-build" },
@@ -78,7 +80,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
       {/* Drawer Sheet */}
       <aside
         className={cn(
-          "absolute right-0 top-0 h-full w-full max-w-sm bg-brand-light dark:bg-[#1A1414] shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out text-brand-dark dark:text-brand-light border-l border-brand-dark/10 dark:border-white/10",
+          "absolute right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-brand-light dark:bg-[#1A1414] shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out text-brand-dark dark:text-brand-light border-l border-brand-dark/10 dark:border-white/10 overflow-y-auto",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -89,16 +91,16 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
               <Image
                 src="/images/hextel-logo-horizontal.png"
                 alt="Hextel Technologies"
-                width={206}
-                height={72}
-                className="h-8 sm:h-9 w-auto object-contain block dark:hidden"
+                width={260}
+                height={90}
+                className="h-12 sm:h-[54px] w-auto object-contain block dark:hidden"
               />
               <Image
                 src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
-                width={206}
-                height={72}
-                className="h-8 sm:h-9 w-auto object-contain hidden dark:block"
+                width={260}
+                height={90}
+                className="h-12 sm:h-[54px] w-auto object-contain hidden dark:block"
               />
             </Link>
             <button
@@ -133,18 +135,72 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-4 py-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={onClose}
-                className="text-xl font-heading font-medium text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors py-1 flex items-center justify-between group"
-              >
-                <span>{link.label}</span>
-                <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-              </Link>
-            ))}
+          <nav className="flex flex-col gap-3 py-6">
+            {navLinks.map((link) => {
+              if (link.isServices) {
+                return (
+                  <div key={link.label} className="border-b border-brand-dark/5 dark:border-white/5 pb-2">
+                    <button
+                      type="button"
+                      onClick={() => setServicesExpanded((prev) => !prev)}
+                      className="w-full text-xl font-heading font-medium text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors py-1 flex items-center justify-between group"
+                    >
+                      <span>{link.label}</span>
+                      <svg
+                        className={cn(
+                          "w-5 h-5 text-brand-accent transition-transform duration-200",
+                          servicesExpanded && "rotate-180"
+                        )}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {servicesExpanded && (
+                      <div className="mt-3 space-y-4 pl-1 pr-1 pb-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        {SERVICE_COLUMNS.map((col) => (
+                          <div key={col.title} className="space-y-1.5">
+                            <div className="text-[10px] font-bold uppercase tracking-wider text-brand-accent px-1">
+                              {col.title}
+                            </div>
+                            <div className="space-y-1">
+                              {col.services.map((service) => (
+                                <Link
+                                  key={service.id}
+                                  href="/#services"
+                                  onClick={onClose}
+                                  className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors text-xs font-medium text-brand-dark/80 dark:text-brand-light/80"
+                                >
+                                  <div className="w-5 h-5 rounded bg-brand-dark/5 dark:bg-white/5 flex items-center justify-center text-brand-accent shrink-0">
+                                    <ServiceIcon name={service.icon} className="w-3 h-3" />
+                                  </div>
+                                  <span className="truncate">{service.title}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={onClose}
+                  className="text-xl font-heading font-medium text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors py-1 flex items-center justify-between group"
+                >
+                  <span>{link.label}</span>
+                  <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </Link>
+              );
+            })}
           </nav>
         </div>
 

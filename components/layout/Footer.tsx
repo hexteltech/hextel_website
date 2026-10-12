@@ -37,9 +37,9 @@ export default function Footer() {
               <Image
                 src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
-                width={206}
-                height={72}
-                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                width={260}
+                height={90}
+                className="h-[56px] sm:h-[60px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">

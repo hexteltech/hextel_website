@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BRAND_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import MobileDrawer from "./MobileDrawer";
+import ServicesDropdown from "./ServicesDropdown";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import LanguageSelector from "@/components/ui/LanguageSelector";
@@ -13,12 +14,15 @@ import LanguageSelector from "@/components/ui/LanguageSelector";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, toggleTheme } = useTheme();
   const { t } = useLanguage();
 
   const navLinks = [
     { label: t.nav.home, href: "/#home" },
-    { label: t.nav.services, href: "/#services" },
+    { label: t.nav.services, href: "/#services", isServices: true },
     { label: t.nav.about, href: "/#about" },
     { label: t.nav.blog, href: "/#blog" },
     { label: t.nav.howWeBuild, href: "/#how-we-build" },
@@ -26,14 +30,37 @@ export default function Navbar() {
     { label: t.nav.contact, href: "/#contact" },
   ];
 
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setServicesOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setServicesOpen(false);
+    }, 150);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("mousedown", handleClickOutside);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    };
   }, []);
 
   return (
@@ -47,45 +74,91 @@ export default function Navbar() {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
-            {/* Brand Logo */}
+          <div ref={navContainerRef} className="flex items-center justify-between gap-4">
+            {/* Brand Logo - 1.5x larger */}
             <Link
               href="/"
-              className="flex items-center gap-2 group focus:outline-none shrink-0 py-1"
+              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5"
               aria-label={BRAND_CONFIG.name}
             >
               {/* Light Mode Logo */}
               <Image
                 src="/images/hextel-logo-horizontal.png"
                 alt="Hextel Technologies"
-                width={206}
-                height={72}
+                width={260}
+                height={90}
                 priority
-                className="h-9 sm:h-10 w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
+                className="h-[52px] sm:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
                 src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
-                width={206}
-                height={72}
+                width={260}
+                height={90}
                 priority
-                className="h-9 sm:h-10 w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
+                className="h-[52px] sm:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
 
-            {/* Desktop Navigation Links with animated hover states */}
-            <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-7">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="relative text-xs xl:text-sm font-medium text-brand-dark/75 dark:text-brand-light/75 hover:text-brand-dark dark:hover:text-brand-light transition-colors py-1 group whitespace-nowrap"
-                >
-                  <span>{link.label}</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+            {/* Desktop Navigation Links with Services Mega-Dropdown */}
+            <nav className="hidden lg:flex items-center justify-center gap-4 xl:gap-6">
+              {navLinks.map((link) => {
+                if (link.isServices) {
+                  return (
+                    <div
+                      key={link.label}
+                      className="relative"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setServicesOpen((prev) => !prev)}
+                        className="relative flex items-center gap-1.5 text-xs xl:text-sm font-medium text-brand-dark/75 dark:text-brand-light/75 hover:text-brand-dark dark:hover:text-brand-light transition-colors py-1 group whitespace-nowrap focus:outline-none"
+                        aria-expanded={servicesOpen}
+                        aria-haspopup="true"
+                      >
+                        <span>{link.label}</span>
+                        <svg
+                          className={cn(
+                            "w-3.5 h-3.5 text-brand-dark/50 dark:text-brand-light/50 transition-transform duration-200 group-hover:text-brand-accent",
+                            servicesOpen && "rotate-180 text-brand-accent"
+                          )}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                        <span
+                          className={cn(
+                            "absolute bottom-0 left-0 h-0.5 bg-brand-accent transition-all duration-300",
+                            servicesOpen ? "w-full" : "w-0 group-hover:w-full"
+                          )}
+                        />
+                      </button>
+
+                      <ServicesDropdown
+                        isOpen={servicesOpen}
+                        onClose={() => setServicesOpen(false)}
+                      />
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setServicesOpen(false)}
+                    className="relative text-xs xl:text-sm font-medium text-brand-dark/75 dark:text-brand-light/75 hover:text-brand-dark dark:hover:text-brand-light transition-colors py-1 group whitespace-nowrap"
+                  >
+                    <span>{link.label}</span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Right Actions: Language Selector and Dark Theme Toggle */}

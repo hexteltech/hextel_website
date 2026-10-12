@@ -47,6 +47,152 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact Us", href: "/#contact" },
 ];
 
+export interface DetailedService {
+  id: string;
+  title: string;
+  shortDesc: string;
+  icon: string;
+  tag?: string;
+}
+
+export interface ServiceColumn {
+  title: string;
+  subtitle: string;
+  services: DetailedService[];
+}
+
+export const DETAILED_SERVICES: DetailedService[] = [
+  // Column 1 (6 items)
+  {
+    id: "staff-aug",
+    title: "IT Staff Augmentation / Dedicated Developers",
+    shortDesc: "Vetted senior engineers & dedicated talent",
+    icon: "users",
+    tag: "Popular",
+  },
+  {
+    id: "mvp-dev",
+    title: "MVP Development for Startups",
+    shortDesc: "Fast-track launch from concept to market",
+    icon: "rocket",
+    tag: "Speed",
+  },
+  {
+    id: "data-eng",
+    title: "Database & Data Engineering",
+    shortDesc: "High-throughput pipelines & architecture",
+    icon: "database",
+  },
+  {
+    id: "cybersecurity",
+    title: "Cybersecurity & Compliance Audits",
+    shortDesc: "Vulnerability audits & compliance reviews",
+    icon: "shield",
+  },
+  {
+    id: "api-integrations",
+    title: "API Development & System Integration",
+    shortDesc: "Robust REST & GraphQL microservices",
+    icon: "plug",
+  },
+  {
+    id: "qa-testing",
+    title: "QA & Automated Testing",
+    shortDesc: "End-to-end regression & stress testing",
+    icon: "check-circle",
+  },
+
+  // Column 2 (6 items)
+  {
+    id: "ui-ux",
+    title: "UI/UX Design & Product Discovery",
+    shortDesc: "User journey mapping & high-converting UX",
+    icon: "palette",
+  },
+  {
+    id: "devops",
+    title: "DevOps & CI/CD Engineering",
+    shortDesc: "Kubernetes, Docker & GitOps automation",
+    icon: "cpu",
+  },
+  {
+    id: "legacy-modernization",
+    title: "Legacy Software Maintenance & Modernization",
+    shortDesc: "Monolith migration to modern cloud stacks",
+    icon: "refresh",
+  },
+  {
+    id: "cloud-mgmt",
+    title: "Server & Cloud Infrastructure Management",
+    shortDesc: "AWS, GCP & Azure 24/7 reliability",
+    icon: "cloud",
+  },
+  {
+    id: "ai-agents",
+    title: "Custom AI Agents & Copilots",
+    shortDesc: "Autonomous LLM agents & customized AI",
+    icon: "sparkles",
+    tag: "AI",
+  },
+  {
+    id: "ai-automation",
+    title: "AI Workflow Automation",
+    shortDesc: "Intelligent process & workflow robotics",
+    icon: "zap",
+    tag: "Hot",
+  },
+
+  // Column 3 (5 items)
+  {
+    id: "erp",
+    title: "ERP Systems & Solutions",
+    shortDesc: "Unified business operations & enterprise data",
+    icon: "layers",
+  },
+  {
+    id: "custom-software",
+    title: "Custom Software Development",
+    shortDesc: "Bespoke full-stack enterprise systems",
+    icon: "code",
+  },
+  {
+    id: "desktop-app",
+    title: "Windows / Desktop App Development",
+    shortDesc: "High-performance native & desktop apps",
+    icon: "monitor",
+  },
+  {
+    id: "mobile-app",
+    title: "Mobile App Development",
+    shortDesc: "Smooth iOS & Android mobile applications",
+    icon: "smartphone",
+  },
+  {
+    id: "web-app",
+    title: "Web Application Development",
+    shortDesc: "Scalable, reactive & secure web platforms",
+    icon: "globe",
+  },
+];
+
+export const SERVICE_COLUMNS: ServiceColumn[] = [
+  {
+    title: "Talent & Core Engineering",
+    subtitle: "Scale engineering & core foundation",
+    services: DETAILED_SERVICES.slice(0, 6),
+  },
+  {
+    title: "Cloud, DevOps & AI",
+    subtitle: "Intelligent systems & cloud resilience",
+    services: DETAILED_SERVICES.slice(6, 12),
+  },
+  {
+    title: "Custom Apps & Software",
+    subtitle: "Tailored multi-platform products",
+    services: DETAILED_SERVICES.slice(12, 17),
+  },
+];
+
 export const BRAND_CONFIG = {
   name: "Hextel Tech",
   tagline: "Engineering Digital Excellence for Ambitious Brands",
