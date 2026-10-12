@@ -83,7 +83,7 @@ export async function detectRegionFromIp(
 ): Promise<{ language: SupportedLanguage; country: string; countryCode: string } | null> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const timeoutId = setTimeout(() => controller.abort(), 800);
 
     const mergedSignal = signal || controller.signal;
     const res = await fetch("https://api.country.is", {

@@ -7,17 +7,13 @@ export default function LoadingBar() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Initial mount loading animation
-    const timer1 = setTimeout(() => setProgress(35), 100);
-    const timer2 = setTimeout(() => setProgress(75), 350);
-    const timer3 = setTimeout(() => setProgress(100), 600);
-    const timer4 = setTimeout(() => setLoading(false), 900);
+    // Fast snappy feedback on initial mount without artificial blocking delays
+    const timer1 = requestAnimationFrame(() => setProgress(100));
+    const timer2 = setTimeout(() => setLoading(false), 220);
 
     return () => {
-      clearTimeout(timer1);
+      cancelAnimationFrame(timer1);
       clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
     };
   }, []);
 
@@ -32,7 +28,7 @@ export default function LoadingBar() {
       aria-valuenow={progress}
     >
       <div
-        className="h-full bg-gradient-to-r from-brand-accent via-amber-400 to-brand-accent transition-all duration-300 ease-out shadow-[0_0_10px_rgba(212,163,98,0.8)]"
+        className="h-full bg-gradient-to-r from-brand-accent via-amber-400 to-brand-accent transition-all duration-200 ease-out shadow-[0_0_10px_rgba(212,163,98,0.8)]"
         style={{ width: `${progress}%`, opacity: progress === 100 ? 0 : 1 }}
       />
     </div>
