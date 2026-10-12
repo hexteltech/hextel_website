@@ -41,10 +41,13 @@ export interface TranslationSchema {
     dismiss: string;
   };
   nav: {
-    about: string;
+    home: string;
     services: string;
+    about: string;
+    blog: string;
+    howWeBuild: string;
     projects: string;
-    reviews: string;
+    contact: string;
     searchPlaceholder: string;
     portalLabel: string;
   };

@@ -16,10 +16,13 @@ export default function Navbar() {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t.nav.about, href: "/#about" },
+    { label: t.nav.home, href: "/#home" },
     { label: t.nav.services, href: "/#services" },
+    { label: t.nav.about, href: "/#about" },
+    { label: t.nav.blog, href: "/#blog" },
+    { label: t.nav.howWeBuild, href: "/#how-we-build" },
     { label: t.nav.projects, href: "/#projects" },
-    { label: t.nav.reviews, href: "/#reviews" },
+    { label: t.nav.contact, href: "/#contact" },
   ];
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export default function Navbar() {
             {/* Brand Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 group focus:outline-none"
+              className="flex items-center gap-2 group focus:outline-none shrink-0"
               aria-label={BRAND_CONFIG.name}
             >
               <span className="font-heading text-lg font-bold tracking-[0.2em] text-brand-dark dark:text-brand-light uppercase transition-colors">
@@ -67,12 +70,12 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Navigation Links with animated hover states */}
-            <nav className="hidden lg:flex items-center justify-center gap-8">
+            <nav className="hidden xl:flex items-center justify-center gap-4 2xl:gap-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="relative text-sm font-medium text-brand-dark/75 dark:text-brand-light/75 hover:text-brand-dark dark:hover:text-brand-light transition-colors py-1 group"
+                  className="relative text-xs 2xl:text-sm font-medium text-brand-dark/75 dark:text-brand-light/75 hover:text-brand-dark dark:hover:text-brand-light transition-colors py-1 group whitespace-nowrap"
                 >
                   <span>{link.label}</span>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full" />
@@ -149,7 +152,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setDrawerOpen(true)}
-                className="lg:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors focus:outline-none"
+                className="xl:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors focus:outline-none"
                 aria-label="Open navigation menu"
                 aria-expanded={drawerOpen}
               >

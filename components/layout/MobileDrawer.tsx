@@ -18,10 +18,13 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t.nav.about, href: "/#about" },
+    { label: t.nav.home, href: "/#home" },
     { label: t.nav.services, href: "/#services" },
+    { label: t.nav.about, href: "/#about" },
+    { label: t.nav.blog, href: "/#blog" },
+    { label: t.nav.howWeBuild, href: "/#how-we-build" },
     { label: t.nav.projects, href: "/#projects" },
-    { label: t.nav.reviews, href: "/#reviews" },
+    { label: t.nav.contact, href: "/#contact" },
   ];
 
   // Prevent background scroll when modal is open and handle Escape key

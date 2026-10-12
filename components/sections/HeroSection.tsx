@@ -6,9 +6,10 @@ import { FadeIn, StaggerContainer, StaggerItem, FloatingElement } from "@/compon
 export default function HeroSection() {
   return (
     <section
-      id="hero"
+      id="home"
       className="relative overflow-hidden bg-brand-light dark:bg-[#120E0E] pt-8 sm:pt-12 pb-0 transition-colors"
     >
+      <div id="hero" className="sr-only" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-t-2xl bg-surface-dim dark:bg-[#1A1414] border border-brand-dark/5 dark:border-white/5 p-6 sm:p-10 lg:p-16 transition-colors">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">

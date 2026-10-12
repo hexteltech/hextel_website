@@ -38,10 +38,13 @@ export interface ReviewItem {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "About us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Selected work", href: "#projects" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Home", href: "/#home" },
+  { label: "Services", href: "/#services" },
+  { label: "About Us", href: "/#about" },
+  { label: "Blog", href: "/#blog" },
+  { label: "How We Build", href: "/#how-we-build" },
+  { label: "Our Projects", href: "/#projects" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 
 export const BRAND_CONFIG = {
