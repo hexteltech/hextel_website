@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND_CONFIG, NAV_LINKS } from "@/lib/constants";
 
 export default function Footer() {
@@ -30,12 +31,16 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-4">
             <Link
               href="/"
-              className="font-heading text-xl font-bold tracking-[0.2em] text-brand-light uppercase group inline-block"
+              className="inline-block group"
+              aria-label={BRAND_CONFIG.name}
             >
-              {BRAND_CONFIG.name.split(" ")[0]}
-              <span className="text-brand-accent ml-1 group-hover:text-amber-400 transition-colors">
-                {BRAND_CONFIG.name.split(" ")[1] || ""}
-              </span>
+              <Image
+                src="/images/hextel-logo-white.png"
+                alt="Hextel Technologies"
+                width={291}
+                height={327}
+                className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">
               {BRAND_CONFIG.tagline}. Architecting next-generation digital products and web ecosystems for high-growth enterprises.

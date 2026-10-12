@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -84,9 +85,22 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
         {/* Header: Logo and Close Button */}
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-brand-dark/10 dark:border-white/10">
-            <span className="font-heading text-lg font-bold tracking-[0.2em] uppercase">
-              {BRAND_CONFIG.name}
-            </span>
+            <Link href="/" onClick={onClose} className="block py-1">
+              <Image
+                src="/images/hextel-logo.png"
+                alt="Hextel Technologies"
+                width={291}
+                height={327}
+                className="h-9 w-auto object-contain block dark:hidden"
+              />
+              <Image
+                src="/images/hextel-logo-white.png"
+                alt="Hextel Technologies"
+                width={291}
+                height={327}
+                className="h-9 w-auto object-contain hidden dark:block"
+              />
+            </Link>
             <button
               type="button"
               onClick={onClose}
