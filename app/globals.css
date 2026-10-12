@@ -4,10 +4,22 @@
 
 :root {
   --color-surface: #EDE9E1;
+  --color-surface-dim: #E3DDD3;
+  --color-surface-container: #DCD5C8;
   --color-on-surface: #5C1F1F;
   --color-accent: #B88849;
+  --color-border: rgba(92, 31, 31, 0.12);
   --site-header-height: 69px;
   --rounded-lg: 1.25rem;
+}
+
+.dark {
+  --color-surface: #120E0E;
+  --color-surface-dim: #1A1414;
+  --color-surface-container: #231B1B;
+  --color-on-surface: #F3EFE6;
+  --color-accent: #D4A362;
+  --color-border: rgba(243, 239, 230, 0.12);
 }
 
 html {
@@ -16,9 +28,13 @@ html {
   color: var(--color-on-surface);
 }
 
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
 ::selection {
-  background-color: rgba(184, 136, 73, 0.25);
-  color: #5C1F1F;
+  background-color: rgba(184, 136, 73, 0.3);
+  color: inherit;
 }
 
 /* Custom photo blob clip matching the hero design */
@@ -29,4 +45,19 @@ html {
     57% 90%, 43% 97%, 29% 100%, 15% 93%, 10% 78%, 
     5% 62%, 2% 48%, 10% 34%, 16% 16%
   );
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(184, 136, 73, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 136, 73, 0.6);
 }

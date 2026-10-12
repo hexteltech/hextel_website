@@ -16,12 +16,12 @@ const VALUE_PROPS = [
 
 export default function TeamSection() {
   return (
-    <section id="about" className="bg-brand-light py-20 sm:py-28">
+    <section id="about" className="bg-brand-light dark:bg-[#120E0E] py-20 sm:py-28 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Team Photo with Soft Zoom & Reveal */}
           <FadeIn direction="right" duration={0.7}>
-            <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-brand-dark/5 shadow-xl">
+            <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-xl">
               <Image
                 src="/images/t001-nova-about-team.webp"
                 alt="Hextel Tech team collaborating in modern workspace"
@@ -38,12 +38,12 @@ export default function TeamSection() {
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
                 Our Team & Values
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark tracking-tight mt-2">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
                 People who create value
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-brand-dark/80 leading-relaxed">
+            <p className="text-base sm:text-lg text-brand-dark/80 dark:text-brand-light/80 leading-relaxed">
               We are a dedicated team of engineers, architects, and visual designers who combine deep passion for modern cloud technology with a sharp eye for functional design. Every digital solution is engineered around your enterprise goals and target audience.
             </p>
 
@@ -53,7 +53,7 @@ export default function TeamSection() {
                 {TEAM_AVATARS.map((avatar, idx) => (
                   <div
                     key={idx}
-                    className="relative w-12 h-12 rounded-full ring-2 ring-brand-light overflow-hidden shadow-sm hover:scale-110 hover:z-10 transition-transform duration-200"
+                    className="relative w-12 h-12 rounded-full ring-2 ring-brand-light dark:ring-[#120E0E] overflow-hidden shadow-sm hover:scale-110 hover:z-10 transition-transform duration-200"
                   >
                     <Image
                       src={avatar.src}
@@ -64,9 +64,9 @@ export default function TeamSection() {
                   </div>
                 ))}
               </div>
-              <div className="text-sm font-semibold text-brand-dark">
+              <div className="text-sm font-semibold text-brand-dark dark:text-brand-light">
                 <span>10+ Senior Specialists</span>
-                <p className="text-xs text-brand-dark/60 font-normal">
+                <p className="text-xs text-brand-dark/60 dark:text-brand-light/60 font-normal">
                   Distributed across product & systems
                 </p>
               </div>
@@ -76,7 +76,7 @@ export default function TeamSection() {
             <StaggerContainer staggerDelay={0.1} className="space-y-3 pt-2">
               {VALUE_PROPS.map((prop, idx) => (
                 <StaggerItem key={idx}>
-                  <div className="flex items-center gap-3 text-sm font-medium text-brand-dark/90 hover:translate-x-1 transition-transform duration-200">
+                  <div className="flex items-center gap-3 text-sm font-medium text-brand-dark/90 dark:text-brand-light/90 hover:translate-x-1 transition-transform duration-200">
                     <span className="w-5 h-5 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0">
                       ✓
                     </span>
@@ -86,11 +86,11 @@ export default function TeamSection() {
               ))}
             </StaggerContainer>
 
-            {/* CTA */}
+            {/* CTA with Hover Animation */}
             <div className="pt-4">
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-300 bg-brand-dark text-brand-light hover:bg-brand-accent hover:text-brand-light shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-300 bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark hover:bg-brand-accent hover:text-brand-light dark:hover:bg-amber-400 shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]"
               >
                 Start a conversation
               </Link>

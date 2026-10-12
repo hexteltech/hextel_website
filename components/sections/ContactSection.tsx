@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/ui/Motion";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="relative z-10 overflow-hidden bg-brand-dark py-24 sm:py-32 text-brand-light">
+    <section id="contact" className="relative z-10 overflow-hidden bg-brand-dark dark:bg-[#120E0E] py-24 sm:py-32 text-brand-light transition-colors">
       {/* Background Mountain Image */}
       <div className="absolute inset-0 z-0 opacity-25">
         <Image

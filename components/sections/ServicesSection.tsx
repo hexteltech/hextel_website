@@ -46,7 +46,7 @@ function ServiceIcon({ iconName }: { iconName: ServiceItem["iconName"] }) {
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="bg-surface-dim py-20 sm:py-28 border-y border-brand-dark/10">
+    <section id="services" className="bg-surface-dim dark:bg-[#161111] py-20 sm:py-28 border-y border-brand-dark/10 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <FadeIn direction="up" duration={0.6}>
@@ -55,20 +55,20 @@ export default function ServicesSection() {
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
                 Expertise
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark tracking-tight mt-2">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
                 Our core services
               </h2>
             </div>
             <div className="max-w-md">
-              <p className="text-base text-brand-dark/70 leading-relaxed mb-4">
+              <p className="text-base text-brand-dark/70 dark:text-brand-light/70 leading-relaxed mb-4">
                 End-to-end technical leadership, from initial product architecture to deployment and continuous growth.
               </p>
               <Link
                 href="#contact"
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-dark hover:text-brand-accent transition-colors"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
               >
                 <span>Explore services roadmap</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-brand-accent">
                   →
                 </span>
               </Link>
@@ -76,36 +76,36 @@ export default function ServicesSection() {
           </div>
         </FadeIn>
 
-        {/* 4-Column Responsive Grid with Sequential Stagger */}
+        {/* 4-Column Responsive Grid with Sequential Stagger & Hover Micro-Interactions */}
         <StaggerContainer
           staggerDelay={0.12}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {SERVICES.map((service) => (
             <StaggerItem key={service.number}>
-              <article className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-brand-light border border-brand-dark/10 shadow-sm hover:border-brand-accent hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full">
+              <article className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-brand-light dark:bg-[#1E1717] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:border-brand-accent dark:hover:border-brand-accent hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full">
                 <div>
                   {/* Icon & Number Row */}
                   <div className="flex items-center justify-between mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-brand-dark/5 flex items-center justify-center text-brand-dark group-hover:bg-brand-accent group-hover:text-brand-light group-hover:rotate-6 group-hover:scale-110 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-brand-dark/5 dark:bg-white/5 flex items-center justify-center text-brand-dark dark:text-brand-light group-hover:bg-brand-accent group-hover:text-brand-light dark:group-hover:text-brand-dark group-hover:rotate-6 group-hover:scale-110 transition-all duration-300">
                       <ServiceIcon iconName={service.iconName} />
                     </div>
-                    <span className="text-sm font-semibold tracking-wider text-brand-dark/40 group-hover:text-brand-accent transition-colors">
+                    <span className="text-sm font-semibold tracking-wider text-brand-dark/40 dark:text-brand-light/40 group-hover:text-brand-accent transition-colors">
                       {service.number}
                     </span>
                   </div>
 
-                  <h3 className="font-heading text-xl font-bold text-brand-dark mb-3">
+                  <h3 className="font-heading text-xl font-bold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-brand-dark/75 leading-relaxed">
+                  <p className="text-sm text-brand-dark/75 dark:text-brand-light/75 leading-relaxed">
                     {service.description}
                   </p>
                 </div>
 
                 {/* Bottom Action Arrow */}
-                <div className="pt-6 mt-6 border-t border-brand-dark/5 flex justify-end">
-                  <span className="text-base font-bold text-brand-dark/40 group-hover:text-brand-accent group-hover:translate-x-2 transition-all duration-300">
+                <div className="pt-6 mt-6 border-t border-brand-dark/5 dark:border-white/5 flex justify-end">
+                  <span className="text-base font-bold text-brand-dark/40 dark:text-brand-light/40 group-hover:text-brand-accent group-hover:translate-x-2 transition-all duration-300">
                     →
                   </span>
                 </div>

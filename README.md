@@ -59,8 +59,37 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-### 3. Build for Production
+### 3. Configure Direct Mailing (Resend or EmailJS)
+
+Copy `.env.example` to `.env.local`:
+```bash
+cp .env.example .env.local
+```
+
+#### Option A: Resend (Recommended Server-Side Mailer)
+1. Get a free API key at [resend.com](https://resend.com).
+2. Set in `.env.local`:
+   ```env
+   RESEND_API_KEY=re_your_api_key_here
+   CONTACT_TO_EMAIL=your_inbox@yourdomain.com
+   CONTACT_FROM_EMAIL="Hextel Tech <onboarding@resend.dev>"
+   SEND_CLIENT_RECEIPT=true
+   ```
+
+#### Option B: EmailJS (Client-Side Direct Mailer)
+1. Sign up at [emailjs.com](https://www.emailjs.com/).
+2. Create an Email Service & Template, then set in `.env.local`:
+   ```env
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_xxxxxxx
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=user_public_key_xxxxxxx
+   ```
+
+---
+
+### 4. Build for Production
 ```bash
 npm run build
 npm run start
 ```
+

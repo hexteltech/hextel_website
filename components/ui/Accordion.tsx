@@ -29,8 +29,8 @@ export default function Accordion({ items, className }: AccordionProps) {
             className={cn(
               "rounded-2xl border transition-all duration-300 overflow-hidden",
               isOpen
-                ? "bg-brand-light border-brand-accent shadow-sm"
-                : "bg-surface-dim border-brand-dark/10 hover:border-brand-dark/20"
+                ? "bg-brand-light dark:bg-[#1E1717] border-brand-accent shadow-md"
+                : "bg-surface-dim dark:bg-[#161111] border-brand-dark/10 dark:border-white/10 hover:border-brand-dark/20 dark:hover:border-white/20"
             )}
           >
             <h3>
@@ -40,15 +40,15 @@ export default function Accordion({ items, className }: AccordionProps) {
                 aria-expanded={isOpen}
                 aria-controls={contentId}
                 onClick={() => toggleItem(index)}
-                className="w-full flex items-center justify-between gap-4 p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent"
+                className="w-full flex items-center justify-between gap-4 p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent group"
               >
-                <span className="font-heading text-lg sm:text-xl font-bold text-brand-dark">
+                <span className="font-heading text-lg sm:text-xl font-bold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors">
                   {item.question}
                 </span>
                 <span
                   className={cn(
-                    "w-8 h-8 rounded-full border border-brand-dark/15 flex items-center justify-center shrink-0 text-brand-dark transition-transform duration-300",
-                    isOpen && "rotate-180 bg-brand-accent text-brand-light border-brand-accent"
+                    "w-8 h-8 rounded-full border border-brand-dark/15 dark:border-white/15 flex items-center justify-center shrink-0 text-brand-dark dark:text-brand-light transition-all duration-300",
+                    isOpen && "rotate-180 bg-brand-accent text-brand-light dark:text-brand-dark border-brand-accent"
                   )}
                   aria-hidden="true"
                 >
@@ -80,7 +80,7 @@ export default function Accordion({ items, className }: AccordionProps) {
               )}
             >
               <div className="overflow-hidden">
-                <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-brand-dark/75 leading-relaxed border-t border-brand-dark/5 mt-1">
+                <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-brand-dark/75 dark:text-brand-light/75 leading-relaxed border-t border-brand-dark/5 dark:border-white/5 mt-1">
                   {item.answer}
                 </div>
               </div>

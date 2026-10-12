@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
+import { sendContactEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, service, message, honeypot } = body;
+    const { name, email, service, message, honeypot, referenceId, ndaPassword, utm } = body;
 
     // Silent honeypot drop for bot crawlers
     if (honeypot) {
@@ -32,19 +33,35 @@ export async function POST(request: Request) {
       );
     }
 
-    // In production, integrate here with Resend, SendGrid, AWS SES, or database:
-    // await resend.emails.send({ ... });
-    console.log("[Hextel Tech] New Lead Received:", {
+    const leadRef = referenceId || `HEX-${Math.floor(10000 + Math.random() * 90000)}`;
+
+    console.log("[Hextel Tech] Processing Lead Submission:", {
+      referenceId: leadRef,
       name,
       email,
       service,
-      messagePreview: message.slice(0, 100),
+      hasNdaCode: Boolean(ndaPassword),
+      utmAttribution: utm || {},
       timestamp: new Date().toISOString(),
     });
+
+    // Direct mailing dispatch via Resend (isolated server-side)
+    const emailResult = await sendContactEmail({
+      name: name.trim().slice(0, 100),
+      email: email.trim().slice(0, 255),
+      service: typeof service === "string" ? service.trim().slice(0, 100) : "General Inquiry",
+      message: message.trim().slice(0, 5000),
+      referenceId: leadRef,
+      ndaPassword: typeof ndaPassword === "string" ? ndaPassword.trim().slice(0, 100) : undefined,
+      utm,
+    });
+
+    console.info(`[Hextel Tech] Email dispatch completed for ${leadRef}. Sent: ${emailResult.sent}`);
 
     return NextResponse.json(
       {
         success: true,
+        referenceId: leadRef,
         message: "Your message has been sent successfully. We will get in touch shortly.",
       },
       { status: 200 }
