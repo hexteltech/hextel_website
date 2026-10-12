@@ -174,7 +174,7 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
                 {column.services.map((service: DetailedService) => (
                   <li key={service.id}>
                     <Link
-                      href={`/#services`}
+                      href={`/services/${service.slug}`}
                       onClick={onClose}
                       className="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-all duration-200"
                     >
@@ -209,14 +209,24 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
           <div className="flex items-center gap-2 text-xs text-brand-dark/70 dark:text-brand-light/70">
             <span className="font-medium">Need a specialized tech stack or dedicated architects?</span>
           </div>
-          <Link
-            href="/#contact"
-            onClick={onClose}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-accent hover:underline transition-all"
-          >
-            <span>Request custom consultation</span>
-            <span aria-hidden="true">→</span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/services"
+              onClick={onClose}
+              className="text-xs font-semibold text-brand-dark/80 dark:text-brand-light/80 hover:text-brand-accent transition-colors"
+            >
+              View All Services
+            </Link>
+            <span className="text-brand-dark/20 dark:text-white/20">|</span>
+            <Link
+              href="/contact"
+              onClick={onClose}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-accent hover:underline transition-all"
+            >
+              <span>Request custom consultation</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function ProjectsSection() {
                 We combine strategic engineering, refined design, and modern technology to deliver scalable web platforms.
               </p>
               <Link
-                href="#projects"
+                href="/projects"
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
               >
                 <span>Explore all case studies</span>

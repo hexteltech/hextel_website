@@ -64,10 +64,10 @@ export default function ServicesSection() {
                 End-to-end technical leadership, from initial product architecture to deployment and continuous growth.
               </p>
               <Link
-                href="#contact"
+                href="/services"
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-dark dark:text-brand-light hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
               >
-                <span>Explore services roadmap</span>
+                <span>Explore all 17 capabilities</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-brand-accent">
                   →
                 </span>

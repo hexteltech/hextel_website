@@ -38,17 +38,18 @@ export interface ReviewItem {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home", href: "/#home" },
-  { label: "Services", href: "/#services" },
-  { label: "About Us", href: "/#about" },
-  { label: "Blog", href: "/#blog" },
-  { label: "How We Build", href: "/#how-we-build" },
-  { label: "Our Projects", href: "/#projects" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About Us", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "How We Build", href: "/how-we-build" },
+  { label: "Our Projects", href: "/projects" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export interface DetailedService {
   id: string;
+  slug: string;
   title: string;
   shortDesc: string;
   icon: string;
@@ -65,6 +66,7 @@ export const DETAILED_SERVICES: DetailedService[] = [
   // Column 1 (6 items)
   {
     id: "staff-aug",
+    slug: "it-staff-augmentation",
     title: "IT Staff Augmentation / Dedicated Developers",
     shortDesc: "Vetted senior engineers & dedicated talent",
     icon: "users",
@@ -72,6 +74,7 @@ export const DETAILED_SERVICES: DetailedService[] = [
   },
   {
     id: "mvp-dev",
+    slug: "mvp-development",
     title: "MVP Development for Startups",
     shortDesc: "Fast-track launch from concept to market",
     icon: "rocket",
@@ -79,24 +82,28 @@ export const DETAILED_SERVICES: DetailedService[] = [
   },
   {
     id: "data-eng",
+    slug: "database-data-engineering",
     title: "Database & Data Engineering",
     shortDesc: "High-throughput pipelines & architecture",
     icon: "database",
   },
   {
     id: "cybersecurity",
+    slug: "cybersecurity-compliance",
     title: "Cybersecurity & Compliance Audits",
     shortDesc: "Vulnerability audits & compliance reviews",
     icon: "shield",
   },
   {
     id: "api-integrations",
+    slug: "api-development-integration",
     title: "API Development & System Integration",
     shortDesc: "Robust REST & GraphQL microservices",
     icon: "plug",
   },
   {
     id: "qa-testing",
+    slug: "qa-automated-testing",
     title: "QA & Automated Testing",
     shortDesc: "End-to-end regression & stress testing",
     icon: "check-circle",
@@ -105,30 +112,35 @@ export const DETAILED_SERVICES: DetailedService[] = [
   // Column 2 (6 items)
   {
     id: "ui-ux",
+    slug: "ui-ux-design",
     title: "UI/UX Design & Product Discovery",
     shortDesc: "User journey mapping & high-converting UX",
     icon: "palette",
   },
   {
     id: "devops",
+    slug: "devops-ci-cd",
     title: "DevOps & CI/CD Engineering",
     shortDesc: "Kubernetes, Docker & GitOps automation",
     icon: "cpu",
   },
   {
     id: "legacy-modernization",
+    slug: "legacy-software-modernization",
     title: "Legacy Software Maintenance & Modernization",
     shortDesc: "Monolith migration to modern cloud stacks",
     icon: "refresh",
   },
   {
     id: "cloud-mgmt",
+    slug: "server-cloud-infrastructure",
     title: "Server & Cloud Infrastructure Management",
     shortDesc: "AWS, GCP & Azure 24/7 reliability",
     icon: "cloud",
   },
   {
     id: "ai-agents",
+    slug: "custom-ai-agents",
     title: "Custom AI Agents & Copilots",
     shortDesc: "Autonomous LLM agents & customized AI",
     icon: "sparkles",
@@ -136,6 +148,7 @@ export const DETAILED_SERVICES: DetailedService[] = [
   },
   {
     id: "ai-automation",
+    slug: "ai-workflow-automation",
     title: "AI Workflow Automation",
     shortDesc: "Intelligent process & workflow robotics",
     icon: "zap",
@@ -145,30 +158,35 @@ export const DETAILED_SERVICES: DetailedService[] = [
   // Column 3 (5 items)
   {
     id: "erp",
+    slug: "erp-systems-solutions",
     title: "ERP Systems & Solutions",
     shortDesc: "Unified business operations & enterprise data",
     icon: "layers",
   },
   {
     id: "custom-software",
+    slug: "custom-software-development",
     title: "Custom Software Development",
     shortDesc: "Bespoke full-stack enterprise systems",
     icon: "code",
   },
   {
     id: "desktop-app",
+    slug: "desktop-app-development",
     title: "Windows / Desktop App Development",
     shortDesc: "High-performance native & desktop apps",
     icon: "monitor",
   },
   {
     id: "mobile-app",
+    slug: "mobile-app-development",
     title: "Mobile App Development",
     shortDesc: "Smooth iOS & Android mobile applications",
     icon: "smartphone",
   },
   {
     id: "web-app",
+    slug: "web-application-development",
     title: "Web Application Development",
     shortDesc: "Scalable, reactive & secure web platforms",
     icon: "globe",

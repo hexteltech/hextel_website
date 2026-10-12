@@ -21,13 +21,13 @@ export default function Navbar() {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t.nav.home, href: "/#home" },
-    { label: t.nav.services, href: "/#services", isServices: true },
-    { label: t.nav.about, href: "/#about" },
-    { label: t.nav.blog, href: "/#blog" },
-    { label: t.nav.howWeBuild, href: "/#how-we-build" },
-    { label: t.nav.projects, href: "/#projects" },
-    { label: t.nav.contact, href: "/#contact" },
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.services, href: "/services", isServices: true },
+    { label: t.nav.about, href: "/about" },
+    { label: t.nav.blog, href: "/blog" },
+    { label: t.nav.howWeBuild, href: "/how-we-build" },
+    { label: t.nav.projects, href: "/projects" },
+    { label: t.nav.contact, href: "/contact" },
   ];
 
   const handleMouseEnter = () => {

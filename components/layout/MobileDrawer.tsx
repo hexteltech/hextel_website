@@ -21,13 +21,13 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t.nav.home, href: "/#home" },
-    { label: t.nav.services, href: "/#services", isServices: true },
-    { label: t.nav.about, href: "/#about" },
-    { label: t.nav.blog, href: "/#blog" },
-    { label: t.nav.howWeBuild, href: "/#how-we-build" },
-    { label: t.nav.projects, href: "/#projects" },
-    { label: t.nav.contact, href: "/#contact" },
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.services, href: "/services", isServices: true },
+    { label: t.nav.about, href: "/about" },
+    { label: t.nav.blog, href: "/blog" },
+    { label: t.nav.howWeBuild, href: "/how-we-build" },
+    { label: t.nav.projects, href: "/projects" },
+    { label: t.nav.contact, href: "/contact" },
   ];
 
   // Prevent background scroll when modal is open and handle Escape key
@@ -170,7 +170,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                               {col.services.map((service) => (
                                 <Link
                                   key={service.id}
-                                  href="/#services"
+                                  href={`/services/${service.slug}`}
                                   onClick={onClose}
                                   className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors text-xs font-medium text-brand-dark/80 dark:text-brand-light/80"
                                 >
