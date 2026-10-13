@@ -40,6 +40,10 @@ const config: Config = {
         lg: "1.25rem",
         xl: "1.75rem",
       },
+      screens: {
+        xs: "420px",
+        "3xl": "1920px",
+      },
     },
   },
   plugins: [],

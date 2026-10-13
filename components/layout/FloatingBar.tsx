@@ -35,15 +35,18 @@ export default function FloatingBar() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-2.5"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      className="fixed z-40 flex flex-col items-center gap-2 sm:gap-2.5"
+      style={{
+        bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))",
+        right: "max(1rem, calc(env(safe-area-inset-right) + 0.5rem))",
+      }}
     >
       {/* Scroll-to-Top Button Toggle with Circular Progress */}
       <button
         type="button"
         onClick={scrollToTop}
         className={cn(
-          "relative w-12 h-12 rounded-full border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 text-brand-dark dark:text-brand-light shadow-xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:scale-105 active:scale-95 group",
+          "relative w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 text-brand-dark dark:text-brand-light shadow-xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:scale-105 active:scale-95 group",
           showScrollTop
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-4 pointer-events-none"
@@ -93,7 +96,7 @@ export default function FloatingBar() {
       {/* Direct Call Floating CTA */}
       <a
         href={`tel:${BRAND_CONFIG.phone.replace(/\s+/g, "")}`}
-        className="w-12 h-12 rounded-full border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 text-brand-dark dark:text-brand-light shadow-xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-light dark:hover:text-brand-dark hover:scale-105 active:scale-95 group"
+        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 text-brand-dark dark:text-brand-light shadow-xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-light dark:hover:text-brand-dark hover:scale-105 active:scale-95 group"
         aria-label={`Call ${BRAND_CONFIG.name}`}
         title={`Call ${BRAND_CONFIG.phone}`}
       >

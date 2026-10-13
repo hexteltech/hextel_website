@@ -176,12 +176,12 @@ export default function BlogSection() {
           onClick={() => setSelectedPost(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light dark:bg-[#1A1414] p-6 sm:p-10 shadow-2xl space-y-6"
+            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-6 sm:p-10 shadow-2xl space-y-5 sm:space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-brand-dark/10 dark:border-white/10">
-              <div className="flex items-center gap-3">
+            <div className="flex items-start xs:items-center justify-between gap-3 pb-4 border-b border-brand-dark/10 dark:border-white/10">
+              <div className="flex items-center gap-2 xs:gap-3 flex-wrap">
                 <span className="px-2.5 py-1 rounded-md bg-brand-accent/15 text-brand-accent text-xs font-mono font-semibold">
                   {selectedPost.category}
                 </span>
@@ -193,7 +193,7 @@ export default function BlogSection() {
               <button
                 type="button"
                 onClick={() => setSelectedPost(null)}
-                className="w-8 h-8 rounded-full border border-brand-dark/15 dark:border-white/15 flex items-center justify-center text-brand-dark/60 dark:text-brand-light/60 hover:text-brand-dark dark:hover:text-brand-light hover:border-brand-accent transition-colors"
+                className="w-8 h-8 rounded-full border border-brand-dark/15 dark:border-white/15 flex items-center justify-center text-brand-dark/60 dark:text-brand-light/60 hover:text-brand-dark dark:hover:text-brand-light hover:border-brand-accent transition-colors shrink-0"
                 aria-label="Close article"
               >
                 ✕

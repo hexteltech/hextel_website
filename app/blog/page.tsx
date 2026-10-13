@@ -256,18 +256,18 @@ export default function BlogPage() {
           onClick={() => setActiveArticle(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-brand-light dark:bg-[#1A1414] rounded-3xl p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light"
+            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-brand-light dark:bg-[#1A1414] rounded-3xl p-5 xs:p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setActiveArticle(null)}
-              className="absolute top-6 right-6 p-2 rounded-xl bg-brand-dark/5 dark:bg-white/5 hover:bg-brand-dark/10 text-brand-dark/70 dark:text-brand-light/70 transition-colors"
+              className="absolute top-5 right-5 sm:top-6 sm:right-6 p-2 rounded-xl bg-brand-dark/5 dark:bg-white/5 hover:bg-brand-dark/10 text-brand-dark/70 dark:text-brand-light/70 transition-colors"
               aria-label="Close modal"
             >
               ✕
             </button>
 
-            <div className="flex items-center gap-3 text-xs text-brand-accent font-semibold mb-3">
+            <div className="flex items-center gap-2 xs:gap-3 flex-wrap text-xs text-brand-accent font-semibold mb-3 pr-10">
               <span>{activeArticle.category}</span>
               <span>•</span>
               <span>{activeArticle.date}</span>

@@ -138,11 +138,6 @@ export default function Navbar() {
                           )}
                         />
                       </button>
-
-                      <ServicesDropdown
-                        isOpen={servicesOpen}
-                        onClose={() => setServicesOpen(false)}
-                      />
                     </div>
                   );
                 }
@@ -200,6 +195,18 @@ export default function Navbar() {
                 <span className="w-5 h-0.5 bg-brand-dark dark:bg-brand-light mb-1 transition-all" />
                 <span className="w-3.5 h-0.5 bg-brand-dark dark:bg-brand-light self-start ml-2.5 transition-all" />
               </button>
+            </div>
+
+            {/* Services Dropdown anchored to container center */}
+            <div
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="hidden lg:block"
+            >
+              <ServicesDropdown
+                isOpen={servicesOpen}
+                onClose={() => setServicesOpen(false)}
+              />
             </div>
           </div>
         </div>

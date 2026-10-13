@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const CONSENT_KEY = "hextel_cookie_consent";
@@ -57,9 +58,13 @@ export default function CookieBanner() {
     <div
       role="region"
       aria-label="Cookie consent banner"
-      className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-auto sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-5 duration-300"
+      className="fixed z-50 animate-in fade-in slide-in-from-bottom-5 duration-300 w-[calc(100%-2rem)] max-w-md"
+      style={{
+        bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.5rem))",
+        left: "max(1rem, calc(env(safe-area-inset-left) + 0.5rem))",
+      }}
     >
-      <div className="rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-xl text-brand-dark dark:text-brand-light">
+      <div className="rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light/95 dark:bg-[#1A1414]/95 p-4 sm:p-6 shadow-2xl backdrop-blur-xl text-brand-dark dark:text-brand-light">
         <div className="flex items-start gap-3">
           <div className="w-9 h-9 rounded-xl bg-brand-accent/15 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +76,14 @@ export default function CookieBanner() {
               Privacy & Cookies
             </h4>
             <p className="text-xs text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
-              We use minimal cookies to optimize site performance, remember theme preferences, and analyze anonymized platform traffic.
+              We use minimal cookies to optimize site performance, remember theme preferences, and analyze anonymized platform traffic. Read our{" "}
+              <Link
+                href="/cookie-policy"
+                onClick={() => setIsOpen(false)}
+                className="underline underline-offset-2 text-brand-accent hover:opacity-80"
+              >
+                Cookie Policy
+              </Link>.
             </p>
           </div>
         </div>
@@ -103,11 +115,11 @@ export default function CookieBanner() {
         )}
 
         {/* Buttons Action Bar */}
-        <div className="mt-4 flex flex-wrap items-center gap-2 pt-2">
+        <div className="mt-4 flex flex-col xs:flex-row items-stretch xs:items-center gap-2 pt-2">
           <button
             type="button"
             onClick={() => saveConsent("all")}
-            className="flex-1 py-2 px-3.5 rounded-xl bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark text-xs font-semibold uppercase tracking-wider hover:opacity-90 transition-all active:scale-[0.98]"
+            className="flex-1 py-2 px-3.5 rounded-xl bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark text-xs font-semibold uppercase tracking-wider hover:opacity-90 transition-all active:scale-[0.98] text-center"
           >
             Accept All
           </button>
@@ -115,7 +127,7 @@ export default function CookieBanner() {
           <button
             type="button"
             onClick={() => saveConsent(showPreferences ? "custom" : "essential")}
-            className="py-2 px-3 rounded-xl border border-brand-dark/20 dark:border-white/20 text-xs font-medium hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors"
+            className="py-2 px-3 rounded-xl border border-brand-dark/20 dark:border-white/20 text-xs font-medium hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-colors text-center"
           >
             {showPreferences ? "Save Preferences" : "Essential Only"}
           </button>
@@ -124,7 +136,7 @@ export default function CookieBanner() {
             <button
               type="button"
               onClick={() => setShowPreferences(true)}
-              className="text-xs text-brand-dark/70 dark:text-brand-light/70 underline underline-offset-2 hover:text-brand-accent px-1"
+              className="text-xs text-brand-dark/70 dark:text-brand-light/70 underline underline-offset-2 hover:text-brand-accent px-1 text-center"
             >
               Customize
             </button>

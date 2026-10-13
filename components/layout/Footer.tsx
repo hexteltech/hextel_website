@@ -128,9 +128,21 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Privacy / Cookies */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-light/50">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-light/50 text-center sm:text-left">
           <p>© {currentYear} {BRAND_CONFIG.name}. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6">
+            <Link
+              href="/security-and-compliance"
+              className="hover:text-brand-light transition-colors"
+            >
+              Security & Compliance
+            </Link>
+            <Link
+              href="/cookie-policy"
+              className="hover:text-brand-light transition-colors"
+            >
+              Cookie Policy
+            </Link>
             <button
               type="button"
               onClick={openCookies}
@@ -138,10 +150,10 @@ export default function Footer() {
             >
               Cookie Settings
             </button>
-            <Link href="#contact" className="hover:text-brand-light transition-colors">
+            <Link href="/privacy-policy" className="hover:text-brand-light transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#contact" className="hover:text-brand-light transition-colors">
+            <Link href="/contact" className="hover:text-brand-light transition-colors">
               Terms of Service
             </Link>
           </div>

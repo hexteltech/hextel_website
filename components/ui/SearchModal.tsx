@@ -68,6 +68,22 @@ export default function SearchModal() {
       });
     });
 
+    list.push({
+      id: "nav-security-compliance",
+      category: "Navigation",
+      title: "Security & Compliance",
+      subtitle: "Zero-trust cloud architecture, SOC 2 alignment & GDPR policies",
+      href: "/security-and-compliance",
+    });
+
+    list.push({
+      id: "nav-cookie-policy",
+      category: "Navigation",
+      title: "Cookie Policy",
+      subtitle: "Review tracking categories, lifespan & consent preferences",
+      href: "/cookie-policy",
+    });
+
     // Services
     SERVICES.forEach((srv) => {
       list.push({
@@ -187,14 +203,18 @@ export default function SearchModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-brand-dark/70 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-16 md:pt-20 px-3 sm:px-4 bg-brand-dark/70 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={() => setIsOpen(false)}
       role="dialog"
       aria-modal="true"
       aria-label="Site search dialog"
+      style={{
+        paddingTop: "max(1rem, calc(env(safe-area-inset-top) + 0.5rem))",
+        paddingBottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.5rem))",
+      }}
     >
       <div
-        className="w-full max-w-2xl rounded-2xl bg-brand-light dark:bg-[#1A1414] border border-brand-dark/15 dark:border-white/15 shadow-2xl overflow-hidden text-brand-dark dark:text-brand-light animate-in zoom-in-95 duration-200"
+        className="w-full max-w-2xl max-h-[85vh] sm:max-h-[80vh] flex flex-col rounded-2xl bg-brand-light dark:bg-[#1A1414] border border-brand-dark/15 dark:border-white/15 shadow-2xl overflow-hidden text-brand-dark dark:text-brand-light animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleListKeyDown}
       >
@@ -255,7 +275,7 @@ export default function SearchModal() {
         </div>
 
         {/* Results List */}
-        <div className="max-h-[380px] overflow-y-auto p-2 space-y-1">
+        <div className="flex-1 overflow-y-auto p-2 space-y-1 max-h-[50vh] sm:max-h-[55vh]">
           {filtered.length === 0 ? (
             <div className="py-12 text-center text-sm text-brand-dark/60 dark:text-brand-light/60">
               No results found for &ldquo;{query}&rdquo;
@@ -295,13 +315,13 @@ export default function SearchModal() {
         </div>
 
         {/* Footer shortcuts */}
-        <div className="px-4 py-2.5 border-t border-brand-dark/10 dark:border-white/10 bg-brand-dark/[0.02] dark:bg-white/[0.02] flex items-center justify-between text-[11px] text-brand-dark/50 dark:text-brand-light/50">
-          <div className="flex items-center gap-3">
+        <div className="px-4 py-2.5 border-t border-brand-dark/10 dark:border-white/10 bg-brand-dark/[0.02] dark:bg-white/[0.02] flex flex-wrap items-center justify-between gap-2 text-[11px] text-brand-dark/50 dark:text-brand-light/50">
+          <div className="flex items-center gap-2.5 xs:gap-3 flex-wrap">
             <span>↑↓ to navigate</span>
             <span>↵ to select</span>
             <span>ESC to close</span>
           </div>
-          <span>Hextel Tech Command Palette</span>
+          <span className="hidden xs:inline">Hextel Tech Command Palette</span>
         </div>
       </div>
     </div>

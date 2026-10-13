@@ -37,22 +37,22 @@ export default function ServicesPage() {
         </p>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-12 pt-8 border-t border-brand-dark/10 dark:border-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mt-10 sm:mt-12 pt-8 border-t border-brand-dark/10 dark:border-white/10">
           <div>
-            <div className="font-heading text-3xl font-bold text-brand-accent">17</div>
-            <div className="text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Specialized Disciplines</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">17</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Specialized Disciplines</div>
           </div>
           <div>
-            <div className="font-heading text-3xl font-bold text-brand-accent">99.99%</div>
-            <div className="text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Uptime SLA Target</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">99.99%</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Uptime SLA Target</div>
           </div>
           <div>
-            <div className="font-heading text-3xl font-bold text-brand-accent">&lt; 7 Days</div>
-            <div className="text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Sprint Kickoff Time</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">&lt; 7 Days</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Sprint Kickoff Time</div>
           </div>
           <div>
-            <div className="font-heading text-3xl font-bold text-brand-accent">100%</div>
-            <div className="text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">IP Ownership to Client</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">100%</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">IP Ownership to Client</div>
           </div>
         </div>
       </section>
@@ -108,13 +108,13 @@ export default function ServicesPage() {
               </div>
 
               {/* Action Link */}
-              <div className="pt-4 border-t border-brand-dark/10 dark:border-white/10 flex items-center justify-between">
-                <span className="text-xs font-semibold text-brand-dark/60 dark:text-brand-light/60">
+              <div className="pt-4 border-t border-brand-dark/10 dark:border-white/10 flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-semibold text-brand-dark/60 dark:text-brand-light/60 truncate max-w-[180px] xs:max-w-none">
                   {service.techStack.slice(0, 3).join(" • ")}
                 </span>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent group-hover:translate-x-1 transition-transform"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent group-hover:translate-x-1 transition-transform shrink-0"
                 >
                   <span>Explore</span>
                   <span>→</span>

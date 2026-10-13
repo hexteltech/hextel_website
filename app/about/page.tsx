@@ -101,7 +101,7 @@ export default function AboutPage() {
         </p>
 
         {/* Hero Photo Card */}
-        <div className="relative mt-12 aspect-[21/9] max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-brand-dark/10 dark:border-white/10">
+        <div className="relative mt-8 sm:mt-12 aspect-[16/10] sm:aspect-[21/9] max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-brand-dark/10 dark:border-white/10">
           <Image
             src="/images/t001-nova-about-team.webp"
             alt="Hextel Technologies Engineering Squad"
@@ -110,9 +110,9 @@ export default function AboutPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 sm:p-12">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4 xs:p-6 sm:p-8 lg:p-12">
             <div className="text-left text-white max-w-md">
-              <div className="font-heading text-xl font-bold">Warsaw Engineering Lab</div>
+              <div className="font-heading text-lg sm:text-xl font-bold">Warsaw Engineering Lab</div>
               <div className="text-xs text-white/80">Where enterprise architectures and modern digital platforms are conceived.</div>
             </div>
           </div>

@@ -171,7 +171,7 @@ export default function ContactForm() {
 
       {/* Form Success State View */}
       {status === "success" && receipt ? (
-        <div className="rounded-2xl bg-brand-light/95 dark:bg-[#1A1414]/95 backdrop-blur-md p-6 sm:p-10 border border-emerald-500/30 dark:border-emerald-500/40 shadow-2xl text-brand-dark dark:text-brand-light space-y-6 animate-in zoom-in-95 duration-300">
+        <div className="rounded-2xl bg-brand-light/95 dark:bg-[#1A1414]/95 backdrop-blur-md p-5 xs:p-6 sm:p-10 border border-emerald-500/30 dark:border-emerald-500/40 shadow-2xl text-brand-dark dark:text-brand-light space-y-5 sm:space-y-6 animate-in zoom-in-95 duration-300">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 shadow-inner">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,7 +226,7 @@ export default function ContactForm() {
         /* Normal Interactive Form */
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl bg-brand-light/95 dark:bg-[#1A1414]/95 backdrop-blur-md p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light space-y-6"
+          className="rounded-2xl bg-brand-light/95 dark:bg-[#1A1414]/95 backdrop-blur-md p-5 xs:p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light space-y-5 sm:space-y-6"
         >
           {/* Honeypot hidden input */}
           <div className="hidden" aria-hidden="true">

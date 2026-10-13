@@ -145,12 +145,12 @@ export default function ProjectsPage() {
         {filteredProjects.map((project, idx) => (
           <article
             key={project.id}
-            className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-6 sm:p-10 lg:p-12"
+            className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Media image */}
               <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-md group">
+                <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-md group">
                   <Image
                     src={project.image}
                     alt={project.alt}
@@ -158,7 +158,7 @@ export default function ProjectsPage() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 xs:p-6">
                     <span className="px-3 py-1 rounded-lg bg-black/60 backdrop-blur-md text-xs font-bold text-white border border-white/20">
                       Client: {project.client}
                     </span>
@@ -188,10 +188,10 @@ export default function ProjectsPage() {
                 </div>
 
                 {/* Verified Metrics */}
-                <div className="grid grid-cols-3 gap-3 py-4 border-y border-brand-dark/10 dark:border-white/10">
+                <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 py-4 border-y border-brand-dark/10 dark:border-white/10">
                   {project.metrics.map((m) => (
                     <div key={m.label}>
-                      <div className="font-heading text-xl sm:text-2xl font-bold text-brand-accent">
+                      <div className="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-accent">
                         {m.value}
                       </div>
                       <div className="text-[11px] text-brand-dark/60 dark:text-brand-light/60 mt-0.5 leading-tight">

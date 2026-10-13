@@ -80,12 +80,18 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
       {/* Drawer Sheet */}
       <aside
         className={cn(
-          "absolute right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-brand-light dark:bg-[#1A1414] shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out text-brand-dark dark:text-brand-light border-l border-brand-dark/10 dark:border-white/10 overflow-y-auto",
+          "absolute right-0 top-0 h-full h-dvh max-h-screen w-full max-w-sm sm:max-w-md bg-brand-light dark:bg-[#1A1414] shadow-2xl p-5 sm:p-6 flex flex-col transition-transform duration-300 ease-out text-brand-dark dark:text-brand-light border-l border-brand-dark/10 dark:border-white/10 overflow-y-auto overscroll-contain",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
+        style={{
+          paddingTop: "max(1.25rem, env(safe-area-inset-top))",
+          paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))",
+          paddingLeft: "max(1.25rem, env(safe-area-inset-left))",
+          paddingRight: "max(1.25rem, env(safe-area-inset-right))",
+        }}
       >
         {/* Header: Logo and Close Button */}
-        <div>
+        <div className="flex-1">
           <div className="flex items-center justify-between pb-6 border-b border-brand-dark/10 dark:border-white/10">
             <Link href="/" onClick={onClose} className="block py-1">
               <Image
@@ -205,7 +211,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
         </div>
 
         {/* Drawer Bottom Actions: Dark Mode, Client Portal, Language & CTA */}
-        <div className="space-y-4 pt-6 border-t border-brand-dark/10 dark:border-white/10">
+        <div className="mt-auto space-y-4 pt-6 border-t border-brand-dark/10 dark:border-white/10 shrink-0">
           <div className="flex items-center justify-between py-1">
             <span className="text-xs font-semibold uppercase tracking-wider text-brand-dark/70 dark:text-brand-light/70">
               {t.common.appearance}

@@ -97,7 +97,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
           {/* Metrics & Performance Box */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 p-8 shadow-xl relative overflow-hidden">
+            <div className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 p-5 xs:p-6 sm:p-8 shadow-xl relative overflow-hidden">
               <div className="flex items-center justify-between pb-6 border-b border-brand-dark/10 dark:border-white/10 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center text-brand-accent">
                   <ServiceIcon name={service.icon} className="w-6 h-6" />

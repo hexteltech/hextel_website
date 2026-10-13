@@ -123,21 +123,21 @@ export default function HowWeBuildSection() {
               type="button"
               onClick={() => setActiveStep(idx)}
               className={cn(
-                "p-3.5 sm:p-4 rounded-xl border text-left transition-all duration-300",
+                "p-2.5 xs:p-3.5 sm:p-4 rounded-xl border text-left transition-all duration-300",
                 activeStep === idx
                   ? "border-brand-accent bg-brand-light dark:bg-[#1E1717] shadow-md -translate-y-0.5"
                   : "border-brand-dark/10 dark:border-white/10 bg-brand-light/40 dark:bg-[#181212]/40 hover:border-brand-dark/20 dark:hover:border-white/20"
               )}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-mono text-xs font-bold text-brand-accent">
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-mono text-[10px] xs:text-xs font-bold text-brand-accent">
                   PHASE {phase.number}
                 </span>
                 {activeStep === idx && (
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
                 )}
               </div>
-              <h3 className="font-heading font-semibold text-xs sm:text-sm text-brand-dark dark:text-brand-light truncate">
+              <h3 className="font-heading font-semibold text-[11px] xs:text-xs sm:text-sm text-brand-dark dark:text-brand-light truncate">
                 {phase.phase}
               </h3>
             </button>
@@ -145,7 +145,7 @@ export default function HowWeBuildSection() {
         </div>
 
         {/* Active Phase Deep Dive Card */}
-        <div className="rounded-2xl border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] p-6 sm:p-10 lg:p-12 shadow-xl transition-all duration-300 mb-12">
+        <div className="rounded-2xl border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-6 sm:p-10 lg:p-12 shadow-xl transition-all duration-300 mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">

@@ -133,9 +133,9 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
     <div
       role="menu"
       aria-label="Services Catalog"
-      className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[880px] xl:w-[960px] max-w-[95vw] z-50 animate-in fade-in zoom-in-95 duration-200"
+      className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[900px] xl:w-[980px] max-w-[calc(100vw-2rem)] z-50 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto"
     >
-      <div className="relative rounded-2xl bg-brand-light/95 dark:bg-[#161111]/95 backdrop-blur-2xl border border-brand-dark/15 dark:border-white/15 shadow-2xl p-6 overflow-hidden">
+      <div className="relative rounded-2xl bg-brand-light/95 dark:bg-[#161111]/95 backdrop-blur-2xl border border-brand-dark/15 dark:border-white/15 shadow-2xl p-5 sm:p-6 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
         {/* Subtle decorative glow */}
         <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none -z-10" />
 

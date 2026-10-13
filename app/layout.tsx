@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -25,6 +25,17 @@ const headingFont = Space_Grotesk({
   variable: "--font-heading",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#EDE9E1" },
+    { media: "(prefers-color-scheme: dark)", color: "#120E0E" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Hextel Tech — Engineering Digital Excellence for Ambitious Brands",
@@ -68,7 +79,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-brand-light dark:bg-[#120E0E] font-sans text-brand-dark dark:text-brand-light antialiased selection:bg-brand-accent/30 selection:text-inherit">
+      <body className="min-h-screen min-h-dvh flex flex-col bg-brand-light dark:bg-[#120E0E] font-sans text-brand-dark dark:text-brand-light antialiased selection:bg-brand-accent/30 selection:text-inherit overflow-x-hidden">
         <ThemeProvider>
           <LanguageProvider>
             <UtmProvider>

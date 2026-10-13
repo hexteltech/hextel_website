@@ -44,7 +44,7 @@ export default function ClientPortalModal() {
       aria-label="Client NDA & Project Portal"
     >
       <div
-        className="w-full max-w-md rounded-2xl bg-brand-light dark:bg-[#1A1414] border border-brand-dark/15 dark:border-white/15 p-6 sm:p-8 shadow-2xl text-brand-dark dark:text-brand-light space-y-6 animate-in zoom-in-95 duration-200"
+        className="w-full max-w-md max-h-[90dvh] overflow-y-auto rounded-2xl bg-brand-light dark:bg-[#1A1414] border border-brand-dark/15 dark:border-white/15 p-5 sm:p-8 shadow-2xl text-brand-dark dark:text-brand-light space-y-5 sm:space-y-6 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">

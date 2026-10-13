@@ -38,7 +38,7 @@ export default function ProjectsSection() {
         {/* Projects Grid with Stagger Reveal & Rich Hover States */}
         <StaggerContainer
           staggerDelay={0.2}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
           {PROJECTS.map((project) => (
             <StaggerItem key={project.id}>
@@ -46,7 +46,7 @@ export default function ProjectsSection() {
                 href={project.link}
                 className="group relative block overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 transition-all duration-500 hover:-translate-y-2"
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <div className="relative aspect-[4/3] xs:aspect-[16/11] sm:aspect-[16/10] w-full overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.alt}
@@ -55,22 +55,22 @@ export default function ProjectsSection() {
                     className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   {/* Gradient overlay for title legibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/25 to-transparent dark:from-black/90 dark:via-black/30 opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/30 to-transparent dark:from-black/95 dark:via-black/40 opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
                 </div>
 
                 {/* Card Footer Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex items-end justify-between text-brand-light">
+                <div className="absolute bottom-0 left-0 right-0 p-4 xs:p-6 sm:p-8 flex items-end justify-between text-brand-light">
                   <div>
-                    <span className="text-xs font-semibold tracking-wider uppercase text-brand-accent mb-1.5 block">
+                    <span className="text-[11px] xs:text-xs font-semibold tracking-wider uppercase text-brand-accent mb-1 xs:mb-1.5 block">
                       {project.category}
                     </span>
-                    <h3 className="font-heading text-xl sm:text-2xl font-bold leading-snug max-w-sm group-hover:text-brand-accent transition-colors duration-300">
+                    <h3 className="font-heading text-lg xs:text-xl sm:text-2xl font-bold leading-snug max-w-sm group-hover:text-brand-accent transition-colors duration-300">
                       {project.title}
                     </h3>
                   </div>
 
-                  <div className="w-10 h-10 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 ml-4 group-hover:bg-brand-accent group-hover:text-brand-light dark:group-hover:text-brand-dark transition-all duration-300 group-hover:scale-110 shadow-md">
-                    <span className="text-lg leading-none transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <div className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 ml-3 xs:ml-4 group-hover:bg-brand-accent group-hover:text-brand-light dark:group-hover:text-brand-dark transition-all duration-300 group-hover:scale-110 shadow-md">
+                    <span className="text-base xs:text-lg leading-none transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       ↗
                     </span>
                   </div>
