@@ -99,14 +99,14 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                 alt="Hextel Technologies"
                 width={260}
                 height={90}
-                className="h-12 sm:h-[54px] w-auto object-contain block dark:hidden"
+                className="h-10 sm:h-12 w-auto object-contain block dark:hidden"
               />
               <Image
                 src="/images/hextel-logo-horizontal-white.png"
                 alt="Hextel Technologies"
                 width={260}
                 height={90}
-                className="h-12 sm:h-[54px] w-auto object-contain hidden dark:block"
+                className="h-10 sm:h-12 w-auto object-contain hidden dark:block"
               />
             </Link>
             <button

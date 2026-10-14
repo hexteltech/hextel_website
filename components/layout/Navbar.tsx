@@ -88,7 +88,7 @@ export default function Navbar() {
                 width={260}
                 height={90}
                 priority
-                className="h-[52px] sm:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
+                className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
@@ -97,7 +97,7 @@ export default function Navbar() {
                 width={260}
                 height={90}
                 priority
-                className="h-[52px] sm:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
+                className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
 
