@@ -241,18 +241,22 @@ export default function ProjectsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {REVIEWS.map((review) => (
+            {REVIEWS.slice(0, 3).map((review) => (
               <div
-                key={review.author}
+                key={review.id || review.author}
                 className="p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm flex flex-col justify-between"
               >
                 <p className="text-sm text-brand-dark/80 dark:text-brand-light/80 leading-relaxed italic mb-6">
                   &ldquo;{review.quote}&rdquo;
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-brand-dark/5 dark:border-white/5">
-                  {review.avatar && (
+                  {review.avatar ? (
                     <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
                       <Image src={review.avatar} alt={review.author} fill className="object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0">
+                      {review.author.slice(0, 2).toUpperCase()}
                     </div>
                   )}
                   <div>
@@ -262,6 +266,16 @@ export default function ProjectsPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/reviews"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:underline underline-offset-4"
+            >
+              <span>Explore all verified client reviews & metrics</span>
+              <span>→</span>
+            </Link>
           </div>
         </div>
       </section>

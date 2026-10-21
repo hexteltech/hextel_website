@@ -47,6 +47,7 @@ export interface TranslationSchema {
     blog: string;
     howWeBuild: string;
     projects: string;
+    reviews: string;
     contact: string;
     searchPlaceholder: string;
     portalLabel: string;

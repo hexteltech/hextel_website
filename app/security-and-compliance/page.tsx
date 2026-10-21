@@ -211,7 +211,7 @@ export default function SecurityCompliancePage() {
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-brand-light/80">
                 <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg">
-                  📧 security@hexteltech.com
+                  📧 hexteltech@gmail.com
                 </span>
                 <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg">
                   🔒 PGP Key ID: 0x8F4E2D1A
@@ -230,7 +230,7 @@ export default function SecurityCompliancePage() {
                 Schedule Security Review
               </Link>
               <a
-                href="mailto:security@hexteltech.com?subject=Enterprise%20Compliance%20Inquiry"
+                href="mailto:hexteltech@gmail.com?subject=Enterprise%20Compliance%20Inquiry"
                 className="w-full py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs text-center transition-colors border border-white/10"
               >
                 Email Security Team

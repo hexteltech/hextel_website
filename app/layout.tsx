@@ -79,7 +79,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen min-h-dvh flex flex-col bg-brand-light dark:bg-[#120E0E] font-sans text-brand-dark dark:text-brand-light antialiased selection:bg-brand-accent/30 selection:text-inherit overflow-x-hidden">
+      <body className="min-h-screen min-h-dvh flex flex-col bg-brand-light dark:bg-[#120E0E] font-sans text-brand-dark dark:text-brand-light antialiased selection:bg-brand-accent/30 selection:text-inherit overflow-x-clip">
         <ThemeProvider>
           <LanguageProvider>
             <UtmProvider>

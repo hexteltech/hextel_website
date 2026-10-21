@@ -27,6 +27,7 @@ export default function Navbar() {
     { label: t.nav.blog, href: "/blog" },
     { label: t.nav.howWeBuild, href: "/how-we-build" },
     { label: t.nav.projects, href: "/projects" },
+    { label: t.nav.reviews, href: "/reviews" },
     { label: t.nav.contact, href: "/contact" },
   ];
 
@@ -67,10 +68,10 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "sticky top-0 left-0 w-full z-40 transition-all duration-300",
+          "sticky top-0 left-0 w-full z-50 transition-all duration-300",
           isScrolled
-            ? "bg-brand-light/90 dark:bg-[#120E0E]/90 backdrop-blur-md py-2.5 shadow-md border-b border-brand-dark/10 dark:border-white/10"
-            : "bg-brand-light/60 dark:bg-[#120E0E]/60 backdrop-blur-sm py-3.5 sm:py-4 border-b border-transparent"
+            ? "bg-brand-light/95 dark:bg-[#120E0E]/95 backdrop-blur-md py-2.5 shadow-md border-b border-brand-dark/10 dark:border-white/10"
+            : "bg-brand-light/80 dark:bg-[#120E0E]/80 backdrop-blur-sm py-3.5 sm:py-4 border-b border-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,18 +84,18 @@ export default function Navbar() {
             >
               {/* Light Mode Logo */}
               <Image
-                src="/images/hextel-logo-horizontal.png"
+                src="/images/hextel-logo-v2.png"
                 alt="Hextel Technologies"
-                width={260}
+                width={266}
                 height={90}
                 priority
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
-                src="/images/hextel-logo-horizontal-white.png"
+                src="/images/hextel-logo-v2-white.png"
                 alt="Hextel Technologies"
-                width={260}
+                width={266}
                 height={90}
                 priority
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"

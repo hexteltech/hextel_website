@@ -27,6 +27,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
     { label: t.nav.blog, href: "/blog" },
     { label: t.nav.howWeBuild, href: "/how-we-build" },
     { label: t.nav.projects, href: "/projects" },
+    { label: t.nav.reviews, href: "/reviews" },
     { label: t.nav.contact, href: "/contact" },
   ];
 
@@ -95,16 +96,16 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           <div className="flex items-center justify-between pb-6 border-b border-brand-dark/10 dark:border-white/10">
             <Link href="/" onClick={onClose} className="block py-1">
               <Image
-                src="/images/hextel-logo-horizontal.png"
+                src="/images/hextel-logo-v2.png"
                 alt="Hextel Technologies"
-                width={260}
+                width={266}
                 height={90}
                 className="h-10 sm:h-12 w-auto object-contain block dark:hidden"
               />
               <Image
-                src="/images/hextel-logo-horizontal-white.png"
+                src="/images/hextel-logo-v2-white.png"
                 alt="Hextel Technologies"
-                width={260}
+                width={266}
                 height={90}
                 className="h-10 sm:h-12 w-auto object-contain hidden dark:block"
               />

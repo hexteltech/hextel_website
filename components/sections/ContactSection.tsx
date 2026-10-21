@@ -31,7 +31,7 @@ export default function ContactSection() {
             </div>
 
             <p className="text-base sm:text-lg text-brand-light/75 leading-relaxed">
-              Whether you are architecting a new web platform from scratch or migrating an existing system to Next.js, our senior engineering team is here to guide every phase.
+              Whether you are architecting a new web platform, integrating AI automation, or scaling your digital products, our 3 founders (Hasaan, Muhammad Faseeh, and Moman) work directly with you at every stage.
             </p>
 
             {/* Direct Contact Coordinates */}

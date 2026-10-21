@@ -266,7 +266,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               Ready to deploy {service.title}?
             </h2>
             <p className="text-sm text-brand-light/70 leading-relaxed">
-              Book a 30-minute architecture review with our senior team. We will analyze your specifications and provide a detailed roadmap.
+              Book a direct consultation with our 3 founders (Hasaan, Muhammad Faseeh, and Moman). We will analyze your specifications and provide a clear, founder-led roadmap.
             </p>
             <div className="pt-2">
               <Link

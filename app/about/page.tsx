@@ -6,10 +6,10 @@ import { BRAND_CONFIG } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "About Us — Hextel Tech | Engineering Digital Excellence",
   description:
-    "Learn about Hextel Tech's mission, our team of senior software engineers and designers, our core architectural values, and our journey building digital products.",
+    "Learn about Hextel Tech's mission, our 3 founding partners, our core architectural values, and our journey building digital products.",
   openGraph: {
     title: "About Us — Hextel Tech",
-    description: "Senior engineering leadership and digital excellence for ambitious brands.",
+    description: "Built by 3 dedicated founders delivering modern engineering and digital excellence for ambitious brands.",
   },
 };
 
@@ -24,7 +24,7 @@ const VALUES = [
     number: "02",
     title: "Transparent Velocity",
     description:
-      "No corporate smoke and mirrors. You get direct access to our senior engineering leads via dedicated Slack channels, weekly sprint demos, and real-time GitHub repositories.",
+      "No corporate smoke and mirrors. You get direct access to our 3 founders via dedicated Slack channels, weekly sprint demos, and real-time GitHub repositories.",
   },
   {
     number: "03",
@@ -43,44 +43,39 @@ const VALUES = [
 const LEADERSHIP = [
   {
     name: "Hasaan Ahmad",
-    role: "Chief Technology Officer & Lead Architect",
-    bio: "Ex-enterprise systems engineer specializing in distributed cloud microservices, high-throughput database layers, and Next.js platforms.",
+    role: "CEO & Business Development",
+    bio: "Co-founder leading enterprise business development, strategic partnerships, and client success. Focused on transforming ambitious business visions into high-impact digital ventures.",
     image: "/images/t001-nova-avatar-01-220.webp",
   },
   {
-    name: "Elena Rostova",
-    role: "Head of Product & Design Systems",
-    bio: "Award-winning UI/UX director with 10+ years crafting intuitive design languages for enterprise SaaS platforms and venture-backed startups.",
+    name: "Muhammad Faseeh Altaf",
+    role: "Marketing Expert & Full Stack Developer",
+    bio: "Co-founder combining deep full-stack engineering expertise with data-driven growth marketing, performance funnels, and scalable web architectures.",
     image: "/images/t001-nova-avatar-02-220.webp",
   },
   {
-    name: "Marek Kowalski",
-    role: "Director of DevOps & Cloud Infrastructure",
-    bio: "Kubernetes and multi-cloud specialist ensuring 99.99% uptime, zero-trust cybersecurity, and automated GitOps CI/CD pipelines.",
+    name: "Moman Salman",
+    role: "Full Stack Developer & AI Automation Expert",
+    bio: "Co-founder specializing in end-to-end full stack web platforms, intelligent AI workflows, automated systems, and next-generation cloud solutions.",
     image: "/images/t001-nova-avatar-03-220.webp",
   },
 ];
 
 const TIMELINE = [
   {
-    year: "2016",
-    title: "Founding in Warsaw",
-    description: "Started as a boutique engineering squad architecting custom web systems for European tech companies.",
+    year: "Founding",
+    title: "Three Friends, One Vision",
+    description: "Three friends united complementary strengths in full-stack software development, growth marketing, and AI automation to build an agile tech studio.",
   },
   {
-    year: "2019",
-    title: "Enterprise Expansion",
-    description: "Scaled team to 30+ senior engineers, delivering mission-critical ERP platforms and financial portals.",
+    year: "Scaling",
+    title: "25+ Delivered Solutions",
+    description: "Engineered and deployed 25+ production-grade web platforms and custom applications with direct founder involvement on every project.",
   },
   {
-    year: "2022",
-    title: "Global Distributed Delivery",
-    description: "Expanded client footprint across Western Europe and North America with dedicated 24/7 SLA infrastructure.",
-  },
-  {
-    year: "2024+",
-    title: "Autonomous AI & Next-Gen Cloud",
-    description: "Pioneering private AI agents, vector architectures, and modern Next.js edge ecosystems for enterprise scale.",
+    year: "Next Horizon",
+    title: "Autonomous AI & Intelligent Cloud",
+    description: "Empowering businesses with custom AI agents, automated pipelines, and high-performance Next.js architectures.",
   },
 ];
 

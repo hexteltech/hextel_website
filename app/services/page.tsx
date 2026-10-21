@@ -33,26 +33,26 @@ export default function ServicesPage() {
           Architectural rigor across every layer of the modern digital stack
         </h1>
         <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          From scaling your squad with elite senior engineers to deploying autonomous AI agents and enterprise ERP systems, we engineer systems that drive measurable commercial growth.
+          Founded and driven by 3 dedicated partners combining full-stack development, AI automation, and growth marketing. We engineer high-performance web systems and digital products with direct founder accountability on every delivery.
         </p>
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mt-10 sm:mt-12 pt-8 border-t border-brand-dark/10 dark:border-white/10">
           <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">17</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Specialized Disciplines</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">25+</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Projects Delivered</div>
           </div>
           <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">99.99%</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Uptime SLA Target</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">3+</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Years Experience</div>
           </div>
           <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">&lt; 7 Days</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Sprint Kickoff Time</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">2,000+</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Product Hours</div>
           </div>
           <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">100%</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">IP Ownership to Client</div>
+            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">3</div>
+            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Dedicated Founders</div>
           </div>
         </div>
       </section>

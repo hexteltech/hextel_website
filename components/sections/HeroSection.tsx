@@ -53,25 +53,6 @@ export default function HeroSection() {
                   </Link>
                 </div>
               </FadeIn>
-
-              {/* Trusted By Client Logos */}
-              <FadeIn direction="up" delay={0.4} duration={0.65}>
-                <div className="pt-6 sm:pt-8 border-t border-brand-dark/10 dark:border-white/10">
-                  <p className="text-[11px] xs:text-xs font-medium text-brand-dark/50 dark:text-brand-light/50 uppercase tracking-widest mb-3 sm:mb-4">
-                    Trusted by industry leaders
-                  </p>
-                  <div className="flex flex-wrap items-center gap-4 xs:gap-6 sm:gap-8 opacity-75">
-                    {BRAND_CONFIG.trustedBy.map((brand) => (
-                      <span
-                        key={brand}
-                        className="font-heading font-bold text-xs xs:text-sm tracking-wider text-brand-dark/80 dark:text-brand-light/80 hover:text-brand-accent dark:hover:text-brand-accent hover:scale-105 transition-all duration-200 cursor-default"
-                      >
-                        {brand}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </FadeIn>
             </div>
 
             {/* Right Visual Column with Organic Floating Element */}

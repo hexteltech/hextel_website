@@ -36,15 +36,15 @@ export default function TeamSection() {
           <FadeIn direction="left" delay={0.15} duration={0.7} className="flex flex-col space-y-6 lg:space-y-8">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-                Our Team & Values
+                Our Founders & Values
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
-                People who create value
+                Built by 3 dedicated founders
               </h2>
             </div>
 
             <p className="text-base sm:text-lg text-brand-dark/80 dark:text-brand-light/80 leading-relaxed">
-              We are a dedicated team of engineers, architects, and visual designers who combine deep passion for modern cloud technology with a sharp eye for functional design. Every digital solution is engineered around your enterprise goals and target audience.
+              We are 3 friends and builders combining full-stack development, AI automation, and business growth. When you work with Hextel Tech, you collaborate directly with the founders building your software—zero corporate bureaucracy, pure velocity.
             </p>
 
             {/* Avatar Stack & Credentials with Hover Animation */}
@@ -65,9 +65,9 @@ export default function TeamSection() {
                 ))}
               </div>
               <div className="text-sm font-semibold text-brand-dark dark:text-brand-light">
-                <span>10+ Senior Specialists</span>
+                <span>3 Co-Founders & Builders</span>
                 <p className="text-xs text-brand-dark/60 dark:text-brand-light/60 font-normal">
-                  Distributed across product & systems
+                  Hasaan · Muhammad Faseeh · Moman
                 </p>
               </div>
             </div>

@@ -35,9 +35,9 @@ export default function Footer() {
               aria-label={BRAND_CONFIG.name}
             >
               <Image
-                src="/images/hextel-logo-horizontal-white.png"
+                src="/images/hextel-logo-v2-white.png"
                 alt="Hextel Technologies"
-                width={260}
+                width={266}
                 height={90}
                 className="h-10 xs:h-12 sm:h-[56px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
@@ -93,36 +93,59 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Connect & Social */}
-          <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-accent">
-              Connect
-            </h4>
-            <div className="flex flex-col space-y-2 text-sm text-brand-light/75">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-brand-accent hover:translate-x-1 inline-block transition-all duration-200"
-              >
-                GitHub ↗
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-brand-accent hover:translate-x-1 inline-block transition-all duration-200"
-              >
-                LinkedIn ↗
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-brand-accent hover:translate-x-1 inline-block transition-all duration-200"
-              >
-                X (Twitter) ↗
-              </a>
+          {/* Connect & Contact Info */}
+          <div className="md:col-span-3 space-y-4">
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-accent mb-2">
+                Contact
+              </h4>
+              <div className="space-y-1.5 text-xs text-brand-light/75">
+                <p>
+                  <a href={`mailto:${BRAND_CONFIG.email}`} className="hover:text-brand-accent transition-colors font-medium">
+                    {BRAND_CONFIG.email}
+                  </a>
+                </p>
+                <p>
+                  <a href={`tel:${BRAND_CONFIG.phone.replace(/\s+/g, "")}`} className="hover:text-brand-accent transition-colors font-medium">
+                    {BRAND_CONFIG.phone}
+                  </a>
+                </p>
+                <p className="text-brand-light/60">
+                  {BRAND_CONFIG.address}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-accent mb-2">
+                Social
+              </h4>
+              <div className="flex flex-wrap gap-3 text-xs text-brand-light/75">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-accent transition-colors"
+                >
+                  GitHub ↗
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-accent transition-colors"
+                >
+                  LinkedIn ↗
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-accent transition-colors"
+                >
+                  X ↗
+                </a>
+              </div>
             </div>
           </div>
         </div>

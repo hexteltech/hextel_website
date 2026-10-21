@@ -14,36 +14,29 @@ export const metadata: Metadata = {
 
 const LOCATIONS = [
   {
-    city: "Warsaw (HQ)",
-    address: "123 Innovation Boulevard, Warsaw, Poland",
-    phone: "+48 123 456 789",
-    timezone: "CET / CEST (UTC+1 / UTC+2)",
-    role: "Global Headquarters & Systems Lab",
+    city: "Gujranwala (HQ)",
+    address: "Master City, Gujranwala, Pakistan",
+    phone: "+92 303 5696807",
+    timezone: "PKT (UTC+5)",
+    role: "Headquarters & Core Engineering Studio",
   },
   {
-    city: "London",
-    address: "30 St Mary Axe, London, United Kingdom",
-    phone: "+44 20 7946 0912",
-    timezone: "GMT / BST (UTC+0 / UTC+1)",
-    role: "Enterprise Strategy & Delivery",
-  },
-  {
-    city: "San Francisco",
-    address: "500 Howard Street, San Francisco, CA, USA",
-    phone: "+1 415 555 0198",
-    timezone: "PST / PDT (UTC-8 / UTC-7)",
-    role: "North America Client Hub",
+    city: "Global Remote",
+    address: "Worldwide Client Delivery",
+    phone: "+92 303 5696807",
+    timezone: "Flexible / Global Hours",
+    role: "International Client Partnerships & Delivery",
   },
 ];
 
 const CONTACT_FAQS = [
   {
     q: "How quickly will we hear back after submitting an inquiry?",
-    a: "A senior solution architect or engineering lead reviews your submission and replies within 24 business hours.",
+    a: "Our founding team (Hasaan Ahmad, Muhammad Faseeh Altaf, or Moman Salman) reviews your inquiry and replies directly within 24 business hours.",
   },
   {
     q: "Can we execute a Non-Disclosure Agreement (NDA) before sharing specs?",
-    a: "Absolutely. We are happy to execute your standard mutual NDA or provide our enterprise mutual NDA prior to discovery calls.",
+    a: "Absolutely. We are happy to execute your standard mutual NDA or provide our studio mutual NDA prior to discovery calls.",
   },
   {
     q: "What information should we prepare for the initial discovery call?",
@@ -58,13 +51,13 @@ export default function ContactPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
           <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-          Direct Access to Architects
+          Direct Access to Founders
         </span>
         <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
           Let&apos;s engineer something remarkable together
         </h1>
         <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          Whether you need a dedicated engineering squad, a high-throughput Next.js application, or a legacy system overhaul, we are ready to assist.
+          Whether you need full-stack web applications, AI automation pipelines, or bespoke digital products, work directly with the 3 builders of Hextel Tech.
         </p>
       </section>
 
@@ -78,7 +71,7 @@ export default function ContactPage() {
                 Direct Contact
               </h2>
               <p className="text-sm text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
-                Skip the sales reps. You will speak directly with an active systems architect who understands code, constraints, and enterprise realities.
+                Skip the sales reps. You will speak directly with one of our 3 founders who understands code, architecture, and business realities.
               </p>
 
               <div className="space-y-4 pt-4 border-t border-brand-dark/10 dark:border-white/10">

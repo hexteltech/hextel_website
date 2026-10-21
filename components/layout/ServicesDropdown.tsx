@@ -133,9 +133,9 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
     <div
       role="menu"
       aria-label="Services Catalog"
-      className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[900px] xl:w-[980px] max-w-[calc(100vw-2rem)] z-50 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto"
+      className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[900px] xl:w-[980px] max-w-[calc(100vw-2rem)] z-50 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto opacity-100"
     >
-      <div className="relative rounded-2xl bg-brand-light/95 dark:bg-[#161111]/95 backdrop-blur-2xl border border-brand-dark/15 dark:border-white/15 shadow-2xl p-5 sm:p-6 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
+      <div className="relative rounded-2xl bg-white dark:bg-[#140F0F] opacity-100 border border-brand-dark/20 dark:border-white/20 shadow-2xl p-5 sm:p-6 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
         {/* Subtle decorative glow */}
         <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
@@ -192,7 +192,7 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-brand-dark/50 dark:text-brand-light/50 line-clamp-1 group-hover:text-brand-dark/80 dark:group-hover:text-brand-light/80 transition-colors mt-0.5">
+                        <p className="text-[11px] text-brand-dark/70 dark:text-brand-light/70 line-clamp-1 group-hover:text-brand-dark dark:group-hover:text-brand-light transition-colors mt-0.5">
                           {service.shortDesc}
                         </p>
                       </div>
@@ -205,8 +205,8 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
         </div>
 
         {/* Bottom Bar Call-to-Action */}
-        <div className="mt-5 pt-4 border-t border-brand-dark/10 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 bg-brand-dark/[0.02] dark:bg-white/[0.02] -mx-6 -mb-6 px-6 py-3.5">
-          <div className="flex items-center gap-2 text-xs text-brand-dark/70 dark:text-brand-light/70">
+        <div className="mt-5 pt-4 border-t border-brand-dark/10 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 bg-brand-dark/[0.03] dark:bg-black/40 -mx-6 -mb-6 px-6 py-3.5">
+          <div className="flex items-center gap-2 text-xs text-brand-dark/80 dark:text-brand-light/80">
             <span className="font-medium">Need a specialized tech stack or dedicated architects?</span>
           </div>
           <div className="flex items-center gap-3">
