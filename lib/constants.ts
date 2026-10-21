@@ -22,6 +22,7 @@ export interface ServiceItem {
   title: string;
   description: string;
   iconName: "palette" | "browser" | "paintbrush" | "lifebuoy";
+  slug: string;
 }
 
 export interface FaqItem {
@@ -241,7 +242,7 @@ export const PROJECTS: ProjectItem[] = [
     id: "project-1",
     title: "A premium brand with a new digital ecosystem",
     category: "Full-Stack Web Application",
-    image: "/images/t001-nova-project-laptop.webp",
+    image: "/images/t001-nova-project-laptop-1280.webp",
     alt: "Laptop showcasing responsive web application",
     link: "#projects",
   },
@@ -249,7 +250,7 @@ export const PROJECTS: ProjectItem[] = [
     id: "project-2",
     title: "A modern identity and infrastructure for high-growth tech",
     category: "Design System & Platform",
-    image: "/images/t001-nova-project-building.webp",
+    image: "/images/t001-nova-project-building-1280.webp",
     alt: "Modern architecture representing enterprise tech identity",
     link: "#projects",
   },
@@ -262,6 +263,7 @@ export const SERVICES: ServiceItem[] = [
     description:
       "Modern and functional interfaces tailored to your audience. We engineer intuitive experiences that elevate engagement and drive conversion.",
     iconName: "palette",
+    slug: "ui-ux-design",
   },
   {
     number: "02.",
@@ -269,6 +271,7 @@ export const SERVICES: ServiceItem[] = [
     description:
       "Blazing-fast, responsive, and SEO-optimized web applications built with modern architectures. Every screen is engineered for performance.",
     iconName: "browser",
+    slug: "web-application-development",
   },
   {
     number: "03.",
@@ -276,6 +279,7 @@ export const SERVICES: ServiceItem[] = [
     description:
       "A coherent visual identity that distinguishes your company in competitive markets through refined typography, color harmony, and style guides.",
     iconName: "paintbrush",
+    slug: "custom-software-development",
   },
   {
     number: "04.",
@@ -283,6 +287,7 @@ export const SERVICES: ServiceItem[] = [
     description:
       "Continuous optimization, monitoring, and proactive engineering after launch to ensure resilience and adaptability as your organization scales.",
     iconName: "lifebuoy",
+    slug: "server-cloud-infrastructure",
   },
 ];
 

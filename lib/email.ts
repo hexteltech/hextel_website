@@ -8,6 +8,8 @@ interface ContactEmailParams {
   service: string;
   message: string;
   referenceId: string;
+  company?: string;
+  phone?: string;
   ndaPassword?: string;
   utm?: {
     utm_source?: string;
@@ -101,6 +103,32 @@ function buildAdminNotificationHtml(params: ContactEmailParams): string {
                     <a href="mailto:${email}" style="color: #B88849; text-decoration: none; font-weight: 600;">${email}</a>
                   </td>
                 </tr>
+                ${
+                  params.phone
+                    ? `
+                <tr>
+                  <td style="padding: 14px 16px; border-bottom: 1px solid #EDEDF0; font-size: 12px; color: #71717A; font-weight: 600; text-transform: uppercase;">
+                    Phone Number
+                  </td>
+                  <td style="padding: 14px 16px; border-bottom: 1px solid #EDEDF0; font-size: 14px; color: #18181B; font-weight: 600;">
+                    <a href="tel:${params.phone.replace(/\\s+/g, '')}" style="color: #18181B; text-decoration: none;">${params.phone}</a>
+                  </td>
+                </tr>`
+                    : ""
+                }
+                ${
+                  params.company
+                    ? `
+                <tr>
+                  <td style="padding: 14px 16px; border-bottom: 1px solid #EDEDF0; font-size: 12px; color: #71717A; font-weight: 600; text-transform: uppercase;">
+                    Company
+                  </td>
+                  <td style="padding: 14px 16px; border-bottom: 1px solid #EDEDF0; font-size: 14px; color: #18181B; font-weight: 600;">
+                    ${params.company}
+                  </td>
+                </tr>`
+                    : ""
+                }
                 <tr>
                   <td style="padding: 14px 16px; border-bottom: 1px solid #EDEDF0; font-size: 12px; color: #71717A; font-weight: 600; text-transform: uppercase;">
                     Interested Service

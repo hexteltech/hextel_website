@@ -74,7 +74,7 @@ export default function Navbar() {
             : "bg-brand-light/80 dark:bg-[#120E0E]/80 backdrop-blur-sm py-3.5 sm:py-4 border-b border-transparent"
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div ref={navContainerRef} className="flex items-center justify-between gap-4">
             {/* Brand Logo - 1.5x larger */}
             <Link
@@ -89,6 +89,7 @@ export default function Navbar() {
                 width={266}
                 height={90}
                 priority
+                quality={100}
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
@@ -98,6 +99,7 @@ export default function Navbar() {
                 width={266}
                 height={90}
                 priority
+                quality={100}
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
               />
             </Link>

@@ -28,7 +28,7 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     title: "Global Enterprise Digital Ecosystem & Next.js Re-Platforming",
     client: "LUMI Technologies",
     category: "Full-Stack Web",
-    image: "/images/t001-nova-project-laptop.webp",
+    image: "/images/t001-nova-project-laptop-1280.webp",
     alt: "Responsive laptop view of LUMI web platform",
     challenge:
       "A fragmented legacy monolith was suffering from 4.8s initial load times, preventing global multi-region expansion and hurting customer acquisition.",
@@ -46,7 +46,7 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     title: "High-Throughput Autonomous AI Copilot & Knowledge Retrieval Engine",
     client: "MODO Systems",
     category: "AI Ecosystems",
-    image: "/images/t001-nova-project-building.webp",
+    image: "/images/t001-nova-project-building-1280.webp",
     alt: "Modern architecture representing enterprise tech identity",
     challenge:
       "Over 40,000 weekly support tickets overwhelmed operations, with domain knowledge locked in disparate PDFs, internal wikis, and databases.",
@@ -64,7 +64,7 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     title: "Custom Multi-Entity ERP & Supply Chain Management Platform",
     client: "NOMA Group",
     category: "ERP & Software",
-    image: "/images/t001-nova-project-laptop.webp",
+    image: "/images/t001-nova-project-laptop-1280.webp",
     alt: "Modern dashboard interface for NOMA Group",
     challenge:
       "Disconnected legacy spreadsheets caused order fulfillment discrepancies and delayed monthly financial reconciliations across 12 warehouses.",
@@ -82,7 +82,7 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     title: "Cloud Infrastructure Modernization & Kubernetes GitOps Migration",
     client: "ASPEKT Global",
     category: "Cloud & DevOps",
-    image: "/images/t001-nova-project-building.webp",
+    image: "/images/t001-nova-project-building-1280.webp",
     alt: "Cloud datacenter architecture concept",
     challenge:
       "Frequent manual deployments caused unexpected outages and scaling bottlenecks during seasonal peak traffic surges.",
@@ -155,6 +155,7 @@ export default function ProjectsPage() {
                     src={project.image}
                     alt={project.alt}
                     fill
+                    quality={95}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />

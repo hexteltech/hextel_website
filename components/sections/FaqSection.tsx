@@ -32,7 +32,7 @@ export default function FaqSection() {
           <p className="text-sm text-brand-dark/70 dark:text-brand-light/70">
             Have a question that isn&apos;t answered here?{" "}
             <Link
-              href="#contact"
+              href="/contact"
               className="font-semibold text-brand-dark dark:text-brand-light underline underline-offset-4 hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
             >
               Contact our solutions team

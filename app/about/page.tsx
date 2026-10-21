@@ -98,7 +98,8 @@ export default function AboutPage() {
         {/* Hero Photo Card */}
         <div className="relative mt-8 sm:mt-12 aspect-[16/10] sm:aspect-[21/9] max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-brand-dark/10 dark:border-white/10">
           <Image
-            src="/images/t001-nova-about-team.webp"
+            src="/images/t001-nova-about-team-1280.webp"
+            quality={95}
             alt="Hextel Technologies Engineering Squad"
             fill
             priority

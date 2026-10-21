@@ -17,15 +17,16 @@ const VALUE_PROPS = [
 export default function TeamSection() {
   return (
     <section id="about" className="bg-brand-light dark:bg-[#120E0E] py-20 sm:py-28 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Team Photo with Soft Zoom & Reveal */}
           <FadeIn direction="right" duration={0.7}>
             <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-xl">
               <Image
-                src="/images/t001-nova-about-team.webp"
+                src="/images/t001-nova-about-team-1280.webp"
                 alt="Hextel Tech team collaborating in modern workspace"
                 fill
+                quality={95}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -89,7 +90,7 @@ export default function TeamSection() {
             {/* CTA with Hover Animation */}
             <div className="pt-4">
               <Link
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider uppercase transition-all duration-300 bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark hover:bg-brand-accent hover:text-brand-light dark:hover:bg-amber-400 shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]"
               >
                 Start a conversation

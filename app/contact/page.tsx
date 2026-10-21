@@ -48,7 +48,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen py-16 sm:py-24">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
+      <section className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-16 text-center">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
           <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
           Direct Access to Founders
@@ -62,7 +62,7 @@ export default function ContactPage() {
       </section>
 
       {/* Main Form & Direct Info Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+      <section className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Direct info & Guarantee */}
           <div className="lg:col-span-5 space-y-8">
@@ -136,21 +136,7 @@ export default function ContactPage() {
 
           {/* Right Column: Interactive Form */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 p-8 sm:p-12 shadow-2xl">
-              <div className="mb-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-accent">
-                  Project Inquiry
-                </span>
-                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light mt-1">
-                  Tell us about your project
-                </h2>
-                <p className="text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1">
-                  Fill in the details below and we will prepare a technical feasibility assessment.
-                </p>
-              </div>
-
-              <ContactForm />
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>

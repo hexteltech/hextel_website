@@ -25,7 +25,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-brand-dark dark:bg-[#0E0A0A] text-brand-light border-t border-white/10 pt-16 pb-12 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
@@ -39,6 +39,7 @@ export default function Footer() {
                 alt="Hextel Technologies"
                 width={266}
                 height={90}
+                quality={100}
                 className="h-10 xs:h-12 sm:h-[56px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>

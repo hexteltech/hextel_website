@@ -4,16 +4,37 @@ import { sendContactEmail } from "@/lib/email";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, service, message, honeypot, referenceId, ndaPassword, utm } = body;
+    const {
+      name,
+      firstName,
+      lastName,
+      email,
+      phone,
+      phoneNumber,
+      phoneCountry,
+      company,
+      service,
+      message,
+      honeypot,
+      referenceId,
+      ndaPassword,
+      utm,
+    } = body;
 
     // Silent honeypot drop for bot crawlers
     if (honeypot) {
       return NextResponse.json({ success: true, message: "Message received." });
     }
 
-    if (!name || typeof name !== "string" || name.trim().length === 0) {
+    const resolvedName = (
+      firstName
+        ? `${firstName} ${lastName || ""}`.trim()
+        : (name || "")
+    ).trim();
+
+    if (!resolvedName || resolvedName.length === 0) {
       return NextResponse.json(
-        { error: "Name is required." },
+        { error: "First name is required." },
         { status: 400 }
       );
     }
@@ -35,10 +56,14 @@ export async function POST(request: Request) {
 
     const leadRef = referenceId || `HEX-${Math.floor(10000 + Math.random() * 90000)}`;
 
+    const resolvedPhone = phone || (phoneNumber ? `${phoneCountry || ""} ${phoneNumber}`.trim() : undefined);
+
     console.log("[Hextel Tech] Processing Lead Submission:", {
       referenceId: leadRef,
-      name,
+      name: resolvedName,
       email,
+      company,
+      phone: resolvedPhone,
       service,
       hasNdaCode: Boolean(ndaPassword),
       utmAttribution: utm || {},
@@ -47,8 +72,10 @@ export async function POST(request: Request) {
 
     // Direct mailing dispatch via Resend (isolated server-side)
     const emailResult = await sendContactEmail({
-      name: name.trim().slice(0, 100),
+      name: resolvedName.slice(0, 100),
       email: email.trim().slice(0, 255),
+      company: typeof company === "string" ? company.trim().slice(0, 150) : undefined,
+      phone: typeof resolvedPhone === "string" ? resolvedPhone.trim().slice(0, 50) : undefined,
       service: typeof service === "string" ? service.trim().slice(0, 100) : "General Inquiry",
       message: message.trim().slice(0, 5000),
       referenceId: leadRef,

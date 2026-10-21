@@ -12,12 +12,13 @@ export default function ContactSection() {
           src="/images/t001-nova-cta-mountains-1920.webp"
           alt="Atmospheric mountain landscape backdrop"
           fill
+          quality={95}
           sizes="100vw"
           className="object-cover object-center scale-105 hover:scale-110 transition-transform duration-1000 ease-out"
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Direct Coordinates & Value */}
           <FadeIn direction="right" duration={0.7} className="lg:col-span-5 space-y-8">

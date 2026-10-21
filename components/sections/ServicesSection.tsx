@@ -47,7 +47,7 @@ function ServiceIcon({ iconName }: { iconName: ServiceItem["iconName"] }) {
 export default function ServicesSection() {
   return (
     <section id="services" className="bg-surface-dim dark:bg-[#161111] py-20 sm:py-28 border-y border-brand-dark/10 dark:border-white/10 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
         <FadeIn direction="up" duration={0.6}>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
@@ -83,7 +83,11 @@ export default function ServicesSection() {
         >
           {SERVICES.map((service) => (
             <StaggerItem key={service.number}>
-              <article className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-brand-light dark:bg-[#1E1717] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:border-brand-accent dark:hover:border-brand-accent hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full">
+              <Link
+                href={`/services/${service.slug}`}
+                className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-brand-light dark:bg-[#1E1717] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:border-brand-accent dark:hover:border-brand-accent hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-accent/50"
+                aria-label={`View ${service.title} service details`}
+              >
                 <div>
                   {/* Icon & Number Row */}
                   <div className="flex items-center justify-between mb-8">
@@ -104,12 +108,15 @@ export default function ServicesSection() {
                 </div>
 
                 {/* Bottom Action Arrow */}
-                <div className="pt-6 mt-6 border-t border-brand-dark/5 dark:border-white/5 flex justify-end">
-                  <span className="text-base font-bold text-brand-dark/40 dark:text-brand-light/40 group-hover:text-brand-accent group-hover:translate-x-2 transition-all duration-300">
+                <div className="pt-6 mt-6 border-t border-brand-dark/5 dark:border-white/5 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Explore service
+                  </span>
+                  <span className="text-base font-bold text-brand-dark/40 dark:text-brand-light/40 group-hover:text-brand-accent group-hover:translate-x-2 transition-all duration-300 ml-auto">
                     →
                   </span>
                 </div>
-              </article>
+              </Link>
             </StaggerItem>
           ))}
         </StaggerContainer>

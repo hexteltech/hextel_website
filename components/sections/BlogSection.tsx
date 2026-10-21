@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 import { cn } from "@/lib/utils";
@@ -79,13 +79,27 @@ const POSTS: BlogPost[] = [
 export default function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
+  // Lock background body scroll when reading an article so only the article scrolls
+  useEffect(() => {
+    if (selectedPost) {
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+      };
+    }
+  }, [selectedPost]);
+
   return (
     <>
       <section
         id="blog"
         className="relative z-10 bg-brand-light dark:bg-[#120E0E] py-20 sm:py-28 transition-colors"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Section Header */}
           <FadeIn direction="up" duration={0.6}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -172,11 +186,11 @@ export default function BlogSection() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn overscroll-contain"
           onClick={() => setSelectedPost(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-6 sm:p-10 shadow-2xl space-y-5 sm:space-y-6"
+            className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto overscroll-contain rounded-2xl border border-brand-dark/15 dark:border-white/15 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-6 sm:p-10 shadow-2xl space-y-5 sm:space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}

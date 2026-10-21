@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -134,6 +134,20 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeArticle, setActiveArticle] = useState<BlogPost | null>(null);
 
+  // Lock background body scroll so reading long articles only scrolls the article modal
+  useEffect(() => {
+    if (activeArticle) {
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+      };
+    }
+  }, [activeArticle]);
+
   const filteredPosts = ARTICLES.filter((post) => {
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     const matchesSearch =
@@ -252,11 +266,11 @@ export default function BlogPage() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain"
           onClick={() => setActiveArticle(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-brand-light dark:bg-[#1A1414] rounded-3xl p-5 xs:p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light"
+            className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto overscroll-contain bg-brand-light dark:bg-[#1A1414] rounded-3xl p-5 xs:p-6 sm:p-10 border border-brand-dark/10 dark:border-white/10 shadow-2xl text-brand-dark dark:text-brand-light"
             onClick={(e) => e.stopPropagation()}
           >
             <button

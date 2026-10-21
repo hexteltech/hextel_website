@@ -6,7 +6,7 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 export default function ProjectsSection() {
   return (
     <section id="projects" className="relative z-10 bg-brand-light dark:bg-[#120E0E] py-20 sm:py-28 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <FadeIn direction="up" duration={0.6}>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
@@ -51,6 +51,7 @@ export default function ProjectsSection() {
                     src={project.image}
                     alt={project.alt}
                     fill
+                    quality={95}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
