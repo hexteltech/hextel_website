@@ -97,14 +97,14 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             <Link href="/" onClick={onClose} className="block py-1">
               <Image
                 src="/images/hextel-logo-v3.png"
-                alt="Hextel Technologies"
+                alt={BRAND_CONFIG.name}
                 width={180}
                 height={102}
                 className="h-12 sm:h-14 w-auto object-contain block dark:hidden"
               />
               <Image
                 src="/images/hextel-logo-v3-white.png"
-                alt="Hextel Technologies"
+                alt={BRAND_CONFIG.name}
                 width={180}
                 height={102}
                 className="h-12 sm:h-14 w-auto object-contain hidden dark:block"

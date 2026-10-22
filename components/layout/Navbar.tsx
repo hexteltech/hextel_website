@@ -85,7 +85,7 @@ export default function Navbar() {
               {/* Light Mode Logo */}
               <Image
                 src="/images/hextel-logo-v3.png"
-                alt="Hextel Technologies"
+                alt={BRAND_CONFIG.name}
                 width={180}
                 height={102}
                 priority
@@ -95,7 +95,7 @@ export default function Navbar() {
               {/* Dark Mode Logo */}
               <Image
                 src="/images/hextel-logo-v3-white.png"
-                alt="Hextel Technologies"
+                alt={BRAND_CONFIG.name}
                 width={180}
                 height={102}
                 priority

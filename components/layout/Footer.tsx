@@ -36,7 +36,7 @@ export default function Footer() {
             >
               <Image
                 src="/images/hextel-logo-v3-white.png"
-                alt="Hextel Technologies"
+                alt={BRAND_CONFIG.name}
                 width={180}
                 height={102}
                 quality={100}
