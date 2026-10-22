@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Client Reviews & Testimonials — Hextel Tech",
     description:
-      "4.9/5 average rating across 25+ production-grade web solutions and AI platforms built directly with our 3 founding engineers.",
+      "4.7/5 average rating across 25+ production-grade web solutions and AI platforms built directly with our 3 founding engineers.",
   },
 };
 
@@ -53,7 +53,7 @@ export default function ReviewsPage() {
       </section>
 
       {/* Main Reviews Explorer Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="reviews" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ReviewsExplorer />
       </section>
     </div>

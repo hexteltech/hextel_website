@@ -79,7 +79,8 @@ export default function ReviewsSection() {
 
         {/* Testimonials Grid with Stagger Reveal */}
         <StaggerContainer
-          staggerDelay={0.1}
+          key={activeCategory}
+          staggerDelay={0.08}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {filteredReviews.map((review, idx) => (

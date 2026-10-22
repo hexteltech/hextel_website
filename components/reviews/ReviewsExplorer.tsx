@@ -17,10 +17,10 @@ const CATEGORIES: { id: CategoryFilter; label: string }[] = [
 ];
 
 const FEEDBACK_METRICS = [
-  { label: "Engineering Quality & Architecture", score: "4.95 / 5.0", pct: "99%" },
-  { label: "Transparent Founder Communication", score: "5.00 / 5.0", pct: "100%" },
-  { label: "Sprint Delivery & Timeliness", score: "4.92 / 5.0", pct: "98%" },
-  { label: "Commercial ROI & Impact", score: "4.90 / 5.0", pct: "98%" },
+  { label: "Engineering Quality & Architecture", score: "4.75 / 5.0", pct: "95%" },
+  { label: "Transparent Founder Communication", score: "4.90 / 5.0", pct: "98%" },
+  { label: "Sprint Delivery & Timeliness", score: "4.70 / 5.0", pct: "94%" },
+  { label: "Commercial ROI & Impact", score: "4.65 / 5.0", pct: "93%" },
 ];
 
 const COLLABORATION_PILLARS = [
@@ -54,10 +54,22 @@ export default function ReviewsExplorer() {
     : REVIEWS.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="space-y-20">
-      {/* Category Tabs */}
-      <div>
-        <div className="flex items-center justify-center flex-wrap gap-2.5">
+    <div className="space-y-16">
+      {/* Section Heading & Category Filter Tabs */}
+      <div className="text-center max-w-3xl mx-auto space-y-6">
+        <div>
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            Client Testimonials & Feedback
+          </span>
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-1 mb-3">
+            Verified Reviews from Engineering Leaders
+          </h2>
+          <p className="text-sm sm:text-base text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
+            Filter and read direct endorsements from founders and CTOs who scaled their platforms with Hextel Tech.
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center flex-wrap gap-2.5 pt-2">
           {CATEGORIES.map((cat) => {
             const count = cat.id === "all"
               ? REVIEWS.length
@@ -93,8 +105,13 @@ export default function ReviewsExplorer() {
       </div>
 
       {/* Reviews Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((review) => (
+      {filtered.length === 0 ? (
+        <div className="text-center py-16 rounded-2xl bg-white dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10 text-brand-dark/60 dark:text-brand-light/60">
+          No verified reviews available in this category yet.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filtered.map((review) => (
           <article
             key={review.id || review.author}
             className="flex flex-col justify-between p-8 rounded-2xl bg-white dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-brand-accent/50 dark:hover:border-brand-accent/50 transition-all duration-300 hover:-translate-y-1 group"
@@ -180,6 +197,7 @@ export default function ReviewsExplorer() {
           </article>
         ))}
       </div>
+      )}
 
       {/* Satisfaction Score Breakdown */}
       <div className="p-8 sm:p-12 rounded-3xl bg-surface-dim dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10">

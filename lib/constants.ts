@@ -232,7 +232,7 @@ export const BRAND_CONFIG = {
     { value: "25+", label: "Projects delivered" },
     { value: "3+", label: "Years of experience" },
     { value: "2,000+", label: "Product hours" },
-    { value: "$500K+", label: "Client revenue generated" },
+    { value: "$100K+", label: "Client revenue generated" },
   ] as StatItem[],
   trustedBy: ["MODO", "LUMI", "KOVO", "NOMA", "ASPEKT"],
 };
@@ -315,10 +315,10 @@ export const FAQS: FaqItem[] = [
 ];
 
 export const REVIEW_STATS = [
-  { value: "4.9 / 5.0", label: "Average Client Rating", sub: "Based on 25+ verified enterprise solutions" },
-  { value: "100%", label: "On-Time Milestone SLA", sub: "Strict sprint adherence & transparent commits" },
-  { value: "94%", label: "Repeat & Retainer Rate", sub: "Long-term engineering partnerships" },
-  { value: "$500K+", label: "Client Revenue Generated", sub: "Direct commercial value delivered" },
+  { value: "4.7 / 5.0", label: "Average Client Rating", sub: "Based on 25+ verified enterprise solutions" },
+  { value: "95%", label: "On-Time Milestone SLA", sub: "Strict sprint adherence & transparent commits" },
+  { value: "90%", label: "Repeat & Retainer Rate", sub: "Long-term engineering partnerships" },
+  { value: "$100K+", label: "Client Revenue Generated", sub: "Direct commercial value delivered" },
 ];
 
 export const REVIEWS: ReviewItem[] = [
