@@ -84,20 +84,20 @@ export default function Navbar() {
             >
               {/* Light Mode Logo */}
               <Image
-                src="/images/hextel-logo-v2.png"
+                src="/images/hextel-logo-v3.png"
                 alt="Hextel Technologies"
-                width={266}
-                height={90}
+                width={180}
+                height={102}
                 priority
                 quality={100}
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
-                src="/images/hextel-logo-v2-white.png"
+                src="/images/hextel-logo-v3-white.png"
                 alt="Hextel Technologies"
-                width={266}
-                height={90}
+                width={180}
+                height={102}
                 priority
                 quality={100}
                 className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
