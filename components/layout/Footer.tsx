@@ -40,7 +40,7 @@ export default function Footer() {
                 width={180}
                 height={102}
                 quality={100}
-                className="h-10 xs:h-12 sm:h-[56px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-14 xs:h-16 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">

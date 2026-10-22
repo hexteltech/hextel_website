@@ -79,7 +79,7 @@ export default function Navbar() {
             {/* Brand Logo - 1.5x larger */}
             <Link
               href="/"
-              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5"
+              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5 ml-2 sm:ml-4 lg:ml-6"
               aria-label={BRAND_CONFIG.name}
             >
               {/* Light Mode Logo */}
@@ -90,7 +90,7 @@ export default function Navbar() {
                 height={102}
                 priority
                 quality={100}
-                className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
+                className="h-12 xs:h-14 sm:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
               />
               {/* Dark Mode Logo */}
               <Image
@@ -100,7 +100,7 @@ export default function Navbar() {
                 height={102}
                 priority
                 quality={100}
-                className="h-9 xs:h-11 sm:h-[52px] lg:h-[60px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
+                className="h-12 xs:h-14 sm:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
 
