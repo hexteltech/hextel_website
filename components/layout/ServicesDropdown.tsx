@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { SERVICE_COLUMNS, DetailedService } from "@/lib/constants";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export function ServiceIcon({ name, className = "w-4 h-4" }: { name: string; className?: string }) {
   switch (name) {
@@ -127,7 +128,43 @@ interface ServicesDropdownProps {
 }
 
 export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownProps) {
+  const { t, language } = useLanguage();
   if (!isOpen) return null;
+
+  const catalogTitle =
+    language === "de"
+      ? "Vollständiger Leistungs- & Lösungskatalog"
+      : language === "es"
+      ? "Catálogo Completo de Servicios y Soluciones"
+      : language === "pl"
+      ? "Pełny Katalog Usług i Rozwiązań"
+      : "Complete Services & Solutions Catalog";
+
+  const capabilitiesBadge =
+    language === "de"
+      ? "17 Maßgeschneiderte Kompetenzen"
+      : language === "es"
+      ? "17 Capacidades a Medida"
+      : language === "pl"
+      ? "17 Dedykowanych Kompetencji"
+      : "17 Tailored Capabilities";
+
+  const needSpecializedPrompt =
+    language === "de"
+      ? "Benötigen Sie einen spezialisierten Tech-Stack oder Architekten?"
+      : language === "es"
+      ? "¿Necesita un stack tecnológico especializado o arquitectos dedicados?"
+      : language === "pl"
+      ? "Potrzebujesz wyspecjalizowanego stacku lub dedykowanych architektów?"
+      : "Need a specialized tech stack or dedicated architects?";
+
+  const viewAllText = t.common?.viewAll
+    ? `${t.common.viewAll} ${t.nav.services}`
+    : "View All Services";
+
+  const requestConsultationText = t.common?.startProject
+    ? `${t.common.startProject}`
+    : "Request custom consultation";
 
   return (
     <div
@@ -135,25 +172,25 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
       aria-label="Services Catalog"
       className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[900px] xl:w-[980px] max-w-[calc(100vw-2rem)] z-50 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto opacity-100"
     >
-      <div className="relative rounded-2xl bg-white dark:bg-[#140F0F] opacity-100 border border-brand-dark/20 dark:border-white/20 shadow-2xl p-5 sm:p-6 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
+      <div className="relative rounded-2xl bg-[#5C1F1F] dark:bg-[#200A0B] text-brand-light border border-white/15 dark:border-white/10 shadow-2xl p-5 sm:p-6 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto ring-1 ring-black/10">
         {/* Subtle decorative glow */}
-        <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
         {/* Top Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-brand-dark/10 dark:border-white/10">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15 dark:border-white/10">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-dark/80 dark:text-brand-light/80">
-              Complete Services & Solutions Catalog
+            <span className="text-xs font-bold uppercase tracking-[0.15em] text-brand-light">
+              {catalogTitle}
             </span>
           </div>
-          <span className="text-xs text-brand-dark/50 dark:text-brand-light/50 font-medium">
-            17 Tailored Capabilities
+          <span className="text-[11px] font-semibold text-brand-accent-light bg-white/10 px-2.5 py-0.5 rounded-full border border-brand-accent/30">
+            {capabilitiesBadge}
           </span>
         </div>
 
         {/* 3 Columns Grid (Equal Parts: 6, 6, 5) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-brand-dark/10 dark:divide-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10 dark:divide-white/10">
           {SERVICE_COLUMNS.map((column, colIdx) => (
             <div
               key={column.title}
@@ -161,10 +198,10 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
             >
               {/* Column Title */}
               <div className="mb-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-accent">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-accent">
                   {column.title}
                 </h4>
-                <p className="text-[11px] text-brand-dark/50 dark:text-brand-light/50">
+                <p className="text-[11px] text-brand-light/70 font-medium">
                   {column.subtitle}
                 </p>
               </div>
@@ -176,23 +213,23 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
                     <Link
                       href={`/services/${service.slug}`}
                       onClick={onClose}
-                      className="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-dark/5 dark:hover:bg-white/5 transition-all duration-200"
+                      className="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-200"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-brand-dark/5 dark:bg-white/5 flex items-center justify-center shrink-0 text-brand-dark/70 dark:text-brand-light/70 group-hover:text-brand-accent group-hover:bg-brand-accent/10 transition-colors mt-0.5">
+                      <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors mt-0.5">
                         <ServiceIcon name={service.icon} className="w-3.5 h-3.5" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-xs font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors leading-snug">
+                          <span className="text-xs font-bold text-white group-hover:text-brand-accent transition-colors leading-snug">
                             {service.title}
                           </span>
                           {service.tag && (
-                            <span className="px-1.5 py-0.2 text-[9px] font-bold rounded bg-brand-accent/15 text-brand-accent">
+                            <span className="px-1.5 py-0.2 text-[9px] font-bold rounded bg-brand-accent/25 text-brand-accent-light border border-brand-accent/40">
                               {service.tag}
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-brand-dark/70 dark:text-brand-light/70 line-clamp-1 group-hover:text-brand-dark dark:group-hover:text-brand-light transition-colors mt-0.5">
+                        <p className="text-[11px] text-brand-light/75 group-hover:text-brand-light transition-colors mt-0.5 line-clamp-1">
                           {service.shortDesc}
                         </p>
                       </div>
@@ -205,25 +242,25 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
         </div>
 
         {/* Bottom Bar Call-to-Action */}
-        <div className="mt-5 pt-4 border-t border-brand-dark/10 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 bg-brand-dark/[0.03] dark:bg-black/40 -mx-6 -mb-6 px-6 py-3.5">
-          <div className="flex items-center gap-2 text-xs text-brand-dark/80 dark:text-brand-light/80">
-            <span className="font-medium">Need a specialized tech stack or dedicated architects?</span>
+        <div className="mt-5 pt-4 border-t border-white/15 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 bg-black/30 dark:bg-black/50 -mx-6 -mb-6 px-6 py-3.5">
+          <div className="flex items-center gap-2 text-xs text-brand-light/85">
+            <span className="font-medium">{needSpecializedPrompt}</span>
           </div>
           <div className="flex items-center gap-3">
             <Link
               href="/services"
               onClick={onClose}
-              className="text-xs font-semibold text-brand-dark/80 dark:text-brand-light/80 hover:text-brand-accent transition-colors"
+              className="text-xs font-semibold text-brand-light/90 hover:text-brand-accent transition-colors"
             >
-              View All Services
+              {viewAllText}
             </Link>
-            <span className="text-brand-dark/20 dark:text-white/20">|</span>
+            <span className="text-white/20">|</span>
             <Link
               href="/contact"
               onClick={onClose}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-accent hover:underline transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent-light hover:text-white transition-all"
             >
-              <span>Request custom consultation</span>
+              <span>{requestConsultationText}</span>
               <span aria-hidden="true">→</span>
             </Link>
           </div>

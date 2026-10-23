@@ -1,9 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/constants";
 import { FadeIn, StaggerContainer, StaggerItem, FloatingElement } from "@/components/ui/Motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
+  const statLabels = [
+    t.hero?.stats?.projects || "Projects delivered",
+    t.hero?.stats?.years || "Years of experience",
+    t.hero?.stats?.hours || "Product hours",
+    t.hero?.stats?.revenue || "Client revenue generated",
+  ];
+
   return (
     <section
       id="home"
@@ -17,22 +29,22 @@ export default function HeroSection() {
             <div className="lg:col-span-7 flex flex-col justify-center space-y-5 sm:space-y-6 lg:space-y-8">
               <FadeIn direction="down" duration={0.5}>
                 <span className="text-[11px] xs:text-xs font-semibold uppercase tracking-[0.25em] text-brand-dark/60 dark:text-brand-light/60">
-                  Strategy / Design / Technology
+                  {t.hero?.badge || "Strategy / Design / Technology"}
                 </span>
               </FadeIn>
 
               <FadeIn direction="up" delay={0.1} duration={0.65}>
                 <h1 className="font-heading text-3xl xs:text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-brand-dark dark:text-brand-light leading-[1.08] sm:leading-[1.04]">
-                  New possibilities for{" "}
-                  <span className="text-brand-accent underline decoration-brand-accent/30 decoration-wavy underline-offset-8">
-                    ambitious brands
+                  {t.hero?.headlinePart1 || "New possibilities for"}{" "}
+                  <span className="text-brand-accent">
+                    {t.hero?.headlineHighlight || "ambitious brands"}
                   </span>
                 </h1>
               </FadeIn>
 
               <FadeIn direction="up" delay={0.2} duration={0.65}>
                 <p className="text-sm sm:text-base lg:text-lg 2xl:text-xl text-brand-dark/80 dark:text-brand-light/80 leading-relaxed max-w-xl 2xl:max-w-2xl">
-                  {BRAND_CONFIG.lead}
+                  {t.hero?.description || BRAND_CONFIG.lead}
                 </p>
               </FadeIn>
 
@@ -43,13 +55,13 @@ export default function HeroSection() {
                     href="/contact"
                     className="inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark hover:bg-brand-accent hover:text-brand-light dark:hover:bg-amber-400 shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] text-center"
                   >
-                    Start a project
+                    {t.common?.startProject || "Start a project"}
                   </Link>
                   <Link
                     href="/about"
                     className="inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 border border-brand-dark/20 dark:border-white/20 text-brand-dark dark:text-brand-light hover:bg-brand-dark/5 dark:hover:bg-white/5 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] text-center"
                   >
-                    Meet the team
+                    {t.common?.meetTeam || "Meet the team"}
                   </Link>
                 </div>
               </FadeIn>
@@ -89,7 +101,7 @@ export default function HeroSection() {
                 {stat.value}
               </strong>
               <span className="text-[11px] xs:text-xs sm:text-sm 2xl:text-base text-brand-light/75 font-medium leading-tight">
-                {stat.label}
+                {statLabels[idx] || stat.label}
               </span>
             </StaggerItem>
           ))}

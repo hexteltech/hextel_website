@@ -1,9 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import { BRAND_CONFIG } from "@/lib/constants";
 import ContactForm from "./ContactForm";
 import { FadeIn } from "@/components/ui/Motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="relative z-10 overflow-hidden bg-brand-dark dark:bg-[#120E0E] py-24 sm:py-32 text-brand-light transition-colors">
       {/* Background Mountain Image */}
@@ -24,15 +29,15 @@ export default function ContactSection() {
           <FadeIn direction="right" duration={0.7} className="lg:col-span-5 space-y-8">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-accent">
-                Start a Conversation
+                {t.contact?.badge || "Start a Conversation"}
               </span>
               <h2 className="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-light mt-3 leading-tight">
-                Let&apos;s build something remarkable together.
+                {t.contact?.heading || "Let's build something remarkable together."}
               </h2>
             </div>
 
             <p className="text-base sm:text-lg text-brand-light/75 leading-relaxed">
-              Whether you are architecting a new web platform, integrating AI automation, or scaling your digital products, our 3 founders (Hasaan, Muhammad Faseeh, and Moman) work directly with you at every stage.
+              {t.contact?.description || "Whether you are architecting a new web platform, integrating AI automation, or scaling your digital products, our 3 founders (Hasaan, Muhammad Faseeh, and Moman) work directly with you at every stage."}
             </p>
 
             {/* Direct Contact Coordinates */}
@@ -44,7 +49,9 @@ export default function ContactSection() {
                   </svg>
                 </span>
                 <div>
-                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block">Direct Email</span>
+                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block">
+                    {t.contact?.directEmail || "Direct Email"}
+                  </span>
                   <a href={`mailto:${BRAND_CONFIG.email}`} className="text-sm font-semibold hover:text-brand-accent transition-colors">
                     {BRAND_CONFIG.email}
                   </a>
@@ -58,27 +65,41 @@ export default function ContactSection() {
                   </svg>
                 </span>
                 <div>
-                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block">Direct Line</span>
+                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block">
+                    {t.contact?.directLine || "Direct Line"}
+                  </span>
                   <a href={`tel:${BRAND_CONFIG.phone.replace(/\s+/g, "")}`} className="text-sm font-semibold hover:text-brand-accent transition-colors">
                     {BRAND_CONFIG.phone}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 group">
-                <span className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-brand-accent shrink-0 group-hover:bg-brand-accent group-hover:text-brand-light transition-all duration-300">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BRAND_CONFIG.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 group focus:outline-none cursor-pointer"
+                title="Open headquarters location in Google Maps"
+                aria-label={`Open ${BRAND_CONFIG.address} in Google Maps`}
+              >
+                <span className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-brand-accent shrink-0 group-hover:bg-brand-accent group-hover:text-brand-light transition-all duration-300 group-hover:scale-105">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </span>
                 <div>
-                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block">Headquarters</span>
-                  <span className="text-sm font-medium text-brand-light/85">
-                    {BRAND_CONFIG.address}
+                  <span className="text-xs text-brand-light/50 uppercase tracking-wider block group-hover:text-brand-accent transition-colors">
+                    {t.contact?.headquarters || "Headquarters"}
+                  </span>
+                  <span className="text-sm font-medium text-brand-light/85 group-hover:text-brand-light group-hover:underline transition-colors flex items-center gap-1.5">
+                    <span>{BRAND_CONFIG.address}</span>
+                    <svg className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
                   </span>
                 </div>
-              </div>
+              </a>
             </div>
           </FadeIn>
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useUtm } from "@/components/providers/UtmTracker";
 import { COUNTRY_CODES, CountryCode } from "@/lib/countryCodes";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export const SERVICE_OPTIONS = [
   "IT Staff Augmentation / Dedicated Developers",
@@ -41,6 +42,7 @@ interface SubmittedReceipt {
 
 export default function ContactForm() {
   const { utmData, hasUtm } = useUtm();
+  const { t } = useLanguage();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -309,7 +311,7 @@ export default function ContactForm() {
             onClick={handleReset}
             className="w-full py-4 px-6 rounded-xl font-bold text-xs uppercase tracking-widest bg-brand-dark text-brand-light dark:bg-brand-accent dark:text-brand-dark hover:bg-brand-accent hover:text-brand-light dark:hover:bg-amber-400 active:scale-[0.98] transition-all shadow-md"
           >
-            Submit another inquiry
+            {t.contact?.submitAnother || "Submit another inquiry"}
           </button>
         </div>
       ) : (
@@ -341,7 +343,7 @@ export default function ContactForm() {
                   required
                   value={formData.firstName}
                   onChange={handleChange}
-                  placeholder="First Name *"
+                  placeholder={`${t.contact?.nameLabel || "First Name"} *`}
                   className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
                 />
               </div>
@@ -352,7 +354,7 @@ export default function ContactForm() {
                   type="text"
                   value={formData.lastName}
                   onChange={handleChange}
-                  placeholder="Last Name"
+                  placeholder={t.contact?.nameLabel ? (t.contact.nameLabel.includes("First") ? t.contact.nameLabel.replace("First", "Last") : "Last Name") : "Last Name"}
                   className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
                 />
               </div>
@@ -367,7 +369,7 @@ export default function ContactForm() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Business email *"
+                placeholder={`${t.contact?.emailLabel || "Business email"} *`}
                 className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
               />
             </div>
@@ -505,9 +507,9 @@ export default function ContactForm() {
                   className="w-full px-4 py-3.5 pr-10 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all appearance-none cursor-pointer hover:border-brand-accent/50"
                 >
                   <option value="" disabled className="text-brand-dark/40 dark:text-brand-light/40">
-                    I am looking for *
+                    {t.contact?.serviceLabel || "I am looking for"} *
                   </option>
-                  {SERVICE_OPTIONS.map((srv) => (
+                  {(t.contact?.servicesOptions && t.contact.servicesOptions.length > 0 ? t.contact.servicesOptions : SERVICE_OPTIONS).map((srv) => (
                     <option key={srv} value={srv} className="bg-white dark:bg-[#1A1414] text-brand-dark dark:text-brand-light">
                       {srv}
                     </option>
@@ -530,7 +532,7 @@ export default function ContactForm() {
                 required
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Tell us more about your project"
+                placeholder={t.contact?.messagePlaceholder || "Tell us more about your project"}
                 className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all resize-y min-h-[110px] hover:border-brand-accent/50"
               />
             </div>
@@ -603,10 +605,10 @@ export default function ContactForm() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  <span>Submitting inquiry...</span>
+                  <span>{t.contact?.submittingButton || "Submitting inquiry..."}</span>
                 </>
               ) : (
-                <span>Submit</span>
+                <span>{t.contact?.submitButton || "Submit"}</span>
               )}
             </button>
           </form>

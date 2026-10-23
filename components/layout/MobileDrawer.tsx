@@ -96,18 +96,18 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           <div className="flex items-center justify-between pb-6 border-b border-brand-dark/10 dark:border-white/10">
             <Link href="/" onClick={onClose} className="block py-1">
               <Image
-                src="/images/hextel-logo-v3.png"
+                src="/images/hextel-logo-horizontal.png"
                 alt={BRAND_CONFIG.name}
-                width={180}
-                height={102}
-                className="h-12 sm:h-14 w-auto object-contain block dark:hidden"
+                width={218}
+                height={74}
+                className="h-9 sm:h-11 w-auto object-contain block dark:hidden"
               />
               <Image
-                src="/images/hextel-logo-v3-white.png"
+                src="/images/hextel-logo-horizontal-white.png"
                 alt={BRAND_CONFIG.name}
-                width={180}
-                height={102}
-                className="h-12 sm:h-14 w-auto object-contain hidden dark:block"
+                width={218}
+                height={74}
+                className="h-9 sm:h-11 w-auto object-contain hidden dark:block"
               />
             </Link>
             <button

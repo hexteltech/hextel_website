@@ -2,10 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { BRAND_CONFIG, NAV_LINKS } from "@/lib/constants";
+import { BRAND_CONFIG } from "@/lib/constants";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
+
+  const footerNavLinks = [
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.services, href: "/services" },
+    { label: t.nav.about, href: "/about" },
+    { label: t.nav.blog, href: "/blog" },
+    { label: t.nav.howWeBuild, href: "/how-we-build" },
+    { label: t.nav.projects, href: "/projects" },
+    { label: t.nav.reviews, href: "/reviews" },
+    { label: t.nav.contact, href: "/contact" },
+  ];
 
   const openCookies = () => {
     window.dispatchEvent(new CustomEvent("open-cookie-settings"));
@@ -44,7 +57,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">
-              {BRAND_CONFIG.tagline}. Architecting next-generation digital products and web ecosystems for high-growth enterprises.
+              {t.footer?.tagline || BRAND_CONFIG.tagline}
             </p>
             <div className="pt-2 flex items-center gap-3">
               <button
@@ -52,7 +65,7 @@ export default function Footer() {
                 onClick={openSearch}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-brand-light/75 hover:text-white transition-colors"
               >
-                <span>Quick Search</span>
+                <span>{t.common?.quickSearch || "Quick Search"}</span>
                 <kbd className="text-[10px] bg-white/10 px-1 py-0.5 rounded">⌘K</kbd>
               </button>
 
@@ -61,7 +74,7 @@ export default function Footer() {
                 onClick={openClientPortal}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-brand-light/75 hover:text-white transition-colors"
               >
-                <span>Client Portal</span>
+                <span>{t.common?.clientPortal || "Client Portal"}</span>
               </button>
             </div>
           </div>
@@ -69,10 +82,10 @@ export default function Footer() {
           {/* Quick Navigation Links with hover transitions */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-accent">
-              Navigation
+              {t.footer?.navHeading || "Navigation"}
             </h4>
             <ul className="space-y-2">
-              {NAV_LINKS.map((link) => (
+              {footerNavLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -88,7 +101,7 @@ export default function Footer() {
                   onClick={scrollToTop}
                   className="text-sm text-brand-light/75 hover:text-brand-accent hover:translate-x-1 inline-block transition-all duration-200"
                 >
-                  Back to top ↑
+                  {t.common?.backToTop || "Back to top"} ↑
                 </button>
               </li>
             </ul>
@@ -98,7 +111,7 @@ export default function Footer() {
           <div className="md:col-span-3 space-y-4">
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-widest text-brand-accent mb-2">
-                Contact
+                {t.footer?.connectHeading || "Contact"}
               </h4>
               <div className="space-y-1.5 text-xs text-brand-light/75">
                 <p>
@@ -112,7 +125,16 @@ export default function Footer() {
                   </a>
                 </p>
                 <p className="text-brand-light/60">
-                  {BRAND_CONFIG.address}
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BRAND_CONFIG.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-brand-accent transition-colors inline-flex items-center gap-1 group"
+                    title="View headquarters on Google Maps"
+                  >
+                    <span>{BRAND_CONFIG.address}</span>
+                    <span className="text-[10px] opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
+                  </a>
                 </p>
               </div>
             </div>
@@ -153,7 +175,7 @@ export default function Footer() {
 
         {/* Bottom Bar: Copyright & Privacy / Cookies */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-light/50 text-center sm:text-left">
-          <p>© {currentYear} {BRAND_CONFIG.name}. All rights reserved.</p>
+          <p>© {currentYear} {BRAND_CONFIG.name}. {t.footer?.rightsReserved || "All rights reserved."}</p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6">
             <Link
               href="/security-and-compliance"
@@ -172,13 +194,13 @@ export default function Footer() {
               onClick={openCookies}
               className="hover:text-brand-light transition-colors underline underline-offset-4"
             >
-              Cookie Settings
+              {t.footer?.cookieSettings || "Cookie Settings"}
             </button>
             <Link href="/privacy-policy" className="hover:text-brand-light transition-colors">
-              Privacy Policy
+              {t.footer?.privacyPolicy || "Privacy Policy"}
             </Link>
             <Link href="/contact" className="hover:text-brand-light transition-colors">
-              Terms of Service
+              {t.footer?.termsOfService || "Terms of Service"}
             </Link>
           </div>
         </div>

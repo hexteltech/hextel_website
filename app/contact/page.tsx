@@ -127,7 +127,22 @@ export default function ContactPage() {
                     <span>{loc.city}</span>
                     <span className="text-brand-accent font-mono text-[11px]">{loc.timezone}</span>
                   </div>
-                  <div className="text-brand-dark/60 dark:text-brand-light/60">{loc.address}</div>
+                  <div className="text-brand-dark/60 dark:text-brand-light/60">
+                    {loc.city.includes("Gujranwala") ? (
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-brand-accent transition-colors underline underline-offset-2 inline-flex items-center gap-1 group"
+                        title="Open in Google Maps"
+                      >
+                        <span>{loc.address}</span>
+                        <span className="text-[10px] opacity-70 group-hover:opacity-100">↗</span>
+                      </a>
+                    ) : (
+                      loc.address
+                    )}
+                  </div>
                   <div className="text-brand-dark/50 dark:text-brand-light/50 italic pt-1">{loc.role}</div>
                 </div>
               ))}

@@ -76,13 +76,36 @@ export default function Navbar() {
       >
         <div className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div ref={navContainerRef} className="flex items-center justify-between gap-4">
-            {/* Brand Logo - 1.5x larger */}
+            {/* Brand Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5 ml-2 sm:ml-4 lg:ml-6"
+              className="flex items-center gap-2 group focus:outline-none shrink-0 py-0.5 ml-1 xs:ml-2 sm:ml-4 lg:ml-6"
               aria-label={BRAND_CONFIG.name}
             >
-              {/* Light Mode Logo */}
+              {/* Small Devices (< md): Horizontal logo showing "HEXTEL" beside the logo mark on the right */}
+              {/* Light Mode Horizontal Logo */}
+              <Image
+                src="/images/hextel-logo-horizontal.png"
+                alt={BRAND_CONFIG.name}
+                width={218}
+                height={74}
+                priority
+                quality={100}
+                className="h-8 xs:h-9 sm:h-10 w-auto object-contain block dark:hidden md:hidden transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Dark Mode Horizontal Logo */}
+              <Image
+                src="/images/hextel-logo-horizontal-white.png"
+                alt={BRAND_CONFIG.name}
+                width={218}
+                height={74}
+                priority
+                quality={100}
+                className="h-8 xs:h-9 sm:h-10 w-auto object-contain hidden dark:block md:dark:hidden transition-transform duration-300 group-hover:scale-105"
+              />
+
+              {/* Medium & Large Screens (>= md): Stacked Logo */}
+              {/* Light Mode Stacked Logo */}
               <Image
                 src="/images/hextel-logo-v3.png"
                 alt={BRAND_CONFIG.name}
@@ -90,9 +113,9 @@ export default function Navbar() {
                 height={102}
                 priority
                 quality={100}
-                className="h-12 xs:h-14 sm:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain block dark:hidden transition-transform duration-300 group-hover:scale-105"
+                className="hidden md:block dark:hidden md:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
-              {/* Dark Mode Logo */}
+              {/* Dark Mode Stacked Logo */}
               <Image
                 src="/images/hextel-logo-v3-white.png"
                 alt={BRAND_CONFIG.name}
@@ -100,7 +123,7 @@ export default function Navbar() {
                 height={102}
                 priority
                 quality={100}
-                className="h-12 xs:h-14 sm:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain hidden dark:block transition-transform duration-300 group-hover:scale-105"
+                className="hidden md:dark:block md:h-16 lg:h-[72px] xl:h-[76px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
 
