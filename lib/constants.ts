@@ -240,19 +240,19 @@ export const BRAND_CONFIG = {
 export const PROJECTS: ProjectItem[] = [
   {
     id: "project-1",
-    title: "A premium brand with a new digital ecosystem",
+    title: "Nayyab Jewellers – Bespoke Luxury E-Commerce",
     category: "Full-Stack Web Application",
-    image: "/images/t001-nova-project-laptop-1280.webp",
-    alt: "Laptop showcasing responsive web application",
-    link: "#projects",
+    image: "/images/nayyab-hero.jpg",
+    alt: "Nayyab Jewellers bespoke luxury jewelry website",
+    link: "/projects",
   },
   {
     id: "project-2",
-    title: "A modern identity and infrastructure for high-growth tech",
-    category: "Design System & Platform",
-    image: "/images/t001-nova-project-building-1280.webp",
-    alt: "Modern architecture representing enterprise tech identity",
-    link: "#projects",
+    title: "Al Moman Frozen Foods — E-Commerce & Live Order System",
+    category: "Full-Stack Web Application",
+    image: "/images/almoman-hero.jpg",
+    alt: "Al Moman Frozen Foods e-commerce and live order tracking platform",
+    link: "https://almomanfrozenfoods.vercel.app",
   },
 ];
 
