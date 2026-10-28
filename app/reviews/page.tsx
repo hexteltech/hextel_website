@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ReviewsExplorer from "@/components/reviews/ReviewsExplorer";
-import { REVIEW_STATS } from "@/lib/constants";
+import { REVIEW_STATS, REVIEWS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Client Reviews & Testimonials — Hextel Tech | Engineering Digital Excellence",
@@ -9,11 +9,38 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Client Reviews & Testimonials — Hextel Tech",
     description:
-      "4.7/5 average rating across 25+ production-grade web solutions and AI platforms built directly with our 3 founding engineers.",
+      "Verified client reviews and ratings from engineering leaders who scaled their web platforms with Hextel Tech.",
   },
 };
 
 export default function ReviewsPage() {
+  const hasReviews = REVIEWS.length > 0;
+  const avgRating = hasReviews
+    ? (REVIEWS.reduce((acc, r) => acc + (r.rating || 5), 0) / REVIEWS.length).toFixed(1)
+    : "0.0";
+
+  const dynamicStats = [
+    {
+      value: hasReviews ? `${avgRating}/5` : "0.0/5",
+      label: "Client Satisfaction Rating",
+      sub: hasReviews ? "Verified client feedback" : "No ratings published yet",
+    },
+    {
+      value: `${REVIEWS.length}`,
+      label: "Verified Reviews",
+      sub: hasReviews ? "Direct client endorsements" : "Zero fake reviews",
+    },
+    {
+      value: "100%",
+      label: "On-Time Sprint Completion",
+      sub: "Fixed-scope delivery guarantee",
+    },
+    {
+      value: "100%",
+      label: "Code & IP Ownership",
+      sub: "Full repository & asset handover",
+    },
+  ];
   return (
     <div className="min-h-screen py-16 sm:py-24">
       {/* Page Hero */}
@@ -33,7 +60,7 @@ export default function ReviewsPage() {
 
         {/* Aggregate Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
-          {REVIEW_STATS.map((stat, idx) => (
+          {dynamicStats.map((stat, idx) => (
             <div
               key={idx}
               className="p-6 rounded-2xl bg-surface-dim/80 dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10 text-center shadow-sm"

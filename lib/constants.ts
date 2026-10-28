@@ -244,7 +244,7 @@ export const PROJECTS: ProjectItem[] = [
     category: "Full-Stack Web Application",
     image: "/images/nayyab-hero.jpg",
     alt: "Nayyab Jewellers bespoke luxury jewelry website",
-    link: "/projects",
+    link: "/projects#project-1",
   },
   {
     id: "project-2",
@@ -252,7 +252,7 @@ export const PROJECTS: ProjectItem[] = [
     category: "Full-Stack Web Application",
     image: "/images/almoman-hero.jpg",
     alt: "Al Moman Frozen Foods e-commerce and live order tracking platform",
-    link: "https://almomanfrozenfoods.vercel.app",
+    link: "/projects#project-almoman",
   },
 ];
 
@@ -321,98 +321,4 @@ export const REVIEW_STATS = [
   { value: "$100K+", label: "Client Revenue Generated", sub: "Direct commercial value delivered" },
 ];
 
-export const REVIEWS: ReviewItem[] = [
-  {
-    id: "rev-1",
-    quote:
-      "Hextel Tech completely transformed our digital presence. The new web application loaded 3x faster and directly increased our inbound qualified leads by 42%. The architectural precision of their 3 founders is second to none.",
-    author: "Elena Rostova",
-    role: "Head of Product",
-    company: "LUMI Technologies",
-    avatar: "/images/t001-nova-avatar-01-220.webp",
-    rating: 5,
-    metric: "+42%",
-    metricLabel: "Inbound Qualified Leads",
-    project: "Next.js Enterprise SaaS Platform",
-    category: "web",
-    date: "January 2026",
-    verified: true,
-  },
-  {
-    id: "rev-2",
-    quote:
-      "Their architectural precision, attention to design detail, and execution speed exceeded every expectation. They eliminated technical debt and built a cloud system that scales without a hitch.",
-    author: "Marek Kowalski",
-    role: "CEO & Founder",
-    company: "MODO Systems",
-    avatar: "/images/t001-nova-avatar-02-220.webp",
-    rating: 5,
-    metric: "99.99%",
-    metricLabel: "Production Uptime",
-    project: "Kubernetes & Microservices Cloud",
-    category: "cloud",
-    date: "December 2025",
-    verified: true,
-  },
-  {
-    id: "rev-3",
-    quote:
-      "Partnering with Hextel Tech was the best technology investment we made this year. Flawless execution from concept to launch, with a brand design system that makes us stand out in a crowded market.",
-    author: "Sofia Chen",
-    role: "VP of Marketing",
-    company: "NOMA Group",
-    avatar: "/images/t001-nova-avatar-03-220.webp",
-    rating: 5,
-    metric: "+210%",
-    metricLabel: "Organic Web Traffic",
-    project: "Design System & Web Platform",
-    category: "design",
-    date: "November 2025",
-    verified: true,
-  },
-  {
-    id: "rev-4",
-    quote:
-      "Hextel Tech built custom autonomous AI agents that automated 80% of our customer query routing and internal ticket triaging. The founders delivered in 5 weeks what other studios quoted 6 months for.",
-    author: "Alexander Wright",
-    role: "CTO & Co-Founder",
-    company: "ApexFin Solutions",
-    rating: 5,
-    metric: "80%",
-    metricLabel: "Automated Workflow Routing",
-    project: "Custom AI Agents & Copilots",
-    category: "ai",
-    date: "February 2026",
-    verified: true,
-  },
-  {
-    id: "rev-5",
-    quote:
-      "Direct collaboration with Hasaan, Faseeh, and Moman meant zero corporate bureaucracy. When we needed high-throughput API integrations under tight deadlines, they executed flawlessly without a single hitch.",
-    author: "David Ben-Ami",
-    role: "COO",
-    company: "KOVO Logistics",
-    rating: 5,
-    metric: "3.5x",
-    metricLabel: "Faster Processing Velocity",
-    project: "API & Event-Driven Architecture",
-    category: "web",
-    date: "January 2026",
-    verified: true,
-  },
-  {
-    id: "rev-6",
-    quote:
-      "Security, performance, and HIPAA compliance were non-negotiable for our patient platform. Hextel Tech delivered clean code, thorough documentation, and passed our 3rd-party penetration test on the first pass.",
-    author: "Dr. Julian Vance",
-    role: "Chief Digital Officer",
-    company: "ASPEKT Health",
-    rating: 5,
-    metric: "100%",
-    metricLabel: "Security Audit Clearance",
-    project: "HIPAA Cloud & Portal Engineering",
-    category: "cloud",
-    date: "March 2026",
-    verified: true,
-  },
-];
+export const REVIEWS: ReviewItem[] = [];

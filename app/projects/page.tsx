@@ -168,7 +168,8 @@ export default function ProjectsPage() {
         {filteredProjects.map((project, idx) => (
           <article
             key={project.id}
-            className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12"
+            id={project.id}
+            className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12 scroll-mt-28"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Media image */}
@@ -328,6 +329,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Verified Client Testimonials */}
+      {REVIEWS.length > 0 && (
       <section className="bg-surface-dim dark:bg-[#161111] py-20 mt-24 border-y border-brand-dark/10 dark:border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -378,6 +380,7 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center">

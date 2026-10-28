@@ -16,12 +16,7 @@ const CATEGORIES: { id: CategoryFilter; label: string }[] = [
   { id: "design", label: "Design Systems & UX" },
 ];
 
-const FEEDBACK_METRICS = [
-  { label: "Engineering Quality & Architecture", score: "4.75 / 5.0", pct: "95%" },
-  { label: "Transparent Founder Communication", score: "4.90 / 5.0", pct: "98%" },
-  { label: "Sprint Delivery & Timeliness", score: "4.70 / 5.0", pct: "94%" },
-  { label: "Commercial ROI & Impact", score: "4.65 / 5.0", pct: "93%" },
-];
+
 
 const COLLABORATION_PILLARS = [
   {
@@ -48,6 +43,34 @@ const COLLABORATION_PILLARS = [
 
 export default function ReviewsExplorer() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
+
+  const hasReviews = REVIEWS.length > 0;
+  const avgRating = hasReviews
+    ? Number((REVIEWS.reduce((acc, r) => acc + (r.rating || 5), 0) / REVIEWS.length).toFixed(1))
+    : 0;
+
+  const feedbackMetrics = [
+    {
+      label: "Engineering Quality & Architecture",
+      score: hasReviews ? `${avgRating.toFixed(1)} / 5.0` : "0.0 / 5.0",
+      pct: hasReviews ? `${Math.round((avgRating / 5) * 100)}%` : "0%",
+    },
+    {
+      label: "Transparent Founder Communication",
+      score: hasReviews ? `${avgRating.toFixed(1)} / 5.0` : "0.0 / 5.0",
+      pct: hasReviews ? `${Math.round((avgRating / 5) * 100)}%` : "0%",
+    },
+    {
+      label: "Sprint Delivery & Timeliness",
+      score: hasReviews ? `${avgRating.toFixed(1)} / 5.0` : "0.0 / 5.0",
+      pct: hasReviews ? `${Math.round((avgRating / 5) * 100)}%` : "0%",
+    },
+    {
+      label: "Commercial ROI & Impact",
+      score: hasReviews ? `${avgRating.toFixed(1)} / 5.0` : "0.0 / 5.0",
+      pct: hasReviews ? `${Math.round((avgRating / 5) * 100)}%` : "0%",
+    },
+  ];
 
   const filtered = activeCategory === "all"
     ? REVIEWS
@@ -106,8 +129,24 @@ export default function ReviewsExplorer() {
 
       {/* Reviews Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl bg-white dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10 text-brand-dark/60 dark:text-brand-light/60">
-          No verified reviews available in this category yet.
+        <div className="text-center py-20 px-6 rounded-3xl bg-white dark:bg-[#161111] border border-brand-dark/10 dark:border-white/10 shadow-sm max-w-2xl mx-auto space-y-4">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-brand-accent/10 text-brand-accent flex items-center justify-center text-2xl font-bold">
+            ★
+          </div>
+          <h3 className="font-heading text-xl font-bold text-brand-dark dark:text-brand-light">
+            No Reviews Published Yet
+          </h3>
+          <p className="text-sm text-brand-dark/60 dark:text-brand-light/60 max-w-md mx-auto leading-relaxed">
+            We only publish authentic endorsements from verified client collaborations. Reviews and client ratings will appear here as ongoing production projects conclude.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand-accent text-white text-xs font-semibold hover:brightness-110 transition-all shadow-md"
+            >
+              Start a Project With Us →
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -209,12 +248,14 @@ export default function ReviewsExplorer() {
             Independent client satisfaction dimensions
           </h2>
           <p className="text-sm text-brand-dark/70 dark:text-brand-light/70">
-            Based on direct post-launch audits across all 25+ delivered enterprise platforms and custom web applications.
+            {hasReviews
+              ? "Calculated dynamically from verified client reviews and post-launch audits."
+              : "Calibrated directly from verified client reviews. Rating bars and performance metrics will populate once client reviews are published."}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {FEEDBACK_METRICS.map((metric) => (
+          {feedbackMetrics.map((metric) => (
             <div key={metric.label} className="p-6 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10">
               <div className="flex items-center justify-between gap-4 mb-2">
                 <span className="text-sm font-semibold text-brand-dark dark:text-brand-light">

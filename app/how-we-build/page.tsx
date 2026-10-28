@@ -107,25 +107,6 @@ const PHASES: Phase[] = [
   },
 ];
 
-const QUALITY_GATES = [
-  {
-    title: "100% Strict TypeScript",
-    description: "Zero 'any' bypasses. Compile-time safety guarantees throughout front-to-back contracts.",
-  },
-  {
-    title: "Lighthouse 95+ Score",
-    description: "Sub-second First Contentful Paint (FCP) and optimal Cumulative Layout Shift (CLS) on all pages.",
-  },
-  {
-    title: "SOC 2 & GDPR Aligned",
-    description: "End-to-end encrypted databases, secure session cookies, and strict data-privacy compliance.",
-  },
-  {
-    title: "Total Client IP Ownership",
-    description: "All source code, Docker configs, and design system assets belong 100% to you without vendor lock-in.",
-  },
-];
-
 export default function HowWeBuildPage() {
   const [activePhaseIndex, setActivePhaseIndex] = useState(0);
   const activePhase = PHASES[activePhaseIndex];
@@ -196,22 +177,7 @@ export default function HowWeBuildPage() {
                 {activePhase.summary}
               </p>
 
-              {/* Technologies */}
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-dark/50 dark:text-brand-light/50 block mb-2">
-                  Tooling & Frameworks
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {activePhase.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="px-3 py-1 rounded-lg bg-brand-dark/5 dark:bg-white/5 text-xs font-semibold text-brand-dark dark:text-brand-light"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
+
             </div>
 
             {/* Deliverables Checklist Box */}
@@ -232,40 +198,7 @@ export default function HowWeBuildPage() {
         </div>
       </section>
 
-      {/* Quality Gates Section */}
-      <section className="bg-surface-dim dark:bg-[#161111] py-20 border-y border-brand-dark/10 dark:border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Quality Assurance
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
-              Non-negotiable engineering quality gates
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {QUALITY_GATES.map((gate) => (
-              <div
-                key={gate.title}
-                className="p-6 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm"
-              >
-                <div className="w-10 h-10 rounded-xl bg-brand-accent/10 text-brand-accent font-bold flex items-center justify-center text-sm mb-4">
-                  ★
-                </div>
-                <h4 className="font-heading text-base font-bold text-brand-dark dark:text-brand-light mb-2">
-                  {gate.title}
-                </h4>
-                <p className="text-xs text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
-                  {gate.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
+            {/* CTA Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center">
         <h2 className="font-heading text-3xl font-bold text-brand-dark dark:text-brand-light mb-4">
           Ready to experience structured engineering execution?

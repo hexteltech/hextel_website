@@ -24,13 +24,7 @@ export default function Footer() {
     window.dispatchEvent(new CustomEvent("open-cookie-settings"));
   };
 
-  const openSearch = () => {
-    window.dispatchEvent(new CustomEvent("open-site-search"));
-  };
 
-  const openClientPortal = () => {
-    window.dispatchEvent(new CustomEvent("open-client-portal"));
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -59,24 +53,7 @@ export default function Footer() {
             <p className="text-sm text-brand-light/60 max-w-sm leading-relaxed">
               {t.footer?.tagline || BRAND_CONFIG.tagline}
             </p>
-            <div className="pt-2 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={openSearch}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-brand-light/75 hover:text-white transition-colors"
-              >
-                <span>{t.common?.quickSearch || "Quick Search"}</span>
-                <kbd className="text-[10px] bg-white/10 px-1 py-0.5 rounded">⌘K</kbd>
-              </button>
 
-              <button
-                type="button"
-                onClick={openClientPortal}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-brand-light/75 hover:text-white transition-colors"
-              >
-                <span>{t.common?.clientPortal || "Client Portal"}</span>
-              </button>
-            </div>
           </div>
 
           {/* Quick Navigation Links with hover transitions */}

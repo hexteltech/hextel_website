@@ -108,7 +108,7 @@ export default function AboutPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4 xs:p-6 sm:p-8 lg:p-12">
             <div className="text-left text-white max-w-md">
-              <div className="font-heading text-lg sm:text-xl font-bold">Warsaw Engineering Lab</div>
+              <div className="font-heading text-lg sm:text-xl font-bold">HEXTEL Technology</div>
               <div className="text-xs text-white/80">Where enterprise architectures and modern digital platforms are conceived.</div>
             </div>
           </div>

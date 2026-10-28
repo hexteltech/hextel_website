@@ -46,8 +46,8 @@ export default function ProjectsSection() {
           className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
           {PROJECTS.map((project, idx) => {
-            const title = t.projects?.items?.[idx]?.title || project.title;
-            const category = t.projects?.items?.[idx]?.category || project.category;
+            const title = project.title;
+            const category = project.category;
 
             return (
               <StaggerItem key={project.id}>

@@ -19,6 +19,9 @@ const CATEGORIES: { id: CategoryFilter; label: string }[] = [
 ];
 
 export default function ReviewsSection() {
+  if (REVIEWS.length === 0) {
+    return null;
+  }
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
 

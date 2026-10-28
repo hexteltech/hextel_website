@@ -60,12 +60,12 @@ export const translations: Record<SupportedLanguage, TranslationSchema> = {
       items: [
         {
           id: "project-1",
-          title: "A premium brand with a new digital ecosystem",
+          title: "Nayyab Jewellers – Bespoke Luxury E-Commerce",
           category: "Full-Stack Web Application",
         },
         {
           id: "project-2",
-          title: "A modern identity and infrastructure for high-growth tech",
+          title: "Al Moman Frozen Foods — E-Commerce & Live Order System",
           category: "Design System & Platform",
         },
       ],
