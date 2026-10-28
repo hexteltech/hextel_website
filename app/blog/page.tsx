@@ -322,40 +322,6 @@ export default function BlogPage() {
         </div>
       )}
 
-      {/* Newsletter Subscription */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-        <div className="p-8 sm:p-12 rounded-3xl bg-brand-dark text-brand-light border border-white/10 shadow-2xl text-center relative overflow-hidden">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-accent mb-2 block">
-            Stay Ahead
-          </span>
-          <h2 className="font-heading text-2xl sm:text-3xl font-bold mb-3">
-            Subscribe to our bi-weekly architecture briefing
-          </h2>
-          <p className="text-sm text-brand-light/70 max-w-md mx-auto mb-6">
-            Zero marketing spam. Only hard-won engineering patterns, benchmarks, and architectural blueprints delivered directly to your inbox.
-          </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Thank you for subscribing to Hextel Tech Insights!");
-            }}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          >
-            <input
-              type="email"
-              required
-              placeholder="Enter your work email address..."
-              className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-brand-accent transition-colors"
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 rounded-xl bg-brand-accent text-white text-sm font-semibold hover:brightness-110 transition-all"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
-    </div>
+          </div>
   );
 }

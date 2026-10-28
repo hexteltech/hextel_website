@@ -64,63 +64,9 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     ],
     techStack: ["Next.js", "React 19", "Tailwind CSS", "TypeScript", "Vercel", "WhatsApp API"],
   },
-  {
-    id: "project-2",
-    title: "High-Throughput Autonomous AI Copilot & Knowledge Retrieval Engine",
-    client: "MODO Systems",
-    category: "AI Ecosystems",
-    image: "/images/t001-nova-project-building-1280.webp",
-    alt: "Modern architecture representing enterprise tech identity",
-    challenge:
-      "Over 40,000 weekly support tickets overwhelmed operations, with domain knowledge locked in disparate PDFs, internal wikis, and databases.",
-    solution:
-      "Architected an enterprise RAG pipeline combining pgvector with LangGraph orchestration, automating 68% of support resolutions with zero hallucinations.",
-    metrics: [
-      { label: "Support Volume Automated", value: "68%" },
-      { label: "Average Response Time", value: "< 1.4s" },
-      { label: "Operational Cost Cut", value: "-52%" },
-    ],
-    techStack: ["Python", "pgvector", "LangChain", "OpenAI", "FastAPI", "Docker"],
-  },
-  {
-    id: "project-3",
-    title: "Custom Multi-Entity ERP & Supply Chain Management Platform",
-    client: "NOMA Group",
-    category: "ERP & Software",
-    image: "/images/t001-nova-project-laptop-1280.webp",
-    alt: "Modern dashboard interface for NOMA Group",
-    challenge:
-      "Disconnected legacy spreadsheets caused order fulfillment discrepancies and delayed monthly financial reconciliations across 12 warehouses.",
-    solution:
-      "Built a unified, real-time web ERP application with multi-currency ledgers, inventory tracking, and role-based access control.",
-    metrics: [
-      { label: "Fulfillment Velocity", value: "+85%" },
-      { label: "Reconciliation Time", value: "Real-time" },
-      { label: "Warehouse Parity", value: "100%" },
-    ],
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "AWS RDS"],
-  },
-  {
-    id: "project-4",
-    title: "Cloud Infrastructure Modernization & Kubernetes GitOps Migration",
-    client: "ASPEKT Global",
-    category: "Cloud & DevOps",
-    image: "/images/t001-nova-project-building-1280.webp",
-    alt: "Cloud datacenter architecture concept",
-    challenge:
-      "Frequent manual deployments caused unexpected outages and scaling bottlenecks during seasonal peak traffic surges.",
-    solution:
-      "Implemented automated GitHub Actions pipelines, containerized all services via Docker, and deployed auto-scaling Kubernetes (EKS) clusters.",
-    metrics: [
-      { label: "Deployment Frequency", value: "8x Daily" },
-      { label: "System Uptime Record", value: "99.99%" },
-      { label: "Cloud Spend Saved", value: "38%" },
-    ],
-    techStack: ["Kubernetes", "Docker", "Terraform", "GitHub Actions", "AWS"],
-  },
 ];
 
-const CATEGORIES = ["All", "Full-Stack Web", "AI Ecosystems", "Cloud & DevOps", "ERP & Software"];
+const CATEGORIES = ["All", ...Array.from(new Set(CASE_STUDIES.map((p) => p.category)))];
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");

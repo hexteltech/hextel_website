@@ -11,7 +11,6 @@ import LoadingBar from "@/components/ui/LoadingBar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { UtmProvider } from "@/components/providers/UtmTracker";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
-import RegionAutoNotice from "@/components/ui/RegionAutoNotice";
 import "./globals.css";
 
 const sansFont = Plus_Jakarta_Sans({
@@ -112,8 +111,6 @@ export default function RootLayout({
               {/* 13. Password visibility toggle: Client NDA Portal */}
               <ClientPortalModal />
 
-              {/* Region-based auto language change notice toast */}
-              <RegionAutoNotice />
             </UtmProvider>
           </LanguageProvider>
         </ThemeProvider>
