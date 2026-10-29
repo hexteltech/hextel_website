@@ -6,9 +6,9 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
 const TEAM_AVATARS = [
-  { src: "/images/t001-nova-avatar-01-220.webp", alt: "Hextel Tech team member" },
-  { src: "/images/t001-nova-avatar-02-220.webp", alt: "Hextel Tech team member" },
-  { src: "/images/t001-nova-avatar-03-220.webp", alt: "Hextel Tech team member" },
+  { src: "/images/hasaan-ahmad-avatar.jpg", alt: "Hasaan Ahmad - CEO & Business Development" },
+  { src: "/images/faseeh-altaf-v2-avatar.jpg", alt: "Muhammad Faseeh Altaf - Marketing Expert & Full Stack Developer" },
+  { src: "/images/moman-salman-avatar.jpg", alt: "Moman Salman - Full Stack Developer & AI Automation Expert" },
 ];
 
 const DEFAULT_VALUE_PROPS = [

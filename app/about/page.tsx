@@ -45,19 +45,19 @@ const LEADERSHIP = [
     name: "Hasaan Ahmad",
     role: "CEO & Business Development",
     bio: "Co-founder leading enterprise business development, strategic partnerships, and client success. Focused on transforming ambitious business visions into high-impact digital ventures.",
-    image: "/images/t001-nova-avatar-01-220.webp",
+    image: "/images/hasaan-ahmad-avatar.jpg",
   },
   {
     name: "Muhammad Faseeh Altaf",
     role: "Marketing Expert & Full Stack Developer",
     bio: "Co-founder combining deep full-stack engineering expertise with data-driven growth marketing, performance funnels, and scalable web architectures.",
-    image: "/images/t001-nova-avatar-02-220.webp",
+    image: "/images/faseeh-altaf-v2-avatar.jpg",
   },
   {
     name: "Moman Salman",
     role: "Full Stack Developer & AI Automation Expert",
     bio: "Co-founder specializing in end-to-end full stack web platforms, intelligent AI workflows, automated systems, and next-generation cloud solutions.",
-    image: "/images/t001-nova-avatar-03-220.webp",
+    image: "/images/moman-salman-avatar.jpg",
   },
 ];
 
