@@ -6,10 +6,13 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:neon": "node scripts/seed-neon.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
+    "@hasaan_6/rag-chatbot-widget": "^0.3.5",
+    "@neondatabase/serverless": "^1.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^14.1.0",
     "next": "^15.1.0",

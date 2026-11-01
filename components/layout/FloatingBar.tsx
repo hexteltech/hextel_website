@@ -38,7 +38,7 @@ export default function FloatingBar() {
       className="fixed z-40 flex flex-col items-center gap-2 sm:gap-2.5"
       style={{
         bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))",
-        right: "max(1rem, calc(env(safe-area-inset-right) + 0.5rem))",
+        left: "max(1rem, calc(env(safe-area-inset-left) + 0.5rem))",
       }}
     >
       {/* Scroll-to-Top Button Toggle with Circular Progress */}

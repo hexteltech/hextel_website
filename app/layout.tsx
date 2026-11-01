@@ -8,6 +8,7 @@ import CookieBanner from "@/components/ui/CookieBanner";
 import SearchModal from "@/components/ui/SearchModal";
 import ClientPortalModal from "@/components/ui/ClientPortalModal";
 import LoadingBar from "@/components/ui/LoadingBar";
+import ChatbotWidgetWrapper from "@/components/chatbot/ChatbotWidgetWrapper";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { UtmProvider } from "@/components/providers/UtmTracker";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
@@ -99,8 +100,11 @@ export default function RootLayout({
               {/* Site Footer */}
               <Footer />
 
-              {/* 4. Back to top button toggle & floating actions */}
+              {/* 4. Back to top button toggle & floating actions (bottom-left) */}
               <FloatingBar />
+
+              {/* AI Chatbot Widget (bottom-right) */}
+              <ChatbotWidgetWrapper />
 
               {/* 2. Simple cookie banner */}
               <CookieBanner />
