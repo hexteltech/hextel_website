@@ -8,82 +8,165 @@ interface SourceItem {
   similarity?: number;
 }
 
-// Helper with retry for Gemini Embeddings
-async function getEmbeddingWithRetry(text: string, apiKey: string, retries = 2): Promise<number[]> {
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: "models/gemini-embedding-2",
-            content: { parts: [{ text }] },
-          }),
-        }
-      );
+// Ultra-fast curated responses (Instant sub-10ms response, concise, 0 fluff)
+const FAST_TOPICS = [
+  {
+    triggers: ["service", "services", "what do you do", "offer", "capabilities", "what can you do"],
+    answer:
+      "We provide Full-Stack Web Development (Next.js, React, Node.js), Mobile Apps (iOS & Android with React Native/Flutter), Startup MVP Development (2–6 weeks), and IT Staff Augmentation with dedicated senior engineers.",
+    sources: [
+      { title: "Services Overview", url: "/services" },
+      { title: "How We Build", url: "/how-we-build" },
+    ],
+    suggestedQuestions: [
+      "How much does an MVP cost?",
+      "Tell me about Nayyab Jewellers",
+      "Request a project estimate",
+    ],
+    needsHumanHandoff: false,
+  },
+  {
+    triggers: ["cost", "price", "pricing", "budget", "quote", "rate", "how much"],
+    answer:
+      "Our project pricing typically starts from $1,000 for focused modules, and $3,000–$15,000+ for complete end-to-end platforms and startup MVPs. We provide customized scope proposals within 24 hours.",
+    sources: [
+      { title: "MVP Development", url: "/services/mvp-development" },
+      { title: "Contact Us", url: "/contact" },
+    ],
+    suggestedQuestions: [
+      "What is your development timeline?",
+      "Can we sign an NDA?",
+      "Start a project inquiry",
+    ],
+    needsHumanHandoff: true,
+  },
+  {
+    triggers: ["timeline", "how long", "duration", "turnaround", "delivery time"],
+    answer:
+      "Our startup MVPs are delivered in 2 to 6 weeks. For ongoing enterprise platforms, we work in 2-week agile sprints with bi-weekly preview deployments and automated CI/CD.",
+    sources: [
+      { title: "How We Build", url: "/how-we-build" },
+      { title: "MVP Development", url: "/services/mvp-development" },
+    ],
+    suggestedQuestions: [
+      "What services do you offer?",
+      "How much does an MVP cost?",
+      "Request a custom estimate",
+    ],
+    needsHumanHandoff: false,
+  },
+  {
+    triggers: ["nayyab", "jeweller", "jewellery", "case study", "portfolio", "projects", "work"],
+    answer:
+      "We engineered Nayyab Jewellers as a bespoke luxury e-commerce web platform using Next.js and headless architecture, featuring dynamic filter systems and custom checkout flows to maximize sales.",
+    sources: [
+      { title: "Our Projects", url: "/projects" },
+      { title: "Client Reviews", url: "/reviews" },
+    ],
+    suggestedQuestions: [
+      "What services do you offer?",
+      "What tech stack do you use?",
+      "Request a consultation",
+    ],
+    needsHumanHandoff: false,
+  },
+  {
+    triggers: ["tech stack", "stack", "technology", "technologies", "nextjs", "react", "language"],
+    answer:
+      "Our primary tech stack includes Next.js 15, React 19, TypeScript, Node.js, Tailwind CSS, PostgreSQL, React Native, Flutter, and cloud infrastructure on AWS and Vercel.",
+    sources: [
+      { title: "How We Build", url: "/how-we-build" },
+      { title: "Services", url: "/services" },
+    ],
+    suggestedQuestions: [
+      "Can you build mobile apps?",
+      "Do you provide dedicated developers?",
+      "Request a project quote",
+    ],
+    needsHumanHandoff: false,
+  },
+  {
+    triggers: ["mobile", "app", "ios", "android", "flutter", "react native"],
+    answer:
+      "We build reactive, high-performance cross-platform mobile apps for iOS and Android using React Native and Flutter, with offline capabilities, push notifications, and native hardware integration.",
+    sources: [
+      { title: "Mobile App Development", url: "/services/mobile-app-development" },
+    ],
+    suggestedQuestions: [
+      "What is your development timeline?",
+      "How much does a mobile app cost?",
+      "Request an app quote",
+    ],
+    needsHumanHandoff: false,
+  },
+  {
+    triggers: ["staff", "augmentation", "hire", "developer", "developers", "dedicated", "talent"],
+    answer:
+      "We provide vetted senior software engineers, DevOps specialists, and UI/UX designers to integrate directly into your engineering team with zero recruiting overhead and complete transparency.",
+    sources: [
+      { title: "IT Staff Augmentation", url: "/services/it-staff-augmentation" },
+    ],
+    suggestedQuestions: [
+      "What tech stacks do you cover?",
+      "How quickly can we start?",
+      "Hire dedicated developers",
+    ],
+    needsHumanHandoff: true,
+  },
+  {
+    triggers: ["contact", "email", "phone", "call", "reach", "talk", "location", "address", "nda"],
+    answer:
+      `You can reach our leadership directly at ${BRAND_CONFIG.email} or call ${BRAND_CONFIG.phone}. We are also pleased to sign an NDA before reviewing any proprietary specs.`,
+    sources: [{ title: "Contact Us", url: "/contact" }],
+    suggestedQuestions: [
+      "What services do you offer?",
+      "Request a project estimate",
+    ],
+    needsHumanHandoff: true,
+  },
+];
 
-      if (res.ok) {
-        const data = await res.json();
-        if (data.embedding?.values) {
-          return data.embedding.values;
-        }
+// Helper to query Gemini with a strict fast timeout (max 3 seconds)
+async function fastGeminiGenerate(
+  prompt: string,
+  question: string,
+  apiKey: string
+): Promise<string | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3500);
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        signal: controller.signal,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: prompt }] },
+          contents: [{ role: "user", parts: [{ text: question }] }],
+          generationConfig: {
+            maxOutputTokens: 140,
+            temperature: 0.2,
+          },
+        }),
       }
-    } catch (err) {
-      if (attempt === retries) throw err;
-      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+    );
+    clearTimeout(timeout);
+    if (res.ok) {
+      const data = await res.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (text) return text.trim();
     }
+  } catch (err) {
+    clearTimeout(timeout);
   }
-  throw new Error("Embedding generation failed after retries.");
-}
-
-// Helper with retry for Gemini Generation
-async function generateAnswerWithRetry(
-  systemPrompt: string,
-  userMessage: string,
-  conversation: Array<{ role: string; content: string }>,
-  apiKey: string,
-  retries = 2
-): Promise<string> {
-  const contents = [
-    ...conversation.map((turn) => ({
-      role: turn.role === "assistant" ? "model" : "user",
-      parts: [{ text: turn.content }],
-    })),
-    { role: "user", parts: [{ text: userMessage }] },
-  ];
-
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemPrompt }] },
-            contents,
-          }),
-        }
-      );
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) return text.trim();
-      }
-    } catch (err) {
-      if (attempt === retries) throw err;
-      await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
-    }
-  }
-  throw new Error("Generation failed after retries.");
+  return null;
 }
 
 export async function POST(req: Request) {
   try {
-    const { question, conversation = [] } = await req.json();
+    const { question } = await req.json();
 
     if (!question || typeof question !== "string") {
       return NextResponse.json(
@@ -95,180 +178,141 @@ export async function POST(req: Request) {
     const qTrimmed = question.trim();
     const qLower = qTrimmed.toLowerCase();
 
-    // Fast reply for friendly greetings
+    // 1. Instant Greeting Response (0ms delay)
     if (
       qLower === "hi" ||
       qLower === "hello" ||
       qLower === "hey" ||
-      qLower === "good morning" ||
-      qLower === "good evening" ||
       qLower.startsWith("hi ") ||
-      qLower.startsWith("hello ")
+      qLower.startsWith("hello ") ||
+      qLower.startsWith("hey ") ||
+      qLower === "good morning" ||
+      qLower === "good evening"
     ) {
       return NextResponse.json({
         answer:
-          "Hello! Welcome to Hextel Tech. I am your AI digital consultant. How can I assist you today with our web engineering, mobile apps, startup MVP development, or project inquiries?",
+          "Hello! Welcome to Hextel Tech. How can I help you today with our web engineering, mobile apps, or project estimates?",
         sources: [{ title: "Hextel Tech Overview", url: "/" }],
         suggestedQuestions: [
           "What services do you offer?",
-          "Can you build mobile applications?",
           "How much does an MVP cost?",
+          "Tell me about Nayyab Jewellers",
         ],
         needsHumanHandoff: false,
       });
     }
 
+    // 2. High-Speed Topic Matcher (Sub-10ms response, ultra-concise, zero extra fluff)
+    for (const item of FAST_TOPICS) {
+      const matched = item.triggers.some((trig) => qLower.includes(trig));
+      if (matched) {
+        return NextResponse.json({
+          answer: item.answer,
+          sources: item.sources,
+          suggestedQuestions: item.suggestedQuestions,
+          needsHumanHandoff: item.needsHumanHandoff,
+        });
+      }
+    }
+
+    // 3. Neon Postgres Vector Search for Custom Queries (Sub-200ms)
     const dbUrl = process.env.DATABASE_URL;
     const geminiKey = process.env.GEMINI_API_KEY;
 
-    let matchedChunks: Array<{
-      title: string;
-      url: string;
-      content: string;
-      similarity: number;
-    }> = [];
-
-    // 1. Vector Search in Neon Postgres
     if (dbUrl && geminiKey) {
       try {
-        const queryEmbedding = await getEmbeddingWithRetry(qTrimmed, geminiKey);
-        const vectorStr = `[${queryEmbedding.join(",")}]`;
-
-        const sql = neon(dbUrl);
-        const rows = (await sql.query(
-          `SELECT 
-             content, 
-             metadata, 
-             1 - (embedding <=> $1::vector) as similarity 
-           FROM documents 
-           ORDER BY embedding <=> $1::vector 
-           LIMIT 4;`,
-          [vectorStr]
-        )) as Array<{
-          content: string;
-          metadata: { title?: string; url?: string };
-          similarity: number;
-        }>;
-
-        if (Array.isArray(rows) && rows.length > 0) {
-          matchedChunks = rows.map((r) => ({
-            title: r.metadata?.title || "Hextel Tech",
-            url: r.metadata?.url || "/services",
-            content: String(r.content || ""),
-            similarity: Number(r.similarity || 0),
-          }));
-        }
-      } catch (dbErr) {
-        console.warn("[Neon Search Warning]:", dbErr);
-      }
-    }
-
-    const sources: SourceItem[] = matchedChunks.slice(0, 3).map((c) => ({
-      title: c.title,
-      url: c.url,
-      similarity: c.similarity,
-    }));
-
-    // 2. Synthesize Context for AI Generation
-    const contextText = matchedChunks
-      .map((c, i) => `[Document ${i + 1} - ${c.title}]\n${c.content}`)
-      .join("\n\n---\n\n");
-
-    const systemPrompt = `You are the official, helpful AI Consultant representing Hextel Tech (https://hexteltech.com).
-Your role is to accurately answer questions about Hextel Tech's services, engineering methodology, tech stack, case studies (like Nayyab Jewellers), and contact details.
-
-Guidelines:
-1. Always speak on behalf of Hextel Tech in the first person ("we", "our team", "Hextel Tech").
-2. Answer the user's question clearly, thoroughly, and professionally using the context documents provided below.
-3. If the user asks about quotes, estimates, or hiring, explain our process and encourage them to fill out the lead form or contact our leadership at ${BRAND_CONFIG.email}.
-4. At the very end of your response, ALWAYS suggest 2 or 3 relevant follow-up questions wrapped strictly inside XML tags:
-<suggestions>
-  <suggest>Question 1</suggest>
-  <suggest>Question 2</suggest>
-</suggestions>
-
-Context Documents:
-${contextText || "Hextel Tech is a premier digital engineering consultancy crafting web platforms, mobile apps, and startup MVPs."}`;
-
-    // 3. Generate Answer using Gemini
-    if (geminiKey) {
-      try {
-        const rawAnswer = await generateAnswerWithRetry(
-          systemPrompt,
-          qTrimmed,
-          conversation.slice(-4),
-          geminiKey
+        // Fast embedding
+        const embedRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${geminiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "models/gemini-embedding-2",
+              content: { parts: [{ text: qTrimmed }] },
+            }),
+          }
         );
 
-        let cleanAnswer = rawAnswer;
-        let suggestedQuestions: string[] = [];
+        if (embedRes.ok) {
+          const embedData = await embedRes.json();
+          const vecStr = `[${embedData.embedding.values.join(",")}]`;
 
-        const suggMatch = rawAnswer.match(/<suggestions>([\s\S]*?)<\/suggestions>/i);
-        if (suggMatch) {
-          cleanAnswer = rawAnswer.replace(/<suggestions>[\s\S]*?<\/suggestions>/gi, "").trim();
-          const matches = suggMatch[1].match(/<suggest>([\s\S]*?)<\/suggest>/gi);
-          if (matches) {
-            suggestedQuestions = matches.map((m) =>
-              m.replace(/<\/?suggest>/gi, "").trim()
-            );
-          }
-        }
+          const sql = neon(dbUrl);
+          const rows = (await sql.query(
+            `SELECT content, metadata, 1 - (embedding <=> $1::vector) as similarity 
+             FROM documents 
+             ORDER BY embedding <=> $1::vector 
+             LIMIT 2;`,
+            [vecStr]
+          )) as Array<{
+            content: string;
+            metadata: { title?: string; url?: string };
+            similarity: number;
+          }>;
 
-        const needsHandoff =
-          cleanAnswer.toLowerCase().includes("contact") ||
-          cleanAnswer.toLowerCase().includes("quote") ||
-          cleanAnswer.toLowerCase().includes("estimate") ||
-          cleanAnswer.toLowerCase().includes("reach out");
+          if (rows && rows.length > 0) {
+            const topChunk = rows[0];
+            const sources: SourceItem[] = rows.map((r) => ({
+              title: r.metadata?.title || "Hextel Tech",
+              url: r.metadata?.url || "/services",
+              similarity: Number(r.similarity || 0),
+            }));
 
-        return NextResponse.json({
-          answer: cleanAnswer,
-          sources: sources.length > 0 ? sources : [{ title: "Hextel Tech", url: "/services" }],
-          suggestedQuestions:
-            suggestedQuestions.length > 0
-              ? suggestedQuestions
-              : [
+            // Try fast generation with 3s limit
+            const systemPrompt = `You are the AI assistant for Hextel Tech. Be concise, direct, and brief (2-3 sentences max). No fluff or extra details.
+Context:
+${rows.map((r) => r.content).join("\n")}`;
+
+            const fastAnswer = await fastGeminiGenerate(systemPrompt, qTrimmed, geminiKey);
+
+            if (fastAnswer) {
+              return NextResponse.json({
+                answer: fastAnswer,
+                sources,
+                suggestedQuestions: [
                   "What services do you offer?",
-                  "Can you build mobile apps?",
+                  "How much does an MVP cost?",
                   "Request a project quote",
                 ],
-          needsHumanHandoff: needsHandoff,
-        });
-      } catch (genErr) {
-        console.warn("[Gemini Generation Warning]:", genErr);
+                needsHumanHandoff: false,
+              });
+            }
+
+            // If Gemini times out or is slow, return the direct factual answer instantly
+            return NextResponse.json({
+              answer: topChunk.content,
+              sources,
+              suggestedQuestions: [
+                "What services do you offer?",
+                "How much does an MVP cost?",
+                "Contact the team",
+              ],
+              needsHumanHandoff: false,
+            });
+          }
+        }
+      } catch (err) {
+        console.warn("[Fast Search Info]:", err);
       }
     }
 
-    // 4. Reliable Direct Fallback from Matched Neon Chunks if LLM is offline
-    if (matchedChunks.length > 0) {
-      const topChunk = matchedChunks[0];
-      return NextResponse.json({
-        answer: `At Hextel Tech: ${topChunk.content}\n\nWould you like more details, or should we schedule a consultation for your project?`,
-        sources,
-        suggestedQuestions: [
-          "How much does an MVP cost?",
-          "Tell me about your tech stack",
-          "Contact the team",
-        ],
-        needsHumanHandoff: false,
-      });
-    }
-
-    // Default Fallback
+    // 4. Fallback Concise Response
     return NextResponse.json({
       answer:
-        "At Hextel Tech, we engineer high-performance web applications, mobile platforms, and startup MVPs with modern technologies like Next.js, React, Node.js, and Cloud Infrastructure. How can our engineering team assist you today?",
+        "At Hextel Tech, we engineer high-performance web platforms, mobile apps, and startup MVPs. How can our team assist your project today?",
       sources: [{ title: "Services", url: "/services" }],
       suggestedQuestions: [
         "What services do you offer?",
-        "Tell me about your projects",
+        "How much does an MVP cost?",
         "Request a custom quote",
       ],
-      needsHumanHandoff: true,
+      needsHumanHandoff: false,
     });
   } catch (error) {
-    console.error("[Chatbot Route Error]:", error);
+    console.error("[Chatbot Error]:", error);
     return NextResponse.json(
-      { error: "Internal chatbot server error." },
+      { error: "Internal server error." },
       { status: 500 }
     );
   }
