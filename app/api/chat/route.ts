@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
-import {
-  runRagPipeline,
-  createGeminiLLMAdapter,
-  createOpenAIEmbeddingAdapter,
-  createOpenAILLMAdapter,
-  createSupabaseVectorStore,
-} from "@hasaan_6/rag-chatbot-widget/server";
-import { createNeonVectorStore } from "@/lib/neonVectorStore";
+import { neon } from "@neondatabase/serverless";
 import { BRAND_CONFIG } from "@/lib/constants";
 
-// Robust Gemini embedding adapter supporting gemini-embedding-2 (3072 dims)
-function createCustomGeminiEmbeddingAdapter(apiKey: string) {
-  return async (text: string): Promise<number[]> => {
+interface SourceItem {
+  title: string;
+  url?: string;
+  similarity?: number;
+}
+
+// Helper with retry for Gemini Embeddings
+async function getEmbeddingWithRetry(text: string, apiKey: string, retries = 2): Promise<number[]> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${apiKey}`,
@@ -24,188 +23,67 @@ function createCustomGeminiEmbeddingAdapter(apiKey: string) {
           }),
         }
       );
+
       if (res.ok) {
         const data = await res.json();
-        return data.embedding.values;
+        if (data.embedding?.values) {
+          return data.embedding.values;
+        }
       }
-    } catch (e) {
-      // fallback
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
     }
-
-    const fallbackRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "models/gemini-embedding-001",
-          content: { parts: [{ text }] },
-        }),
-      }
-    );
-
-    if (fallbackRes.ok) {
-      const data = await fallbackRes.json();
-      return data.embedding.values;
-    }
-
-    throw new Error("Failed to generate Gemini vector embedding.");
-  };
+  }
+  throw new Error("Embedding generation failed after retries.");
 }
 
-// Fallback Knowledge Base documents used if AI rate limits or network issues occur
-const HEXTEL_KNOWLEDGE = [
-  {
-    keywords: ["service", "services", "offer", "what do you do", "capabilities", "stack"],
-    answer:
-      "At Hextel Tech, we engineer high-performance digital products and scalable systems. Our core service categories include:\n\n• Web Application Development (Next.js, React, Node.js, TypeScript)\n• Mobile App Development (iOS & Android with React Native / Flutter)\n• MVP Development for Startups (rapid 2–6 week production delivery)\n• IT Staff Augmentation & Dedicated Senior Engineers\n• Cloud Infrastructure, DevOps & Containerization (AWS, Docker, CI/CD)\n• AI Integration & Enterprise Custom Software\n\nWould you like a custom quote or more information on a specific service?",
-    sources: [
-      { title: "Hextel Tech Services", url: "/services" },
-      { title: "How We Build", url: "/how-we-build" },
-    ],
-    suggestedQuestions: [
-      "How much does an MVP cost?",
-      "Can I hire dedicated developers?",
-      "Tell me about your tech stack.",
-    ],
-  },
-  {
-    keywords: ["mvp", "startup", "quote", "cost", "price", "pricing", "budget", "timeline", "how long"],
-    answer:
-      "Our MVP development cycles are structured for rapid market validation, typically delivering a production-ready application within 2 to 6 weeks. Project pricing starts from $1,000 for focused modules to $7,000–$15,000+ for complete end-to-end platforms with custom backend, authentication, billing, and admin dashboards.\n\nWe would love to review your requirements and provide a detailed estimate. Would you like to schedule an inquiry?",
-    sources: [
-      { title: "MVP Development for Startups", url: "/services/mvp-development" },
-      { title: "Start a Project", url: "/contact" },
-    ],
-    suggestedQuestions: [
-      "What is your development process?",
-      "Can we sign an NDA?",
-      "Request a project estimate",
-    ],
-  },
-  {
-    keywords: ["how we build", "process", "methodology", "lifecycle", "agile", "development process"],
-    answer:
-      "We follow a transparent 4-stage engineering methodology:\n\n1. Discovery & Architecture: We map out your product specifications, system design, and database schema.\n2. Agile Sprints: We deliver iterative milestones with automated CI/CD and preview deployments.\n3. Rigorous Quality & Security: Full unit tests, Lighthouse optimization (95+ score), and enterprise security audits.\n4. Seamless Deployment & Post-Launch Support: Cloud deployment, observability monitoring, and continuous maintenance.",
-    sources: [
-      { title: "Engineering Methodology", url: "/how-we-build" },
-      { title: "Security & Compliance", url: "/security-and-compliance" },
-    ],
-    suggestedQuestions: [
-      "Can I see your past projects?",
-      "How do we get started?",
-      "What technologies do you use?",
-    ],
-  },
-  {
-    keywords: ["project", "projects", "portfolio", "work", "case study", "nayyab", "jeweller"],
-    answer:
-      "We have delivered 25+ successful products generating over $100K+ in client revenue. One of our signature projects is 'Nayyab Jewellers', a bespoke luxury high-converting e-commerce web platform engineered with Next.js, headless catalog architecture, ultra-fast filter systems, and seamless checkout experience.",
-    sources: [
-      { title: "Our Projects", url: "/projects" },
-      { title: "Client Reviews", url: "/reviews" },
-    ],
-    suggestedQuestions: [
-      "What client reviews do you have?",
-      "Can we build a custom app?",
-      "Contact the team",
-    ],
-  },
-  {
-    keywords: ["review", "reviews", "testimonial", "testimonials", "client feedback", "rating"],
-    answer:
-      "Our clients rate us 5.0/5 across web engineering and digital transformation projects. We take pride in delivering on time, maintaining clean test-covered codebases, and driving tangible business metrics for brands like Nayyab Jewellers and modern tech startups.",
-    sources: [
-      { title: "Verified Client Reviews", url: "/reviews" },
-    ],
-    suggestedQuestions: [
-      "How do we contact Hextel Tech?",
-      "Do you provide post-launch support?",
-    ],
-  },
-  {
-    keywords: ["contact", "email", "phone", "hire", "talk", "reach", "call", "location", "address", "nda"],
-    answer:
-      `You can reach our leadership team directly:\n\n• Email: ${BRAND_CONFIG.email}\n• Phone: ${BRAND_CONFIG.phone}\n• Location: ${BRAND_CONFIG.address}\n\nYou can also click the button below to submit your project details directly, or book a consultation through our contact page. We are also happy to sign an NDA before reviewing proprietary specs.`,
-    sources: [
-      { title: "Contact Hextel Tech", url: "/contact" },
-    ],
-    needsHumanHandoff: true,
-    suggestedQuestions: [
-      "Request a project estimate",
-      "What services do you offer?",
-    ],
-  },
-];
+// Helper with retry for Gemini Generation
+async function generateAnswerWithRetry(
+  systemPrompt: string,
+  userMessage: string,
+  conversation: Array<{ role: string; content: string }>,
+  apiKey: string,
+  retries = 2
+): Promise<string> {
+  const contents = [
+    ...conversation.map((turn) => ({
+      role: turn.role === "assistant" ? "model" : "user",
+      parts: [{ text: turn.content }],
+    })),
+    { role: "user", parts: [{ text: userMessage }] },
+  ];
 
-function findFallbackAnswer(question: string) {
-  const qLower = question.toLowerCase().trim();
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
+            contents,
+          }),
+        }
+      );
 
-  if (
-    qLower === "hi" ||
-    qLower === "hello" ||
-    qLower === "hey" ||
-    qLower.startsWith("good morning") ||
-    qLower.startsWith("good evening") ||
-    qLower === "help"
-  ) {
-    return {
-      answer:
-        "Hello! I'm the Hextel Tech digital assistant. I can guide you through our software services, MVP delivery, past client work, or connect you with our engineering leads. How can I assist your project today?",
-      sources: [{ title: "Hextel Tech Overview", url: "/" }],
-      suggestedQuestions: [
-        "What services do you offer?",
-        "How much does an MVP cost?",
-        "How do we get started?",
-      ],
-      needsHumanHandoff: false,
-    };
-  }
-
-  let bestMatch = null;
-  let maxScore = 0;
-
-  for (const item of HEXTEL_KNOWLEDGE) {
-    let score = 0;
-    for (const kw of item.keywords) {
-      if (qLower.includes(kw)) {
-        score += kw.length;
+      if (res.ok) {
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) return text.trim();
       }
-    }
-    if (score > maxScore) {
-      maxScore = score;
-      bestMatch = item;
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
     }
   }
-
-  if (bestMatch && maxScore > 0) {
-    return {
-      answer: bestMatch.answer,
-      sources: bestMatch.sources,
-      suggestedQuestions: bestMatch.suggestedQuestions,
-      needsHumanHandoff: Boolean(bestMatch.needsHumanHandoff),
-    };
-  }
-
-  return {
-    answer:
-      "Thank you for asking! At Hextel Tech, we specialize in high-impact web applications, mobile platforms, MVP rollouts, and custom AI engineering. I would love to connect you directly with one of our tech leads to discuss the exact scope and pricing for your requirements.",
-    sources: [
-      { title: "Services Overview", url: "/services" },
-      { title: "Contact Us", url: "/contact" },
-    ],
-    suggestedQuestions: [
-      "What services do you offer?",
-      "Tell me about your projects",
-      "Request a custom quote",
-    ],
-    needsHumanHandoff: true,
-  };
+  throw new Error("Generation failed after retries.");
 }
 
 export async function POST(req: Request) {
   try {
-    const { question, conversation } = await req.json();
+    const { question, conversation = [] } = await req.json();
 
     if (!question || typeof question !== "string") {
       return NextResponse.json(
@@ -214,75 +92,181 @@ export async function POST(req: Request) {
       );
     }
 
-    const databaseUrl = process.env.DATABASE_URL;
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+    const qTrimmed = question.trim();
+    const qLower = qTrimmed.toLowerCase();
+
+    // Fast reply for friendly greetings
+    if (
+      qLower === "hi" ||
+      qLower === "hello" ||
+      qLower === "hey" ||
+      qLower === "good morning" ||
+      qLower === "good evening" ||
+      qLower.startsWith("hi ") ||
+      qLower.startsWith("hello ")
+    ) {
+      return NextResponse.json({
+        answer:
+          "Hello! Welcome to Hextel Tech. I am your AI digital consultant. How can I assist you today with our web engineering, mobile apps, startup MVP development, or project inquiries?",
+        sources: [{ title: "Hextel Tech Overview", url: "/" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "Can you build mobile applications?",
+          "How much does an MVP cost?",
+        ],
+        needsHumanHandoff: false,
+      });
+    }
+
+    const dbUrl = process.env.DATABASE_URL;
     const geminiKey = process.env.GEMINI_API_KEY;
-    const openAiKey = process.env.OPENAI_API_KEY;
 
-    const hasLLM = Boolean(geminiKey || openAiKey);
+    let matchedChunks: Array<{
+      title: string;
+      url: string;
+      content: string;
+      similarity: number;
+    }> = [];
 
-    // 1. Neon Postgres Vector DB (Serverless, Auto-Wakeup, Never Pauses)
-    if (databaseUrl && hasLLM) {
+    // 1. Vector Search in Neon Postgres
+    if (dbUrl && geminiKey) {
       try {
-        const embeddingAdapter = geminiKey
-          ? createCustomGeminiEmbeddingAdapter(geminiKey)
-          : createOpenAIEmbeddingAdapter(openAiKey!);
+        const queryEmbedding = await getEmbeddingWithRetry(qTrimmed, geminiKey);
+        const vectorStr = `[${queryEmbedding.join(",")}]`;
 
-        const llmAdapter = geminiKey
-          ? createGeminiLLMAdapter(geminiKey, "gemini-flash-latest")
-          : createOpenAILLMAdapter(openAiKey!);
+        const sql = neon(dbUrl);
+        const rows = (await sql.query(
+          `SELECT 
+             content, 
+             metadata, 
+             1 - (embedding <=> $1::vector) as similarity 
+           FROM documents 
+           ORDER BY embedding <=> $1::vector 
+           LIMIT 4;`,
+          [vectorStr]
+        )) as Array<{
+          content: string;
+          metadata: { title?: string; url?: string };
+          similarity: number;
+        }>;
 
-        const vectorStore = createNeonVectorStore(databaseUrl);
-
-        const result = await runRagPipeline(question, conversation || [], {
-          embeddingAdapter,
-          llmAdapter,
-          vectorStore,
-          matchThreshold: 0.3, // Accommodate semantic vector distances
-        });
-
-        if (result && result.answer && result.answer.trim().length > 0) {
-          return NextResponse.json(result);
+        if (Array.isArray(rows) && rows.length > 0) {
+          matchedChunks = rows.map((r) => ({
+            title: r.metadata?.title || "Hextel Tech",
+            url: r.metadata?.url || "/services",
+            content: String(r.content || ""),
+            similarity: Number(r.similarity || 0),
+          }));
         }
-      } catch (neonErr) {
-        console.warn("[Neon RAG Info]: Vector query fallback engaged:", neonErr);
+      } catch (dbErr) {
+        console.warn("[Neon Search Warning]:", dbErr);
       }
     }
 
-    // 2. Supabase Vector DB (if configured instead)
-    if (supabaseUrl && supabaseKey && hasLLM) {
+    const sources: SourceItem[] = matchedChunks.slice(0, 3).map((c) => ({
+      title: c.title,
+      url: c.url,
+      similarity: c.similarity,
+    }));
+
+    // 2. Synthesize Context for AI Generation
+    const contextText = matchedChunks
+      .map((c, i) => `[Document ${i + 1} - ${c.title}]\n${c.content}`)
+      .join("\n\n---\n\n");
+
+    const systemPrompt = `You are the official, helpful AI Consultant representing Hextel Tech (https://hexteltech.com).
+Your role is to accurately answer questions about Hextel Tech's services, engineering methodology, tech stack, case studies (like Nayyab Jewellers), and contact details.
+
+Guidelines:
+1. Always speak on behalf of Hextel Tech in the first person ("we", "our team", "Hextel Tech").
+2. Answer the user's question clearly, thoroughly, and professionally using the context documents provided below.
+3. If the user asks about quotes, estimates, or hiring, explain our process and encourage them to fill out the lead form or contact our leadership at ${BRAND_CONFIG.email}.
+4. At the very end of your response, ALWAYS suggest 2 or 3 relevant follow-up questions wrapped strictly inside XML tags:
+<suggestions>
+  <suggest>Question 1</suggest>
+  <suggest>Question 2</suggest>
+</suggestions>
+
+Context Documents:
+${contextText || "Hextel Tech is a premier digital engineering consultancy crafting web platforms, mobile apps, and startup MVPs."}`;
+
+    // 3. Generate Answer using Gemini
+    if (geminiKey) {
       try {
-        const embeddingAdapter = geminiKey
-          ? createCustomGeminiEmbeddingAdapter(geminiKey)
-          : createOpenAIEmbeddingAdapter(openAiKey!);
+        const rawAnswer = await generateAnswerWithRetry(
+          systemPrompt,
+          qTrimmed,
+          conversation.slice(-4),
+          geminiKey
+        );
 
-        const llmAdapter = geminiKey
-          ? createGeminiLLMAdapter(geminiKey, "gemini-flash-latest")
-          : createOpenAILLMAdapter(openAiKey!);
+        let cleanAnswer = rawAnswer;
+        let suggestedQuestions: string[] = [];
 
-        const vectorStore = createSupabaseVectorStore(supabaseUrl, supabaseKey);
-
-        const result = await runRagPipeline(question, conversation || [], {
-          embeddingAdapter,
-          llmAdapter,
-          vectorStore,
-        });
-
-        if (result && result.answer && result.answer.trim().length > 0) {
-          return NextResponse.json(result);
+        const suggMatch = rawAnswer.match(/<suggestions>([\s\S]*?)<\/suggestions>/i);
+        if (suggMatch) {
+          cleanAnswer = rawAnswer.replace(/<suggestions>[\s\S]*?<\/suggestions>/gi, "").trim();
+          const matches = suggMatch[1].match(/<suggest>([\s\S]*?)<\/suggest>/gi);
+          if (matches) {
+            suggestedQuestions = matches.map((m) =>
+              m.replace(/<\/?suggest>/gi, "").trim()
+            );
+          }
         }
-      } catch (ragError) {
-        console.warn("[Supabase RAG Info]:", ragError);
+
+        const needsHandoff =
+          cleanAnswer.toLowerCase().includes("contact") ||
+          cleanAnswer.toLowerCase().includes("quote") ||
+          cleanAnswer.toLowerCase().includes("estimate") ||
+          cleanAnswer.toLowerCase().includes("reach out");
+
+        return NextResponse.json({
+          answer: cleanAnswer,
+          sources: sources.length > 0 ? sources : [{ title: "Hextel Tech", url: "/services" }],
+          suggestedQuestions:
+            suggestedQuestions.length > 0
+              ? suggestedQuestions
+              : [
+                  "What services do you offer?",
+                  "Can you build mobile apps?",
+                  "Request a project quote",
+                ],
+          needsHumanHandoff: needsHandoff,
+        });
+      } catch (genErr) {
+        console.warn("[Gemini Generation Warning]:", genErr);
       }
     }
 
-    // 3. Built-in Knowledge Base Responder
-    const fallbackResult = findFallbackAnswer(question);
-    return NextResponse.json(fallbackResult);
+    // 4. Reliable Direct Fallback from Matched Neon Chunks if LLM is offline
+    if (matchedChunks.length > 0) {
+      const topChunk = matchedChunks[0];
+      return NextResponse.json({
+        answer: `At Hextel Tech: ${topChunk.content}\n\nWould you like more details, or should we schedule a consultation for your project?`,
+        sources,
+        suggestedQuestions: [
+          "How much does an MVP cost?",
+          "Tell me about your tech stack",
+          "Contact the team",
+        ],
+        needsHumanHandoff: false,
+      });
+    }
+
+    // Default Fallback
+    return NextResponse.json({
+      answer:
+        "At Hextel Tech, we engineer high-performance web applications, mobile platforms, and startup MVPs with modern technologies like Next.js, React, Node.js, and Cloud Infrastructure. How can our engineering team assist you today?",
+      sources: [{ title: "Services", url: "/services" }],
+      suggestedQuestions: [
+        "What services do you offer?",
+        "Tell me about your projects",
+        "Request a custom quote",
+      ],
+      needsHumanHandoff: true,
+    });
   } catch (error) {
-    console.error("[Chatbot API Error]:", error);
+    console.error("[Chatbot Route Error]:", error);
     return NextResponse.json(
       { error: "Internal chatbot server error." },
       { status: 500 }
