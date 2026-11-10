@@ -13,6 +13,7 @@ export interface ProjectItem {
   title: string;
   category: string;
   image: string;
+  gallery?: string[];
   alt: string;
   link: string;
   badge?: string;
@@ -244,6 +245,12 @@ export const PROJECTS: ProjectItem[] = [
     title: "Job Hunt Copilot — Autonomous Career Engineering Command Center",
     category: "In-House SaaS • AI Command Center",
     image: "/images/jobhunt-hero.jpg",
+    gallery: [
+      "/images/jobhunt-hero.jpg",
+      "/images/jobhunt-playwright.jpg",
+      "/images/jobhunt-sync.jpg",
+      "/images/jobhunt-ledger.jpg",
+    ],
     alt: "Job Hunt Copilot autonomous career engineering command center with Gemini 2.5 Flash",
     link: "/projects#project-jobhunt",
     badge: "Our SaaS Product",
@@ -251,10 +258,16 @@ export const PROJECTS: ProjectItem[] = [
   {
     id: "project-tracelens",
     title: "TraceLens — High-Throughput Telemetry & Observability Engine",
-    category: "Full-Stack Web • AI Observability",
+    category: "In-House SaaS • AI Observability",
     image: "/images/tracelens-hero.jpg",
+    gallery: [
+      "/images/tracelens-hero.jpg",
+      "/images/tracelens-topology.jpg",
+      "/images/tracelens-incidents.jpg",
+    ],
     alt: "TraceLens telemetry, service dependency topology, and observability SaaS engine",
     link: "/projects#project-tracelens",
+    badge: "Our SaaS Product",
   },
   {
     id: "project-1",

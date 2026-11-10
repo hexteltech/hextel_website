@@ -1,10 +1,72 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PROJECTS } from "@/lib/constants";
+import { PROJECTS, ProjectItem } from "@/lib/constants";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { cn } from "@/lib/utils";
+
+function ProjectCardMedia({ project }: { project: ProjectItem }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!project.gallery || project.gallery.length <= 1) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % project.gallery!.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [project.gallery]);
+
+  if (!project.gallery || project.gallery.length <= 1) {
+    return (
+      <Image
+        src={project.image}
+        alt={project.alt}
+        fill
+        quality={95}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+    );
+  }
+
+  return (
+    <>
+      {project.gallery.map((img, i) => (
+        <div
+          key={img}
+          className={cn(
+            "absolute inset-0 transition-opacity duration-700 ease-in-out",
+            index === i ? "opacity-100 z-10" : "opacity-0 pointer-events-none z-0"
+          )}
+        >
+          <Image
+            src={img}
+            alt={project.alt}
+            fill
+            quality={95}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+      ))}
+      {/* 3s Auto-cycle indicator dots */}
+      <div className="absolute top-3 right-3 xs:top-4 xs:right-4 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-1 rounded-full border border-white/10">
+        {project.gallery.map((_, i) => (
+          <span
+            key={i}
+            className={cn(
+              "w-1.5 h-1.5 rounded-full transition-all duration-300",
+              index === i ? "bg-brand-accent scale-125" : "bg-white/40"
+            )}
+          />
+        ))}
+      </div>
+    </>
+  );
+}
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
@@ -66,16 +128,9 @@ export default function ProjectsSection() {
                   )}
 
                   <div className="relative aspect-[4/3] xs:aspect-[16/11] sm:aspect-[16/10] w-full overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.alt}
-                      fill
-                      quality={95}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
+                    <ProjectCardMedia project={project} />
                     {/* Gradient overlay for title legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/30 to-transparent dark:from-black/95 dark:via-black/40 opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/30 to-transparent dark:from-black/95 dark:via-black/40 opacity-90 transition-opacity duration-300 group-hover:opacity-95 pointer-events-none z-10" />
                   </div>
 
                   {/* Card Footer Content */}

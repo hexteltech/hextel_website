@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -42,22 +42,22 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     image: "/images/jobhunt-hero.jpg",
     gallery: [
       {
-        label: "Gemini XYZ Tailoring",
+        label: "01. XYZ Tailoring",
         src: "/images/jobhunt-tailoring.jpg",
         alt: "Gemini XYZ Tailoring and 5-layer anti-hallucination safety gate studio",
       },
       {
-        label: "Playwright Headed Prefill",
+        label: "02. Playwright Prefill",
         src: "/images/jobhunt-playwright.jpg",
         alt: "Playwright assisted prefill runner with zero-submit hardware interlock",
       },
       {
-        label: "Remote & Mobile Sync",
+        label: "03. Mobile & Sync",
         src: "/images/jobhunt-sync.jpg",
         alt: "Discord mobile bot, ntfy.sh push alerts, and live syntax-highlighted webhook inspector",
       },
       {
-        label: "Application Ledger CRM",
+        label: "04. Ledger & CRM",
         src: "/images/jobhunt-ledger.jpg",
         alt: "Immutable application ledger and 404-proof job description vault",
       },
@@ -94,17 +94,17 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
     secondaryImage: "/images/tracelens-topology.jpg",
     gallery: [
       {
-        label: "Live Ingestion Stream",
+        label: "01. Live Ingestion",
         src: "/images/tracelens-hero.jpg",
         alt: "TraceLens live telemetry ingestion stream with sub-ms execution and WebSocket processing",
       },
       {
-        label: "Dependency Topology",
+        label: "02. Dependency Graph",
         src: "/images/tracelens-topology.jpg",
         alt: "TraceLens automated microservice dependency topology graph with risk detection",
       },
       {
-        label: "AI Incident Reports",
+        label: "03. AI Incident Reports",
         src: "/images/tracelens-incidents.jpg",
         alt: "TraceLens automated incident postmortem reports with Z-score root cause analysis",
       },
@@ -175,25 +175,66 @@ const CATEGORIES = ["All", ...Array.from(new Set(CASE_STUDIES.map((p) => p.categ
 
 function ProjectMediaCard({ project }: { project: ProjectCaseStudy }) {
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // 3-second automatic transition timer
+  useEffect(() => {
+    if (!project.gallery || project.gallery.length <= 1 || isPaused) return;
+
+    const interval = setInterval(() => {
+      setActiveGalleryIndex((prev) => (prev + 1) % project.gallery!.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [project.gallery, isPaused]);
 
   if (project.gallery && project.gallery.length > 0) {
+    const total = project.gallery.length;
     const activeImage = project.gallery[activeGalleryIndex];
 
-    return (
-      <div className="space-y-3">
-        <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-[#0D0A0A] border border-brand-dark/15 dark:border-white/10 shadow-2xl group">
-          <Image
-            src={activeImage.src}
-            alt={activeImage.alt}
-            fill
-            quality={95}
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25 pointer-events-none" />
+    const handlePrev = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setActiveGalleryIndex((prev) => (prev - 1 + total) % total);
+    };
 
-          {/* Top badges */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 flex items-center gap-2">
+    const handleNext = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setActiveGalleryIndex((prev) => (prev + 1) % total);
+    };
+
+    return (
+      <div
+        className="space-y-3"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-[#0D0A0A] border border-brand-dark/15 dark:border-white/10 shadow-2xl group select-none">
+          {/* Stacked Images with 700ms Smooth Crossfade Transition */}
+          {project.gallery.map((img, idx) => (
+            <div
+              key={img.src}
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700 ease-in-out",
+                activeGalleryIndex === idx ? "opacity-100 z-10" : "opacity-0 pointer-events-none z-0"
+              )}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                quality={95}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-top"
+                priority={idx === 0}
+              />
+            </div>
+          ))}
+
+          {/* Vignette & contrast overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/35 pointer-events-none z-20" />
+
+          {/* Top Left: SaaS Project Badge */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-30 flex items-center gap-2">
             {project.isOurSaaS && (
               <span className="px-3 py-1 rounded-full bg-brand-accent text-brand-dark font-extrabold text-[11px] tracking-wider uppercase shadow-lg border border-white/20 backdrop-blur-md flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
@@ -202,37 +243,81 @@ function ProjectMediaCard({ project }: { project: ProjectCaseStudy }) {
             )}
           </div>
 
-          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-2">
+          {/* Top Right: Client tag */}
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-2">
             <span className="px-3 py-1 rounded-lg bg-black/85 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-lg">
               {project.client}
             </span>
           </div>
 
-          {/* Bottom active view label */}
-          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20">
-            <span className="px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-[11px] font-medium text-brand-accent border border-brand-accent/30">
-              Active Screen: {activeImage.label}
+          {/* Left Arrow Navigation */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous screenshot"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/65 hover:bg-black/90 backdrop-blur-md text-white border border-white/20 flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-110 shadow-lg cursor-pointer text-lg leading-none"
+          >
+            ‹
+          </button>
+
+          {/* Right Arrow Navigation */}
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next screenshot"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/65 hover:bg-black/90 backdrop-blur-md text-white border border-white/20 flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-110 shadow-lg cursor-pointer text-lg leading-none"
+          >
+            ›
+          </button>
+
+          {/* Bottom Bar: Active view title + 3-sec auto status */}
+          <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between gap-2 text-xs">
+            <span className="px-3 py-1 rounded-md bg-black/85 backdrop-blur-md text-[11px] font-medium text-brand-accent border border-brand-accent/30 shadow-md truncate max-w-[70%]">
+              Screen {activeGalleryIndex + 1}/{total}: {activeImage.label}
+            </span>
+            <span className="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[10px] font-mono text-white/90 border border-white/10 shrink-0 inline-flex items-center gap-1.5">
+              <span className={cn("w-1.5 h-1.5 rounded-full", isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")} />
+              {isPaused ? "Paused" : "3s Auto"}
             </span>
           </div>
         </div>
 
-        {/* Gallery Tab Switcher */}
-        <div className="flex flex-wrap items-center gap-2">
-          {project.gallery.map((tab, idx) => (
-            <button
-              key={tab.label}
-              type="button"
-              onClick={() => setActiveGalleryIndex(idx)}
-              className={cn(
-                "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border",
-                activeGalleryIndex === idx
-                  ? "bg-brand-accent text-brand-dark font-bold border-brand-accent shadow-sm"
-                  : "bg-brand-dark/5 dark:bg-white/5 text-brand-dark/70 dark:text-brand-light/70 border-brand-dark/10 dark:border-white/10 hover:bg-brand-dark/10 dark:hover:bg-white/10"
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
+        {/* Gallery Tab Switcher with Progress Lines */}
+        <div
+          className={cn(
+            "grid gap-2 w-full",
+            total === 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"
+          )}
+        >
+          {project.gallery.map((tab, idx) => {
+            const isActive = activeGalleryIndex === idx;
+            return (
+              <button
+                key={tab.label}
+                type="button"
+                onClick={() => setActiveGalleryIndex(idx)}
+                className={cn(
+                  "relative px-2.5 py-2 rounded-xl text-xs font-semibold transition-all border text-left overflow-hidden flex flex-col justify-between",
+                  isActive
+                    ? "bg-brand-accent/15 text-brand-accent font-bold border-brand-accent/60 shadow-sm ring-1 ring-brand-accent/30"
+                    : "bg-brand-dark/5 dark:bg-white/5 text-brand-dark/70 dark:text-brand-light/70 border-brand-dark/10 dark:border-white/10 hover:bg-brand-dark/10 dark:hover:bg-white/10"
+                )}
+              >
+                <span className="block truncate text-[11px] leading-tight">{tab.label}</span>
+                {/* Visual indicator bar */}
+                <div className="w-full h-1 bg-black/10 dark:bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                  <div
+                    className={cn(
+                      "h-full rounded-full transition-all",
+                      isActive
+                        ? "bg-brand-accent w-full duration-300"
+                        : "w-0 duration-300"
+                    )}
+                  />
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     );
@@ -359,7 +444,7 @@ export default function ProjectsPage() {
             className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12 scroll-mt-28"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Media image */}
+              {/* Media image with 3-sec Auto Transition Gallery */}
               <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
                 <ProjectMediaCard project={project} />
               </div>
