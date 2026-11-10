@@ -43,7 +43,7 @@ export default function ProjectsSection() {
         {/* Projects Grid with Stagger Reveal & Rich Hover States */}
         <StaggerContainer
           staggerDelay={0.2}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {PROJECTS.map((project, idx) => {
             const title = project.title;
@@ -53,15 +53,25 @@ export default function ProjectsSection() {
               <StaggerItem key={project.id}>
                 <Link
                   href={project.link}
-                  className="group relative block overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 transition-all duration-500 hover:-translate-y-2"
+                  className="group relative block overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 transition-all duration-500 hover:-translate-y-2 h-full"
                 >
+                  {/* Floating In-House SaaS badge */}
+                  {project.badge && (
+                    <div className="absolute top-3 left-3 xs:top-4 xs:left-4 z-20">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-accent text-brand-dark font-extrabold text-[11px] tracking-wider uppercase shadow-lg border border-white/20 backdrop-blur-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
+                        {project.badge}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="relative aspect-[4/3] xs:aspect-[16/11] sm:aspect-[16/10] w-full overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.alt}
                       fill
                       quality={95}
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                     {/* Gradient overlay for title legibility */}

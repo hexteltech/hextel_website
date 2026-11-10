@@ -10,11 +10,18 @@ interface ProjectCaseStudy {
   id: string;
   title: string;
   client: string;
-  category: "Full-Stack Web" | "AI Ecosystems" | "Cloud & DevOps" | "ERP & Software";
+  category: "SaaS Product" | "Full-Stack Web" | "AI Ecosystems" | "Cloud & DevOps" | "ERP & Software";
   image: string;
   secondaryImage?: string;
+  gallery?: {
+    label: string;
+    src: string;
+    alt: string;
+  }[];
   alt: string;
   liveUrl?: string;
+  badge?: string;
+  isOurSaaS?: boolean;
   challenge: string;
   solution: string;
   metrics: {
@@ -25,6 +32,53 @@ interface ProjectCaseStudy {
 }
 
 const CASE_STUDIES: ProjectCaseStudy[] = [
+  {
+    id: "project-tracelens",
+    title: "TraceLens — High-Throughput Telemetry & Observability Engine",
+    client: "Hextel Tech (In-House SaaS)",
+    isOurSaaS: true,
+    badge: "Our In-House SaaS",
+    category: "SaaS Product",
+    image: "/images/tracelens-hero.jpg",
+    secondaryImage: "/images/tracelens-topology.jpg",
+    gallery: [
+      {
+        label: "Live Ingestion Stream",
+        src: "/images/tracelens-hero.jpg",
+        alt: "TraceLens live telemetry ingestion stream with sub-ms execution and WebSocket processing",
+      },
+      {
+        label: "Dependency Topology",
+        src: "/images/tracelens-topology.jpg",
+        alt: "TraceLens automated microservice dependency topology graph with risk detection",
+      },
+      {
+        label: "AI Incident Reports",
+        src: "/images/tracelens-incidents.jpg",
+        alt: "TraceLens automated incident postmortem reports with Z-score root cause analysis",
+      },
+    ],
+    alt: "TraceLens high-throughput telemetry, service topology & AI observability SaaS engine",
+    challenge:
+      "Modern cloud architectures and microservices generate millions of asynchronous requests daily, making cascading failures, latent bottlenecks, and inter-service dependency stalls difficult to isolate. Traditional APMs often suffer from heavy compute overhead, complex vendor lock-in, and noisy alerts without automated root-cause explanations.",
+    solution:
+      "We engineered TraceLens — our flagship in-house SaaS observability engine. Built for high-velocity engineering organizations, it features sub-millisecond WebSocket and BullMQ ingestion, an automated microservice dependency topology discovery graph, continuous Z-Score AI anomaly detection against 24-hour historical baselines, and one-click incident postmortem reports complete with mitigation playbooks.",
+    metrics: [
+      { label: "Ingestion Latency", value: "< 1ms" },
+      { label: "Anomaly Engine", value: "Z-Score 24h" },
+      { label: "Incident Postmortems", value: "Instant AI" },
+    ],
+    techStack: [
+      "Next.js",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "WebSockets",
+      "BullMQ & Redis",
+      "Z-Score AI Engine",
+      "Distributed Tracing",
+    ],
+  },
   {
     id: "project-1",
     title: "Nayyab Jewellers — Bespoke Luxury E-Commerce & Digital Storefront",
@@ -68,6 +122,142 @@ const CASE_STUDIES: ProjectCaseStudy[] = [
 
 const CATEGORIES = ["All", ...Array.from(new Set(CASE_STUDIES.map((p) => p.category)))];
 
+function ProjectMediaCard({ project }: { project: ProjectCaseStudy }) {
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+
+  if (project.gallery && project.gallery.length > 0) {
+    const activeImage = project.gallery[activeGalleryIndex];
+
+    return (
+      <div className="space-y-3">
+        <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-[#0D0A0A] border border-brand-dark/15 dark:border-white/10 shadow-2xl group">
+          <Image
+            src={activeImage.src}
+            alt={activeImage.alt}
+            fill
+            quality={95}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25 pointer-events-none" />
+
+          {/* Top badges */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 flex items-center gap-2">
+            {project.isOurSaaS && (
+              <span className="px-3 py-1 rounded-full bg-brand-accent text-brand-dark font-extrabold text-[11px] tracking-wider uppercase shadow-lg border border-white/20 backdrop-blur-md flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
+                Our SaaS Project
+              </span>
+            )}
+          </div>
+
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-2">
+            <span className="px-3 py-1 rounded-lg bg-black/85 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-lg">
+              {project.client}
+            </span>
+          </div>
+
+          {/* Bottom active view label */}
+          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20">
+            <span className="px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-[11px] font-medium text-brand-accent border border-brand-accent/30">
+              Active Screen: {activeImage.label}
+            </span>
+          </div>
+        </div>
+
+        {/* Gallery Tab Switcher */}
+        <div className="flex flex-wrap items-center gap-2">
+          {project.gallery.map((tab, idx) => (
+            <button
+              key={tab.label}
+              type="button"
+              onClick={() => setActiveGalleryIndex(idx)}
+              className={cn(
+                "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border",
+                activeGalleryIndex === idx
+                  ? "bg-brand-accent text-brand-dark font-bold border-brand-accent shadow-sm"
+                  : "bg-brand-dark/5 dark:bg-white/5 text-brand-dark/70 dark:text-brand-light/70 border-brand-dark/10 dark:border-white/10 hover:bg-brand-dark/10 dark:hover:bg-white/10"
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (project.secondaryImage) {
+    return (
+      <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#1c1817] via-[#141010] to-[#0a0808] border border-brand-dark/10 dark:border-white/10 p-3 sm:p-5 flex items-center justify-center group shadow-md">
+        {/* Subtle decorative glow */}
+        <div className="absolute -top-10 -left-10 w-44 h-44 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Second Page (Catalog) - In Background (z-10) */}
+        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-[78%] aspect-[16/8] rounded-xl overflow-hidden shadow-2xl border border-white/20 transition-all duration-500 group-hover:translate-x-1 group-hover:translate-y-1 z-10">
+          <Image
+            src={project.secondaryImage}
+            alt={`${project.client} Collection Showcase`}
+            fill
+            quality={95}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-top"
+          />
+        </div>
+
+        {/* Main Page (Hero) - In Foreground (z-20) */}
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-[78%] aspect-[16/8] rounded-xl overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.9)] border border-brand-accent/40 ring-1 ring-black/60 transition-all duration-500 group-hover:-translate-y-1.5 group-hover:scale-[1.02] z-20">
+          <Image
+            src={project.image}
+            alt={`${project.client} Hero Showcase`}
+            fill
+            quality={95}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-top"
+          />
+        </div>
+
+        {/* Floating Client Badge & Live Link */}
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-2">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 backdrop-blur-md text-xs font-bold text-white border border-emerald-400/30 shadow-md flex items-center gap-1 transition-all"
+            >
+              <span>Live Site</span>
+              <span className="text-[11px]">↗</span>
+            </a>
+          )}
+          <span className="px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-lg">
+            Client: {project.client}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-md group">
+      <Image
+        src={project.image}
+        alt={project.alt}
+        fill
+        quality={95}
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 xs:p-6">
+        <span className="px-3 py-1 rounded-lg bg-black/60 backdrop-blur-md text-xs font-bold text-white border border-white/20">
+          Client: {project.client}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -87,7 +277,7 @@ export default function ProjectsPage() {
           Case studies in technical scale and architectural transformation
         </h1>
         <p className="text-base sm:text-lg text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          Explore how we partner with ambitious enterprises and high-growth technology companies to engineer measurable commercial impact.
+          Explore how we build production-grade platforms, engineering tools, and in-house SaaS ecosystems that deliver measurable business and technical impact.
         </p>
 
         {/* Category Filter Pills */}
@@ -99,7 +289,7 @@ export default function ProjectsPage() {
               className={cn(
                 "px-4 py-2 rounded-xl text-xs font-semibold transition-all",
                 selectedCategory === cat
-                  ? "bg-brand-accent text-white shadow-md"
+                  ? "bg-brand-accent text-white shadow-md font-bold"
                   : "bg-brand-dark/5 dark:bg-white/5 text-brand-dark/70 dark:text-brand-light/70 hover:bg-brand-dark/10 dark:hover:bg-white/10"
               )}
             >
@@ -120,77 +310,18 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Media image */}
               <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-                {project.secondaryImage ? (
-                  <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#1c1817] via-[#141010] to-[#0a0808] border border-brand-dark/10 dark:border-white/10 p-3 sm:p-5 flex items-center justify-center group shadow-md">
-                    {/* Subtle decorative glow */}
-                    <div className="absolute -top-10 -left-10 w-44 h-44 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                    {/* Second Page (Catalog) - In Background (z-10) */}
-                    <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-[78%] aspect-[16/8] rounded-xl overflow-hidden shadow-2xl border border-white/20 transition-all duration-500 group-hover:translate-x-1 group-hover:translate-y-1 z-10">
-                      <Image
-                        src={project.secondaryImage}
-                        alt={`${project.client} Collection Showcase`}
-                        fill
-                        quality={95}
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover object-top"
-                      />
-                    </div>
-
-                    {/* Main Page (Hero) - In Foreground (z-20) */}
-                    <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-[78%] aspect-[16/8] rounded-xl overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.9)] border border-brand-accent/40 ring-1 ring-black/60 transition-all duration-500 group-hover:-translate-y-1.5 group-hover:scale-[1.02] z-20">
-                      <Image
-                        src={project.image}
-                        alt={`${project.client} Hero Showcase`}
-                        fill
-                        quality={95}
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover object-top"
-                      />
-                    </div>
-
-                    {/* Floating Client Badge & Live Link */}
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-2">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-2.5 py-1 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 backdrop-blur-md text-xs font-bold text-white border border-emerald-400/30 shadow-md flex items-center gap-1 transition-all"
-                        >
-                          <span>Live Site</span>
-                          <span className="text-[11px]">↗</span>
-                        </a>
-                      )}
-                      <span className="px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-lg">
-                        Client: {project.client}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="relative aspect-[4/3] xs:aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-md group">
-                    <Image
-                      src={project.image}
-                      alt={project.alt}
-                      fill
-                      quality={95}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 xs:p-6">
-                      <span className="px-3 py-1 rounded-lg bg-black/60 backdrop-blur-md text-xs font-bold text-white border border-white/20">
-                        Client: {project.client}
-                      </span>
-                    </div>
-                  </div>
-                )}
+                <ProjectMediaCard project={project} />
               </div>
 
               {/* Content info */}
               <div className={`lg:col-span-6 space-y-6 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
-                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-accent">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-accent">
                   <span>{project.category}</span>
+                  {project.isOurSaaS && (
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-400 font-extrabold text-[10px] tracking-wide">
+                      ★ Proprietary SaaS Platform
+                    </span>
+                  )}
                 </div>
 
                 <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light leading-snug">
@@ -263,7 +394,7 @@ export default function ProjectsPage() {
                       href="/contact"
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-dark dark:text-brand-light hover:text-brand-accent transition-colors"
                     >
-                      <span>Request Similar Build</span>
+                      <span>{project.isOurSaaS ? "Request SaaS Architecture Demo" : "Request Similar Build"}</span>
                       <span>→</span>
                     </Link>
                   </div>
@@ -276,62 +407,62 @@ export default function ProjectsPage() {
 
       {/* Verified Client Testimonials */}
       {REVIEWS.length > 0 && (
-      <section className="bg-surface-dim dark:bg-[#161111] py-20 mt-24 border-y border-brand-dark/10 dark:border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Client Testimonials
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
-              Endorsed by engineering leaders
-            </h2>
-          </div>
+        <section className="bg-surface-dim dark:bg-[#161111] py-20 mt-24 border-y border-brand-dark/10 dark:border-white/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+                Client Testimonials
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
+                Endorsed by engineering leaders
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {REVIEWS.slice(0, 3).map((review) => (
-              <div
-                key={review.id || review.author}
-                className="p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm flex flex-col justify-between"
-              >
-                <p className="text-sm text-brand-dark/80 dark:text-brand-light/80 leading-relaxed italic mb-6">
-                  &ldquo;{review.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-brand-dark/5 dark:border-white/5">
-                  {review.avatar ? (
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
-                      <Image src={review.avatar} alt={review.author} fill className="object-cover" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {REVIEWS.slice(0, 3).map((review) => (
+                <div
+                  key={review.id || review.author}
+                  className="p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm flex flex-col justify-between"
+                >
+                  <p className="text-sm text-brand-dark/80 dark:text-brand-light/80 leading-relaxed italic mb-6">
+                    &ldquo;{review.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-brand-dark/5 dark:border-white/5">
+                    {review.avatar ? (
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
+                        <Image src={review.avatar} alt={review.author} fill className="object-cover" />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0">
+                        {review.author.slice(0, 2).toUpperCase()}
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-xs font-bold text-brand-dark dark:text-brand-light">{review.author}</div>
+                      <div className="text-[11px] text-brand-dark/50 dark:text-brand-light/50">{review.role}, {review.company}</div>
                     </div>
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0">
-                      {review.author.slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
-                  <div>
-                    <div className="text-xs font-bold text-brand-dark dark:text-brand-light">{review.author}</div>
-                    <div className="text-[11px] text-brand-dark/50 dark:text-brand-light/50">{review.role}, {review.company}</div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="mt-12 text-center">
-            <Link
-              href="/reviews"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:underline underline-offset-4"
-            >
-              <span>Explore all verified client reviews & metrics</span>
-              <span>→</span>
-            </Link>
+            <div className="mt-12 text-center">
+              <Link
+                href="/reviews"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:underline underline-offset-4"
+              >
+                <span>Explore all verified client reviews & metrics</span>
+                <span>→</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* CTA Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center">
         <h2 className="font-heading text-3xl font-bold text-brand-dark dark:text-brand-light mb-4">
-          Have an enterprise application to build?
+          Have an enterprise application or SaaS to build?
         </h2>
         <p className="text-base text-brand-dark/70 dark:text-brand-light/70 mb-8 max-w-xl mx-auto">
           Share your brief with our solution architects. We will provide an engineering feasibility review within 48 hours.

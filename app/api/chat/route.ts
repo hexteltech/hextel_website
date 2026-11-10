@@ -139,11 +139,11 @@ const INTENT_PATTERNS: IntentPattern[] = [
   // 7. Case Studies & Portfolio (Nayyab Jewellers, Al Moman, past projects)
   {
     keywords: [
-      "portfolio", "case study", "nayyab", "jeweller", "jewellery", "al moman",
+      "portfolio", "case study", "tracelens", "saas", "telemetry", "nayyab", "jeweller", "jewellery", "al moman",
       "projects", "past work", "examples", "previous work", "clients"
     ],
     answer:
-      "We have delivered 25+ successful products generating over $100K+ in client revenue. Notable case studies include Nayyab Jewellers (a bespoke luxury jewelry e-commerce platform with Next.js) and Al Moman Frozen Foods (an e-commerce and live order tracking platform).",
+      "We have delivered 25+ successful products generating over $100K+ in client revenue. Notable projects include TraceLens (our in-house SaaS: a high-throughput telemetry and observability engine with AI anomaly detection), Nayyab Jewellers (a bespoke luxury jewelry e-commerce platform), and Al Moman Frozen Foods (an e-commerce and live order tracking platform).",
     sources: [
       { title: "Our Projects", url: "/projects" },
       { title: "Client Reviews", url: "/reviews" },

@@ -15,6 +15,7 @@ export interface ProjectItem {
   image: string;
   alt: string;
   link: string;
+  badge?: string;
 }
 
 export interface ServiceItem {
@@ -238,6 +239,15 @@ export const BRAND_CONFIG = {
 };
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    id: "project-tracelens",
+    title: "TraceLens — High-Throughput Telemetry & Observability Engine",
+    category: "In-House SaaS • AI Observability",
+    image: "/images/tracelens-hero.jpg",
+    alt: "TraceLens telemetry, service dependency topology, and observability SaaS engine",
+    link: "/projects#project-tracelens",
+    badge: "Our SaaS Product",
+  },
   {
     id: "project-1",
     title: "Nayyab Jewellers – Bespoke Luxury E-Commerce",
