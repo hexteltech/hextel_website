@@ -233,23 +233,6 @@ function ProjectMediaCard({ project }: { project: ProjectCaseStudy }) {
           {/* Vignette & contrast overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/35 pointer-events-none z-20" />
 
-          {/* Top Left: SaaS Project Badge */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-30 flex items-center gap-2">
-            {project.isOurSaaS && (
-              <span className="px-3 py-1 rounded-full bg-brand-accent text-brand-dark font-extrabold text-[11px] tracking-wider uppercase shadow-lg border border-white/20 backdrop-blur-md flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
-                Our SaaS Project
-              </span>
-            )}
-          </div>
-
-          {/* Top Right: Client tag */}
-          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-2">
-            <span className="px-3 py-1 rounded-lg bg-black/85 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-lg">
-              {project.client}
-            </span>
-          </div>
-
           {/* Left Arrow Navigation */}
           <button
             type="button"
@@ -439,9 +422,9 @@ export default function ProjectsPage() {
             id={project.id}
             className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12 scroll-mt-28"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Media image with 3-sec Auto Transition Gallery */}
-              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              {/* Media image with 3-sec Auto Transition Gallery (positioned a little bit down from the title) */}
+              <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""} lg:pt-8`}>
                 <ProjectMediaCard project={project} />
               </div>
 
