@@ -33,6 +33,57 @@ interface ProjectCaseStudy {
 
 const CASE_STUDIES: ProjectCaseStudy[] = [
   {
+    id: "project-jobhunt",
+    title: "Job Hunt Copilot — Autonomous Career Engineering Command Center",
+    client: "Hextel Tech (In-House SaaS)",
+    isOurSaaS: true,
+    badge: "Our In-House SaaS",
+    category: "SaaS Product",
+    image: "/images/jobhunt-hero.jpg",
+    gallery: [
+      {
+        label: "Gemini XYZ Tailoring",
+        src: "/images/jobhunt-tailoring.jpg",
+        alt: "Gemini XYZ Tailoring and 5-layer anti-hallucination safety gate studio",
+      },
+      {
+        label: "Playwright Headed Prefill",
+        src: "/images/jobhunt-playwright.jpg",
+        alt: "Playwright assisted prefill runner with zero-submit hardware interlock",
+      },
+      {
+        label: "Remote & Mobile Sync",
+        src: "/images/jobhunt-sync.jpg",
+        alt: "Discord mobile bot, ntfy.sh push alerts, and live syntax-highlighted webhook inspector",
+      },
+      {
+        label: "Application Ledger CRM",
+        src: "/images/jobhunt-ledger.jpg",
+        alt: "Immutable application ledger and 404-proof job description vault",
+      },
+    ],
+    alt: "Job Hunt Copilot autonomous career engineering command center with Gemini 2.5 Flash",
+    challenge:
+      "Modern job seekers are caught between blind spam bots that spray generic resumes and fabricate metrics—triggering ATS blacklists and ruining candidate reputations—and spending 15–20 hours weekly manually tailoring resumes across Greenhouse, Lever, and job boards. Moreover, expired job listings that turn into 404s leave candidates blind when recruiters reach out weeks later.",
+    solution:
+      "We conceived, architected, and built Job Hunt Copilot — our industrial career engineering command center operating on a strict Human-in-the-Loop model with Zero Blind Submissions. It autonomously ingests verified remote roles via rate-limited Greenhouse, Lever, and RemoteOK APIs, evaluates technical taxonomy matches deterministically, and restructures resume bullets using Google Gemini 2.5 Flash under Google's XYZ formula ('Accomplished [X] as measured by [Y], by doing [Z]'). A 5-layer programmatic safety radar prevents fabricated numbers and limits JD-echo overlap (< 30%), while an assisted Playwright runner auto-prefills portal applications and pauses before final submission.",
+    metrics: [
+      { label: "ATS Keyword Match Lift", value: "61% → 94%" },
+      { label: "Anti-Hallucination Gate", value: "100% Grounded" },
+      { label: "Human-in-the-Loop Lock", value: "Zero Blind Spam" },
+    ],
+    techStack: [
+      "Python 3.13",
+      "FastAPI",
+      "Google Gemini 2.5 Flash",
+      "Playwright",
+      "SQLite (jobs.db)",
+      "Discord.py",
+      "ntfy.sh",
+      "TypeScript",
+    ],
+  },
+  {
     id: "project-tracelens",
     title: "TraceLens — High-Throughput Telemetry & Observability Engine",
     client: "Hextel Tech (In-House SaaS)",

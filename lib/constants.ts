@@ -240,13 +240,21 @@ export const BRAND_CONFIG = {
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: "project-jobhunt",
+    title: "Job Hunt Copilot — Autonomous Career Engineering Command Center",
+    category: "In-House SaaS • AI Command Center",
+    image: "/images/jobhunt-hero.jpg",
+    alt: "Job Hunt Copilot autonomous career engineering command center with Gemini 2.5 Flash",
+    link: "/projects#project-jobhunt",
+    badge: "Our SaaS Product",
+  },
+  {
     id: "project-tracelens",
     title: "TraceLens — High-Throughput Telemetry & Observability Engine",
-    category: "In-House SaaS • AI Observability",
+    category: "Full-Stack Web • AI Observability",
     image: "/images/tracelens-hero.jpg",
     alt: "TraceLens telemetry, service dependency topology, and observability SaaS engine",
     link: "/projects#project-tracelens",
-    badge: "Our SaaS Product",
   },
   {
     id: "project-1",

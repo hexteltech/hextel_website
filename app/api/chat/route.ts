@@ -139,11 +139,11 @@ const INTENT_PATTERNS: IntentPattern[] = [
   // 7. Case Studies & Portfolio (Nayyab Jewellers, Al Moman, past projects)
   {
     keywords: [
-      "portfolio", "case study", "tracelens", "saas", "telemetry", "nayyab", "jeweller", "jewellery", "al moman",
+      "portfolio", "case study", "job hunt", "copilot", "career", "tracelens", "saas", "telemetry", "nayyab", "jeweller", "jewellery", "al moman",
       "projects", "past work", "examples", "previous work", "clients"
     ],
     answer:
-      "We have delivered 25+ successful products generating over $100K+ in client revenue. Notable projects include TraceLens (our in-house SaaS: a high-throughput telemetry and observability engine with AI anomaly detection), Nayyab Jewellers (a bespoke luxury jewelry e-commerce platform), and Al Moman Frozen Foods (an e-commerce and live order tracking platform).",
+      "We have delivered 25+ successful products generating over $100K+ in client revenue. Notable proprietary SaaS platforms include Job Hunt Copilot (an autonomous career engineering command center built with Google Gemini 2.5 Flash, Playwright, and a 5-layer zero-hallucination safety gate) and TraceLens (a high-throughput telemetry and observability engine with AI anomaly detection), alongside client enterprise platforms like Nayyab Jewellers and Al Moman Frozen Foods.",
     sources: [
       { title: "Our Projects", url: "/projects" },
       { title: "Client Reviews", url: "/reviews" },
