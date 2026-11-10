@@ -270,14 +270,10 @@ function ProjectMediaCard({ project }: { project: ProjectCaseStudy }) {
             ›
           </button>
 
-          {/* Bottom Bar: Active view title + 3-sec auto status */}
-          <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between gap-2 text-xs">
-            <span className="px-3 py-1 rounded-md bg-black/85 backdrop-blur-md text-[11px] font-medium text-brand-accent border border-brand-accent/30 shadow-md truncate max-w-[70%]">
+          {/* Bottom Bar: Active view title */}
+          <div className="absolute bottom-3 left-3 z-30 flex items-center gap-2 text-xs">
+            <span className="px-3 py-1 rounded-md bg-black/85 backdrop-blur-md text-[11px] font-medium text-brand-accent border border-brand-accent/30 shadow-md">
               Screen {activeGalleryIndex + 1}/{total}: {activeImage.label}
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[10px] font-mono text-white/90 border border-white/10 shrink-0 inline-flex items-center gap-1.5">
-              <span className={cn("w-1.5 h-1.5 rounded-full", isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")} />
-              {isPaused ? "Paused" : "3s Auto"}
             </span>
           </div>
         </div>
