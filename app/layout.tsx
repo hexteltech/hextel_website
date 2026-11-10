@@ -12,6 +12,7 @@ import ChatbotWidgetWrapper from "@/components/chatbot/ChatbotWidgetWrapper";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { UtmProvider } from "@/components/providers/UtmTracker";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const sansFont = Plus_Jakarta_Sans({
@@ -114,6 +115,9 @@ export default function RootLayout({
 
               {/* 13. Password visibility toggle: Client NDA Portal */}
               <ClientPortalModal />
+
+              {/* Vercel Web Analytics */}
+              <Analytics />
 
             </UtmProvider>
           </LanguageProvider>

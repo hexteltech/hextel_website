@@ -244,9 +244,68 @@ function buildClientReceiptHtml(params: ContactEmailParams): string {
                 </div>
               </div>
 
-              <p style="margin: 0; font-size: 13px; color: #71717A; line-height: 1.5;">
+              <p style="margin: 0 0 24px; font-size: 13px; color: #71717A; line-height: 1.5;">
                 Need urgent assistance? Reply directly to this email or reach us at <a href="mailto:${BRAND_CONFIG.email}" style="color: #B88849; text-decoration: none;">${BRAND_CONFIG.email}</a>.
               </p>
+
+              <!-- Team Signature Card -->
+              <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 490px; background-color: #FAF9FF; border: 1.5px solid #DCD7FF; border-radius: 16px; padding: 16px 18px; margin-top: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                <tr>
+                  <td valign="middle" align="center" style="width: 125px; text-align: center; vertical-align: middle; padding-right: 14px;">
+                    <div style="width: 62px; height: 62px; border-radius: 50%; background: linear-gradient(135deg, #18181B 0%, #3F3F46 100%); display: inline-flex; align-items: center; justify-content: center; text-align: center; margin: 0 auto; border: 2px solid #E4E4E7;">
+                      <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; color: #B88849; line-height: 62px;">HT</span>
+                    </div>
+                    <div style="font-family: Georgia, serif; font-size: 11px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #18181B; margin: 8px 0 6px 0;">
+                      ${BRAND_CONFIG.name}
+                    </div>
+                    <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+                      <tr>
+                        <td style="padding: 0 3px;">
+                          <a href="https://linkedin.com" target="_blank" style="text-decoration: none; display: inline-block;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" alt="LinkedIn" width="16" height="16" style="display: block; border-radius: 50%;" />
+                          </a>
+                        </td>
+                        <td style="padding: 0 3px;">
+                          <a href="https://twitter.com" target="_blank" style="text-decoration: none; display: inline-block;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" alt="X" width="16" height="16" style="display: block; border-radius: 50%;" />
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+
+                  <td style="width: 1px; background-color: #E7E5F4; padding: 0;"></td>
+
+                  <td valign="middle" style="padding-left: 18px; vertical-align: middle;">
+                    <div style="font-family: Georgia, serif; font-size: 18px; font-weight: bold; color: #2E3B82; line-height: 1.2;">
+                      Engineering Team
+                    </div>
+                    <div style="font-size: 12px; color: #52525B; font-weight: 500; margin-top: 2px;">
+                      Solutions &amp; Product Architecture
+                    </div>
+                    <div style="font-size: 11px; color: #9CA3AF; margin-top: 1px; margin-bottom: 8px;">
+                      ${BRAND_CONFIG.name}
+                    </div>
+
+                    <div style="height: 1px; background-color: #EFEFF8; margin-bottom: 8px; width: 100%;"></div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" style="font-size: 11px; line-height: 17px; color: #52525B;">
+                      <tr>
+                        <td style="padding-right: 6px; color: #6366F1; font-size: 12px;">✉</td>
+                        <td><a href="mailto:${BRAND_CONFIG.email}" style="color: #4B5563; text-decoration: none;">${BRAND_CONFIG.email}</a></td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 6px; color: #6366F1; font-size: 12px;">☎</td>
+                        <td><a href="tel:${BRAND_CONFIG.phone.replace(/\s+/g, '')}" style="color: #4B5563; text-decoration: none;">${BRAND_CONFIG.phone}</a></td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 6px; color: #6366F1; font-size: 12px;">📍</td>
+                        <td style="color: #6B7280;">${BRAND_CONFIG.address}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           <tr>
