@@ -3,7 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/constants";
-import { FadeIn, StaggerContainer, StaggerItem, FloatingElement } from "@/components/ui/Motion";
+import {
+  FadeIn,
+  StaggerContainer,
+  StaggerItem,
+  FloatingElement,
+  AnimatedCounter,
+} from "@/components/ui/Motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function HeroSection() {
@@ -98,7 +104,7 @@ export default function HeroSection() {
               className="flex flex-col items-center text-center space-y-1 group"
             >
               <strong className="font-heading text-2xl xs:text-3xl sm:text-4xl 2xl:text-5xl font-bold text-brand-accent tracking-tight group-hover:scale-110 group-hover:text-amber-400 transition-transform duration-300 inline-block">
-                {stat.value}
+                <AnimatedCounter value={stat.value} />
               </strong>
               <span className="text-[11px] xs:text-xs sm:text-sm 2xl:text-base text-brand-light/75 font-medium leading-tight">
                 {statLabels[idx] || stat.label}

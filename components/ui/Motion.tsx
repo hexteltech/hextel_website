@@ -1,7 +1,12 @@
 "use client";
 
-import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
-import { type ReactNode } from "react";
+import {
+  motion,
+  useInView,
+  type HTMLMotionProps,
+  type Variants,
+} from "framer-motion";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface FadeInProps extends HTMLMotionProps<"div"> {
   children: ReactNode;
@@ -56,6 +61,38 @@ export function FadeIn({
   );
 }
 
+interface ScaleInProps extends HTMLMotionProps<"div"> {
+  children: ReactNode;
+  delay?: number;
+  duration?: number;
+  className?: string;
+}
+
+export function ScaleIn({
+  children,
+  delay = 0,
+  duration = 0.55,
+  className = "",
+  ...props
+}: ScaleInProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92, y: 12 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{
+        duration,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 interface StaggerContainerProps {
   children: ReactNode;
   staggerDelay?: number;
@@ -65,8 +102,8 @@ interface StaggerContainerProps {
 
 export function StaggerContainer({
   children,
-  staggerDelay = 0.15,
-  delayChildren = 0.1,
+  staggerDelay = 0.12,
+  delayChildren = 0.08,
   className = "",
 }: StaggerContainerProps) {
   const containerVariants: Variants = {
@@ -101,10 +138,11 @@ export function StaggerItem({
   className?: string;
 }) {
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0, y: 24, scale: 0.98 },
     show: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         duration: 0.55,
         ease: [0.21, 0.47, 0.32, 0.98],
@@ -145,5 +183,78 @@ export function FloatingElement({
     >
       {children}
     </motion.div>
+  );
+}
+
+/**
+ * Smoothly animates a formatted stat string like "25+", "3+", "2,000+", "$100K+", "95%"
+ */
+export function AnimatedCounter({
+  value,
+  duration = 1400,
+  className = "",
+}: {
+  value: string;
+  duration?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const [displayValue, setDisplayValue] = useState(value);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const match = value.match(/^([^0-9]*)([0-9,]+(?:\.[0-9]+)?)(.*)$/);
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const [, prefix, rawNum, suffix] = match;
+    const hasComma = rawNum.includes(",");
+    const decimals = rawNum.includes(".") ? rawNum.split(".")[1].length : 0;
+    const target = parseFloat(rawNum.replace(/,/g, ""));
+
+    if (isNaN(target) || target <= 0) {
+      setDisplayValue(value);
+      return;
+    }
+
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+
+      let formatted: string;
+      if (decimals > 0) {
+        formatted = current.toFixed(decimals);
+      } else {
+        const rounded = Math.round(current);
+        formatted = hasComma ? rounded.toLocaleString("en-US") : String(rounded);
+      }
+
+      setDisplayValue(`${prefix}${formatted}${suffix}`);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setDisplayValue(value);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isInView, value, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {displayValue}
+    </span>
   );
 }

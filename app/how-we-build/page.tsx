@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { FadeIn } from "@/components/ui/Motion";
 import { cn } from "@/lib/utils";
 
 interface Phase {
@@ -152,50 +154,59 @@ export default function HowWeBuildPage() {
           ))}
         </div>
 
-        {/* Active Phase Card */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-2xl relative overflow-hidden">
-          <div className="flex flex-col lg:flex-row justify-between gap-10">
-            <div className="max-w-2xl space-y-6">
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-3xl font-bold text-brand-accent">
-                  Phase {activePhase.number}
-                </span>
-                <span className="px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold">
-                  {activePhase.duration}
-                </span>
-              </div>
+        {/* Active Phase Card with Animated Transition */}
+        <FadeIn direction="up" delay={0.15} duration={0.6}>
+          <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-2xl relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activePhase.number}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col lg:flex-row justify-between gap-10"
+              >
+                <div className="max-w-2xl space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-3xl font-bold text-brand-accent">
+                      Phase {activePhase.number}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold">
+                      {activePhase.duration}
+                    </span>
+                  </div>
 
-              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light">
-                {activePhase.name}
-              </h2>
+                  <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light">
+                    {activePhase.name}
+                  </h2>
 
-              <p className="text-base font-medium text-brand-accent">
-                {activePhase.tagline}
-              </p>
+                  <p className="text-base font-medium text-brand-accent">
+                    {activePhase.tagline}
+                  </p>
 
-              <p className="text-sm sm:text-base text-brand-dark/75 dark:text-brand-light/75 leading-relaxed">
-                {activePhase.summary}
-              </p>
+                  <p className="text-sm sm:text-base text-brand-dark/75 dark:text-brand-light/75 leading-relaxed">
+                    {activePhase.summary}
+                  </p>
+                </div>
 
-
-            </div>
-
-            {/* Deliverables Checklist Box */}
-            <div className="lg:w-96 p-6 sm:p-8 rounded-2xl bg-surface-dim dark:bg-[#201919] border border-brand-dark/5 dark:border-white/5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-accent mb-4">
-                Phase Deliverables
-              </h3>
-              <ul className="space-y-3">
-                {activePhase.deliverables.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-xs text-brand-dark/80 dark:text-brand-light/80 leading-snug">
-                    <span className="text-brand-accent font-bold mt-0.5">✓</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                {/* Deliverables Checklist Box */}
+                <div className="lg:w-96 p-6 sm:p-8 rounded-2xl bg-surface-dim dark:bg-[#201919] border border-brand-dark/5 dark:border-white/5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-brand-accent mb-4">
+                    Phase Deliverables
+                  </h3>
+                  <ul className="space-y-3">
+                    {activePhase.deliverables.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-xs text-brand-dark/80 dark:text-brand-light/80 leading-snug">
+                        <span className="text-brand-accent font-bold mt-0.5">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
             {/* CTA Section */}

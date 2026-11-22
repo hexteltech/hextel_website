@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/constants";
+import { FadeIn, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ui/Motion";
 
 export const metadata: Metadata = {
   title: "About Us — Hextel Tech | Engineering Digital Excellence",
@@ -84,121 +85,133 @@ export default function AboutPage() {
     <div className="min-h-screen py-16 sm:py-24">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
-          <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-          Who We Are
-        </span>
-        <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
-          Engineers and designers driven by a single standard: excellence without compromise
-        </h1>
-        <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          {BRAND_CONFIG.lead}
-        </p>
+        <FadeIn direction="down" duration={0.5}>
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
+            <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
+            Who We Are
+          </span>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.1} duration={0.65}>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
+            Engineers and designers driven by a single standard: excellence without compromise
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.18} duration={0.65}>
+          <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
+            {BRAND_CONFIG.lead}
+          </p>
+        </FadeIn>
 
         {/* Hero Photo Card */}
-        <div className="relative mt-8 sm:mt-12 aspect-[16/10] sm:aspect-[21/9] max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-brand-dark/10 dark:border-white/10">
-          <Image
-            src="/images/t001-nova-about-team-1280.webp"
-            quality={95}
-            alt="Hextel Technologies Engineering Squad"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4 xs:p-6 sm:p-8 lg:p-12">
-            <div className="text-left text-white max-w-md">
-              <div className="font-heading text-lg sm:text-xl font-bold">HEXTEL Technology</div>
-              <div className="text-xs text-white/80">Where enterprise architectures and modern digital platforms are conceived.</div>
+        <ScaleIn delay={0.25} duration={0.7}>
+          <div className="relative mt-8 sm:mt-12 aspect-[16/10] sm:aspect-[21/9] max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-brand-dark/10 dark:border-white/10 group">
+            <Image
+              src="/images/t001-nova-about-team-1280.webp"
+              quality={95}
+              alt="Hextel Technologies Engineering Squad"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4 xs:p-6 sm:p-8 lg:p-12">
+              <div className="text-left text-white max-w-md">
+                <div className="font-heading text-lg sm:text-xl font-bold">HEXTEL Technology</div>
+                <div className="text-xs text-white/80">Where enterprise architectures and modern digital platforms are conceived.</div>
+              </div>
             </div>
           </div>
-        </div>
+        </ScaleIn>
       </section>
 
       {/* Core Values Section */}
       <section className="bg-surface-dim dark:bg-[#161111] py-20 border-y border-brand-dark/10 dark:border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Our Principles
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
-              The values that govern every commit
-            </h2>
-          </div>
+          <FadeIn direction="up" duration={0.6}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+                Our Principles
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
+                The values that govern every commit
+              </h2>
+            </div>
+          </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <StaggerContainer staggerDelay={0.12} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {VALUES.map((val) => (
-              <div
-                key={val.number}
-                className="p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm"
-              >
-                <div className="text-sm font-mono font-bold text-brand-accent mb-3">
-                  {val.number}.
+              <StaggerItem key={val.number}>
+                <div className="p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-300 h-full">
+                  <div className="text-sm font-mono font-bold text-brand-accent mb-3">
+                    {val.number}.
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-brand-dark dark:text-brand-light mb-3">
+                    {val.title}
+                  </h3>
+                  <p className="text-sm text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
+                    {val.description}
+                  </p>
                 </div>
-                <h3 className="font-heading text-xl font-bold text-brand-dark dark:text-brand-light mb-3">
-                  {val.title}
-                </h3>
-                <p className="text-sm text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
-                  {val.description}
-                </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Leadership Team Section */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-            Technical Leadership
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
-            Meet the minds shaping your software
-          </h2>
-        </div>
+        <FadeIn direction="up" duration={0.6}>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+              Technical Leadership
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-dark dark:text-brand-light tracking-tight mt-2">
+              Meet the minds shaping your software
+            </h2>
+          </div>
+        </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {LEADERSHIP.map((leader) => (
-            <div
-              key={leader.name}
-              className="p-7 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm text-center group hover:border-brand-accent transition-all duration-300"
-            >
-              <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden mb-6 ring-4 ring-brand-accent/20 group-hover:scale-105 transition-transform">
-                <Image
-                  src={leader.image}
-                  alt={leader.name}
-                  fill
-                  sizes="96px"
-                  className="object-cover"
-                />
+            <StaggerItem key={leader.name}>
+              <div className="p-7 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm text-center group hover:border-brand-accent hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 h-full">
+                <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden mb-6 ring-4 ring-brand-accent/20 group-hover:scale-105 transition-transform">
+                  <Image
+                    src={leader.image}
+                    alt={leader.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-brand-dark dark:text-brand-light mb-1">
+                  {leader.name}
+                </h3>
+                <div className="text-xs font-semibold text-brand-accent mb-3">
+                  {leader.role}
+                </div>
+                <p className="text-xs text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
+                  {leader.bio}
+                </p>
               </div>
-              <h3 className="font-heading text-lg font-bold text-brand-dark dark:text-brand-light mb-1">
-                {leader.name}
-              </h3>
-              <div className="text-xs font-semibold text-brand-accent mb-3">
-                {leader.role}
-              </div>
-              <p className="text-xs text-brand-dark/70 dark:text-brand-light/70 leading-relaxed">
-                {leader.bio}
-              </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       {/* Milestones Timeline */}
       <section className="bg-surface-dim dark:bg-[#161111] py-20 border-y border-brand-dark/10 dark:border-white/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Our Journey
-            </span>
-            <h2 className="font-heading text-3xl font-bold text-brand-dark dark:text-brand-light mt-2">
-              A decade of compounding engineering expertise
-            </h2>
-          </div>
+          <FadeIn direction="up" duration={0.6}>
+            <div className="text-center max-w-xl mx-auto mb-16">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+                Our Journey
+              </span>
+              <h2 className="font-heading text-3xl font-bold text-brand-dark dark:text-brand-light mt-2">
+                Years of compounding engineering expertise
+              </h2>
+            </div>
+          </FadeIn>
 
           <div className="space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-0.5 before:bg-brand-dark/10 dark:before:bg-white/10">
             {TIMELINE.map((item, idx) => (

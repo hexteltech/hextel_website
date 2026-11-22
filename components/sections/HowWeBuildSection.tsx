@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/Motion";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -432,86 +433,99 @@ export default function HowWeBuildSection() {
           ))}
         </div>
 
-        {/* Active Phase Deep Dive Card */}
-        <div className="rounded-2xl sm:rounded-3xl border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-7 sm:p-10 lg:p-12 shadow-xl transition-all duration-300">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-3xl sm:text-4xl font-extrabold text-brand-accent">
-                  {phases[activeStep].number}
-                </span>
-                <span className="h-6 w-px bg-brand-dark/20 dark:bg-white/20" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-brand-dark/60 dark:text-brand-light/60">
-                  {phases[activeStep].phase}
-                </span>
-              </div>
+        {/* Active Phase Deep Dive Card with Animated Phase Transitions */}
+        <FadeIn direction="up" delay={0.15} duration={0.6}>
+          <div className="rounded-2xl sm:rounded-3xl border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] p-5 xs:p-7 sm:p-10 lg:p-12 shadow-xl transition-all duration-300 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${language}-${activeStep}`}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+              >
+                {/* Left Content */}
+                <div className="lg:col-span-7 space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-3xl sm:text-4xl font-extrabold text-brand-accent">
+                      {phases[activeStep].number}
+                    </span>
+                    <span className="h-6 w-px bg-brand-dark/20 dark:bg-white/20" />
+                    <span className="font-mono text-xs font-semibold uppercase tracking-widest text-brand-dark/60 dark:text-brand-light/60">
+                      {phases[activeStep].phase}
+                    </span>
+                  </div>
 
-              <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light">
-                {phases[activeStep].title}
-              </h3>
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-dark dark:text-brand-light">
+                    {phases[activeStep].title}
+                  </h3>
 
-              <p className="text-base text-brand-dark/75 dark:text-brand-light/75 leading-relaxed">
-                {phases[activeStep].summary}
-              </p>
+                  <p className="text-base text-brand-dark/75 dark:text-brand-light/75 leading-relaxed">
+                    {phases[activeStep].summary}
+                  </p>
 
-              {/* Key Deliverables List */}
-              <div className="pt-2 space-y-2.5">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-accent font-mono">
-                  {copy.deliverablesLabel}
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                  {phases[activeStep].deliverables.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-center gap-2.5 text-xs sm:text-sm text-brand-dark/80 dark:text-brand-light/80"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0" />
-                      <span>{item}</span>
+                  {/* Key Deliverables List */}
+                  <div className="pt-2 space-y-2.5">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-accent font-mono">
+                      {copy.deliverablesLabel}
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                      {phases[activeStep].deliverables.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-2.5 text-xs sm:text-sm text-brand-dark/80 dark:text-brand-light/80"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Right Visual / Tech Badges & Dynamic Guaranteed Code Quality Bar */}
-            <div className="lg:col-span-5 rounded-2xl border border-brand-dark/10 dark:border-white/10 bg-surface-dim dark:bg-[#120E0E] p-6 sm:p-8 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-brand-dark/10 dark:border-white/10">
-                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-dark/60 dark:text-brand-light/60">
-                  {copy.toolingLabel}
-                </span>
-                <span className="text-xs font-mono text-brand-accent">{copy.gradeLabel}</span>
-              </div>
+                {/* Right Visual / Tech Badges & Dynamic Guaranteed Code Quality Bar */}
+                <div className="lg:col-span-5 rounded-2xl border border-brand-dark/10 dark:border-white/10 bg-surface-dim dark:bg-[#120E0E] p-6 sm:p-8 space-y-6">
+                  <div className="flex items-center justify-between pb-4 border-b border-brand-dark/10 dark:border-white/10">
+                    <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-dark/60 dark:text-brand-light/60">
+                      {copy.toolingLabel}
+                    </span>
+                    <span className="text-xs font-mono text-brand-accent">{copy.gradeLabel}</span>
+                  </div>
 
-              <div className="flex flex-wrap gap-2">
-                {phases[activeStep].techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1.5 rounded-lg border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] text-xs font-medium text-brand-dark dark:text-brand-light"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+                  <div className="flex flex-wrap gap-2">
+                    {phases[activeStep].techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 rounded-lg border border-brand-dark/10 dark:border-white/10 bg-brand-light dark:bg-[#1A1414] text-xs font-medium text-brand-dark dark:text-brand-light hover:border-brand-accent/50 transition-colors"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
 
-              {/* Dynamic Guaranteed Code Quality matching the progress bar */}
-              <div className="pt-4 border-t border-brand-dark/10 dark:border-white/10">
-                <div className="flex items-center justify-between text-xs text-brand-dark/60 dark:text-brand-light/60">
-                  <span>{copy.qualityLabel}</span>
-                  <span className="font-bold text-brand-accent font-mono">
-                    {phases[activeStep].codeQuality}
-                  </span>
+                  {/* Dynamic Guaranteed Code Quality matching the progress bar */}
+                  <div className="pt-4 border-t border-brand-dark/10 dark:border-white/10">
+                    <div className="flex items-center justify-between text-xs text-brand-dark/60 dark:text-brand-light/60">
+                      <span>{copy.qualityLabel}</span>
+                      <span className="font-bold text-brand-accent font-mono">
+                        {phases[activeStep].codeQuality}
+                      </span>
+                    </div>
+                    <div className="mt-2.5 w-full h-2 rounded-full bg-brand-dark/10 dark:bg-white/10 overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${phases[activeStep].qualityPercentage}%` }}
+                        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                        className="h-full bg-brand-accent rounded-full shadow-sm"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-2.5 w-full h-2 rounded-full bg-brand-dark/10 dark:bg-white/10 overflow-hidden">
-                  <div
-                    className="h-full bg-brand-accent transition-all duration-500 rounded-full shadow-sm"
-                    style={{ width: `${phases[activeStep].qualityPercentage}%` }}
-                  />
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

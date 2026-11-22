@@ -122,7 +122,7 @@ export default function Footer() {
               </h4>
               <div className="flex flex-wrap gap-3 text-xs text-brand-light/75">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/hexteltech"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-brand-accent transition-colors"
@@ -130,7 +130,7 @@ export default function Footer() {
                   GitHub ↗
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/company/hexteltech"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-brand-accent transition-colors"

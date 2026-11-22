@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BRAND_CONFIG } from "@/lib/constants";
 import ContactForm from "@/components/sections/ContactForm";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 
 export const metadata: Metadata = {
   title: "Contact Us — Hextel Tech | Start a Project",
@@ -49,23 +50,29 @@ export default function ContactPage() {
     <div className="min-h-screen py-16 sm:py-24">
       {/* Hero Section */}
       <section className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-16 text-center">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
-          <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-          Direct Access to Founders
-        </span>
-        <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
-          Let&apos;s engineer something remarkable together
-        </h1>
-        <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          Whether you need full-stack web applications, AI automation pipelines, or bespoke digital products, work directly with the 3 builders of Hextel Tech.
-        </p>
+        <FadeIn direction="down" duration={0.5}>
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
+            <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
+            Direct Access to Founders
+          </span>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.1} duration={0.65}>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
+            Let&apos;s engineer something remarkable together
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.18} duration={0.65}>
+          <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
+            Whether you need full-stack web applications, AI automation pipelines, or bespoke digital products, work directly with the 3 builders of Hextel Tech.
+          </p>
+        </FadeIn>
       </section>
 
       {/* Main Form & Direct Info Grid */}
       <section className="w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Direct info & Guarantee */}
-          <div className="lg:col-span-5 space-y-8">
+          <FadeIn direction="right" duration={0.7} className="lg:col-span-5 space-y-8">
             <div className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 p-8 sm:p-10 shadow-lg space-y-6">
               <h2 className="font-heading text-2xl font-bold text-brand-dark dark:text-brand-light">
                 Direct Contact
@@ -147,12 +154,12 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </FadeIn>
 
           {/* Right Column: Interactive Form */}
-          <div className="lg:col-span-7">
+          <FadeIn direction="left" delay={0.15} duration={0.7} className="lg:col-span-7">
             <ContactForm />
-          </div>
+          </FadeIn>
         </div>
       </section>
 

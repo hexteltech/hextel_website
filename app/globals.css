@@ -122,9 +122,66 @@ img, video {
 .chatbot-toggle {
   font-family: var(--font-sans), system-ui, sans-serif !important;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25) !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, background-color 0.25s ease !important;
+}
+
+.chatbot-toggle:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+}
+
+.chatbot-toggle:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+.chatbot-toggle-dot {
+  position: relative;
+  animation: chatbot-pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes chatbot-pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
 }
 
 .chatbot-window {
   font-family: var(--font-sans), system-ui, sans-serif !important;
   backdrop-filter: blur(16px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.chatbot-window-open {
+  transform: translateY(0) scale(1) !important;
+}
+
+.chatbot-window-closed {
+  transform: translateY(1.25rem) scale(0.96) !important;
+}
+
+.chatbot-message-row {
+  animation: chatbot-msg-slide-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chatbot-suggested-question {
+  animation: chatbot-msg-slide-in 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chatbot-lead-form {
+  animation: chatbot-msg-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes chatbot-msg-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

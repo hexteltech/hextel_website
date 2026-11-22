@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ALL_SERVICES_DATA } from "@/lib/servicesData";
 import { ServiceIcon } from "@/components/layout/ServicesDropdown";
+import { FadeIn, StaggerContainer, StaggerItem, AnimatedCounter } from "@/components/ui/Motion";
 
 export const metadata: Metadata = {
   title: "Services & Capabilities — Hextel Tech",
@@ -25,46 +26,62 @@ export default function ServicesPage() {
     <div className="min-h-screen py-16 sm:py-24">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 text-center">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
-          <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-          Full-Spectrum Capabilities
-        </span>
-        <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
-          Architectural rigor across every layer of the modern digital stack
-        </h1>
-        <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          Founded and driven by 3 dedicated partners combining full-stack development, AI automation, and growth marketing. We engineer high-performance web systems and digital products with direct founder accountability on every delivery.
-        </p>
+        <FadeIn direction="down" duration={0.5}>
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
+            <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
+            Full-Spectrum Capabilities
+          </span>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.1} duration={0.65}>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
+            Architectural rigor across every layer of the modern digital stack
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.18} duration={0.65}>
+          <p className="text-base sm:text-lg lg:text-xl text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
+            Founded and driven by 3 dedicated partners combining full-stack development, AI automation, and growth marketing. We engineer high-performance web systems and digital products with direct founder accountability on every delivery.
+          </p>
+        </FadeIn>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mt-10 sm:mt-12 pt-8 border-t border-brand-dark/10 dark:border-white/10">
-          <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">25+</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Projects Delivered</div>
+        <FadeIn direction="up" delay={0.25} duration={0.65}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mt-10 sm:mt-12 pt-8 border-t border-brand-dark/10 dark:border-white/10">
+            <div>
+              <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">
+                <AnimatedCounter value="25+" />
+              </div>
+              <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Projects Delivered</div>
+            </div>
+            <div>
+              <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">
+                <AnimatedCounter value="3+" />
+              </div>
+              <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Years Experience</div>
+            </div>
+            <div>
+              <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">
+                <AnimatedCounter value="2,000+" />
+              </div>
+              <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Product Hours</div>
+            </div>
+            <div>
+              <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">
+                <AnimatedCounter value="3" />
+              </div>
+              <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Dedicated Founders</div>
+            </div>
           </div>
-          <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">3+</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Years Experience</div>
-          </div>
-          <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">2,000+</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Product Hours</div>
-          </div>
-          <div>
-            <div className="font-heading text-2xl xs:text-3xl font-bold text-brand-accent">3</div>
-            <div className="text-[11px] xs:text-xs text-brand-dark/60 dark:text-brand-light/60 mt-1 uppercase tracking-wider font-semibold">Dedicated Founders</div>
-          </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Services Grid Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerContainer staggerDelay={0.07} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ALL_SERVICES_DATA.map((service, index) => (
-            <article
-              key={service.slug}
-              className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 dark:hover:border-brand-accent/50 transition-all duration-300 hover:-translate-y-1.5"
-            >
+            <StaggerItem key={service.slug}>
+              <article
+                className="group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 dark:hover:border-brand-accent/50 transition-all duration-300 hover:-translate-y-1.5 h-full"
+              >
               <div>
                 {/* Header row: Icon & Tag */}
                 <div className="flex items-center justify-between gap-4 mb-6">
@@ -120,9 +137,10 @@ export default function ServicesPage() {
                   <span>→</span>
                 </Link>
               </div>
-            </article>
+              </article>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       {/* Enterprise Consultation CTA */}

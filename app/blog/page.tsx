@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 
 interface BlogPost {
   id: string;
@@ -28,8 +29,8 @@ const ARTICLES: BlogPost[] = [
     excerpt:
       "How server components, standalone build optimizations, and partial pre-rendering unlock sub-second global performance for modern commercial applications.",
     author: {
-      name: "Alex V.",
-      role: "Principal Systems Architect",
+      name: "Hasaan Ahmad",
+      role: "CEO & Co-Founder",
     },
     content: [
       "Modern web platforms require more than just aesthetic excellence; they demand enterprise resilience, instant interactivity, and scalable architecture.",
@@ -46,8 +47,8 @@ const ARTICLES: BlogPost[] = [
     excerpt:
       "A pragmatic guide to eliminating design debt, standardizing semantic color tokens, and orchestrating fluid Framer Motion micro-interactions.",
     author: {
-      name: "Maya L.",
-      role: "Lead UI/UX Engineer",
+      name: "Muhammad Faseeh Altaf",
+      role: "Co-Founder & Full-Stack Lead",
     },
     content: [
       "A design system is not merely a Figma library; it is a live contract between design intent and production implementation.",
@@ -64,8 +65,8 @@ const ARTICLES: BlogPost[] = [
     excerpt:
       "How high-growth technology enterprises transition legacy monolithic architectures into decoupled cloud-native ecosystems with zero customer-facing downtime.",
     author: {
-      name: "Dmitri K.",
-      role: "Cloud DevOps Director",
+      name: "Moman Salman",
+      role: "Co-Founder & AI Automation Lead",
     },
     content: [
       "Attempting a total ground-up rewrite of a legacy enterprise monolith frequently leads to missed deadlines and unexpected regressions.",
@@ -100,8 +101,8 @@ const ARTICLES: BlogPost[] = [
     excerpt:
       "Why Turborepo and Next.js multi-zones outperform legacy micro-frontends in developer ergonomics, build times, and runtime reliability.",
     author: {
-      name: "Alex V.",
-      role: "Principal Systems Architect",
+      name: "Hasaan Ahmad",
+      role: "CEO & Co-Founder",
     },
     content: [
       "Micro-frontends promised independent team deployments but often resulted in fragmented runtime dependencies and CSS conflicts.",
@@ -117,8 +118,8 @@ const ARTICLES: BlogPost[] = [
     excerpt:
       "How compliant keyboard navigation, semantic HTML5 tags, and color contrast standards directly reduce churn and increase organic search rankings.",
     author: {
-      name: "Maya L.",
-      role: "Lead UI/UX Engineer",
+      name: "Muhammad Faseeh Altaf",
+      role: "Co-Founder & Full-Stack Lead",
     },
     content: [
       "Accessibility is not an afterthought or compliance checklist; it is the cornerstone of intuitive digital interfaces.",
@@ -221,12 +222,12 @@ export default function BlogPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <article
-                key={post.id}
-                className="flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-1"
-              >
+              <StaggerItem key={post.id}>
+                <article
+                  className="flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-brand-accent/40 transition-all duration-300 group hover:-translate-y-1.5 h-full"
+                >
                 <div>
                   <div className="flex items-center justify-between text-xs text-brand-dark/50 dark:text-brand-light/50 mb-4">
                     <span className="font-semibold text-brand-accent">{post.category}</span>
@@ -255,9 +256,10 @@ export default function BlogPage() {
                     <span>→</span>
                   </button>
                 </div>
-              </article>
+                </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )}
       </section>
 

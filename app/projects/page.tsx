@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { REVIEWS } from "@/lib/constants";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
 
 interface ProjectCaseStudy {
   id: string;
@@ -384,16 +385,22 @@ export default function ProjectsPage() {
     <div className="min-h-screen py-16 sm:py-24">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
-          <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-          Engineered Outcomes
-        </span>
-        <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
-          Case studies in technical scale and architectural transformation
-        </h1>
-        <p className="text-base sm:text-lg text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
-          Explore how we build production-grade platforms, engineering tools, and in-house SaaS ecosystems that deliver measurable business and technical impact.
-        </p>
+        <FadeIn direction="down" duration={0.5}>
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-xs font-semibold uppercase tracking-wider text-brand-accent mb-6">
+            <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
+            Engineered Outcomes
+          </span>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.1} duration={0.65}>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark dark:text-brand-light tracking-tight max-w-4xl mx-auto mb-6">
+            Case studies in technical scale and architectural transformation
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={0.18} duration={0.65}>
+          <p className="text-base sm:text-lg text-brand-dark/70 dark:text-brand-light/70 max-w-2xl mx-auto leading-relaxed">
+            Explore how we build production-grade platforms, engineering tools, and in-house SaaS ecosystems that deliver measurable business and technical impact.
+          </p>
+        </FadeIn>
 
         {/* Category Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
@@ -417,11 +424,11 @@ export default function ProjectsPage() {
       {/* Case Studies List */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {filteredProjects.map((project, idx) => (
-          <article
-            key={project.id}
-            id={project.id}
-            className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg p-5 xs:p-6 sm:p-10 lg:p-12 scroll-mt-28"
-          >
+          <FadeIn key={project.id} direction="up" delay={idx * 0.08} duration={0.65}>
+            <article
+              id={project.id}
+              className="rounded-3xl bg-white dark:bg-[#1A1414] border border-brand-dark/10 dark:border-white/10 overflow-hidden shadow-lg hover:shadow-2xl hover:border-brand-accent/40 transition-all duration-300 p-5 xs:p-6 sm:p-10 lg:p-12 scroll-mt-28"
+            >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
               {/* Media image with 3-sec Auto Transition Gallery (positioned a little bit down from the title) */}
               <div className={`lg:col-span-6 ${idx % 2 === 1 ? "lg:order-2" : ""} lg:pt-8`}>
@@ -516,7 +523,8 @@ export default function ProjectsPage() {
                 </div>
               </div>
             </div>
-          </article>
+            </article>
+          </FadeIn>
         ))}
       </section>
 
