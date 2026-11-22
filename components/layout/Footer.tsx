@@ -158,13 +158,25 @@ export default function Footer() {
               href="/security-and-compliance"
               className="hover:text-brand-light transition-colors"
             >
-              Security & Compliance
+              {t.nav.about === "O nas"
+                ? "Bezpieczeństwo i Compliance"
+                : t.nav.about === "Über uns"
+                ? "Sicherheit & Compliance"
+                : t.nav.about === "Nosotros"
+                ? "Seguridad y Cumplimiento"
+                : "Security & Compliance"}
             </Link>
             <Link
               href="/cookie-policy"
               className="hover:text-brand-light transition-colors"
             >
-              Cookie Policy
+              {t.nav.about === "O nas"
+                ? "Polityka Cookies"
+                : t.nav.about === "Über uns"
+                ? "Cookie-Richtlinie"
+                : t.nav.about === "Nosotros"
+                ? "Política de Cookies"
+                : "Cookie Policy"}
             </Link>
             <button
               type="button"

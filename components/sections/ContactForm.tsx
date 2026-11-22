@@ -42,7 +42,94 @@ interface SubmittedReceipt {
 
 export default function ContactForm() {
   const { utmData, hasUtm } = useUtm();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const extraCopy = {
+    en: {
+      lastName: "Last Name",
+      phone: "Phone number",
+      company: "Company *",
+      searchCountry: "Search country or dial code...",
+      noCountries: "No matching countries found",
+      consentIntro:
+        "To process your request, we need your permission to store and process your personal data. Please check the box below to confirm your consent:",
+      consentData: "I agree to allow Hextel Tech to store and process my personal data.",
+      consentComm: "I agree to receive other communications from Hextel Tech.",
+      privacyPrefix: "We care about your privacy. Learn how we handle your data in our",
+      privacyLink: "Privacy Policy",
+      careersTitle: "Explore Careers",
+      careersSub: "Apply for open roles",
+      partnerTitle: "Partner With Us",
+      partnerSub: "Join our partner program",
+    },
+    pl: {
+      lastName: "Nazwisko",
+      phone: "Numer telefonu",
+      company: "Firma *",
+      searchCountry: "Szukaj kraju lub kodu...",
+      noCountries: "Nie znaleziono kraju",
+      consentIntro:
+        "Aby przetworzyć Twoje zapytanie, potrzebujemy zgody na przetwarzanie danych osobowych. Zaznacz poniższe pole:",
+      consentData: "Wyrażam zgodę na przechowywanie i przetwarzanie moich danych osobowych przez Hextel Tech.",
+      consentComm: "Wyrażam zgodę na otrzymywanie dodatkowej komunikacji od Hextel Tech.",
+      privacyPrefix: "Dbamy o Twoją prywatność. Dowiedz się więcej w naszej",
+      privacyLink: "Polityce Prywatności",
+      careersTitle: "Kariera w Hextel",
+      careersSub: "Aplikuj na otwarte stanowiska",
+      partnerTitle: "Zostań Partnerem",
+      partnerSub: "Dołącz do programu partnerskiego",
+    },
+    de: {
+      lastName: "Nachname",
+      phone: "Telefonnummer",
+      company: "Unternehmen *",
+      searchCountry: "Land oder Vorwahl suchen...",
+      noCountries: "Kein passendes Land gefunden",
+      consentIntro:
+        "Um Ihre Anfrage zu bearbeiten, benötigen wir Ihre Zustimmung zur Speicherung und Verarbeitung Ihrer personenbezogenen Daten:",
+      consentData: "Ich stimme der Speicherung und Verarbeitung meiner personenbezogenen Daten durch Hextel Tech zu.",
+      consentComm: "Ich stimme zu, weitere Mitteilungen von Hextel Tech zu erhalten.",
+      privacyPrefix: "Wir schützen Ihre Daten. Mehr dazu in unserer",
+      privacyLink: "Datenschutzerklärung",
+      careersTitle: "Karriere entdecken",
+      careersSub: "Auf offene Stellen bewerben",
+      partnerTitle: "Partner werden",
+      partnerSub: "Unserem Partnerprogramm beitreten",
+    },
+    es: {
+      lastName: "Apellido",
+      phone: "Número de teléfono",
+      company: "Empresa *",
+      searchCountry: "Buscar país o código...",
+      noCountries: "No se encontraron países",
+      consentIntro:
+        "Para procesar tu solicitud, necesitamos tu permiso para almacenar y procesar tus datos personales. Marca la casilla a continuación:",
+      consentData: "Acepto que Hextel Tech almacene y procese mis datos personales.",
+      consentComm: "Acepto recibir otras comunicaciones de Hextel Tech.",
+      privacyPrefix: "Cuidamos tu privacidad. Conoce cómo protegemos tus datos en nuestra",
+      privacyLink: "Política de Privacidad",
+      careersTitle: "Explorar Carreras",
+      careersSub: "Postúlate a vacantes abiertas",
+      partnerTitle: "Sé Nuestro Socio",
+      partnerSub: "Únete al programa de partners",
+    },
+  }[language] || {
+    lastName: "Last Name",
+    phone: "Phone number",
+    company: "Company *",
+    searchCountry: "Search country or dial code...",
+    noCountries: "No matching countries found",
+    consentIntro:
+      "To process your request, we need your permission to store and process your personal data. Please check the box below to confirm your consent:",
+    consentData: "I agree to allow Hextel Tech to store and process my personal data.",
+    consentComm: "I agree to receive other communications from Hextel Tech.",
+    privacyPrefix: "We care about your privacy. Learn how we handle your data in our",
+    privacyLink: "Privacy Policy",
+    careersTitle: "Explore Careers",
+    careersSub: "Apply for open roles",
+    partnerTitle: "Partner With Us",
+    partnerSub: "Join our partner program",
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -354,7 +441,7 @@ export default function ContactForm() {
                   type="text"
                   value={formData.lastName}
                   onChange={handleChange}
-                  placeholder={t.contact?.nameLabel ? (t.contact.nameLabel.includes("First") ? t.contact.nameLabel.replace("First", "Last") : "Last Name") : "Last Name"}
+                  placeholder={extraCopy.lastName}
                   className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
                 />
               </div>
@@ -477,7 +564,7 @@ export default function ContactForm() {
                   type="tel"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  placeholder="Phone number"
+                  placeholder={extraCopy.phone}
                   className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
                 />
               </div>
@@ -493,7 +580,7 @@ export default function ContactForm() {
                   required
                   value={formData.company}
                   onChange={handleChange}
-                  placeholder="Company *"
+                  placeholder={extraCopy.company}
                   className="w-full px-4 py-3.5 rounded-xl border border-brand-dark/15 dark:border-white/15 bg-white dark:bg-[#120E0E] text-brand-dark dark:text-brand-light placeholder:text-brand-dark/40 dark:placeholder:text-brand-light/40 text-sm focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all hover:border-brand-accent/50"
                 />
               </div>
@@ -540,7 +627,7 @@ export default function ContactForm() {
             {/* Row 6: Consent section */}
             <div className="space-y-3 pt-1">
               <p className="text-xs text-brand-dark/60 dark:text-brand-light/60 leading-relaxed">
-                To process your request, we need your permission to store and process your personal data. Please check the box below to confirm your consent:
+                {extraCopy.consentIntro}
               </p>
 
               {/* Checkbox 1: Store & Process (Required) */}
@@ -554,7 +641,7 @@ export default function ContactForm() {
                   className="mt-0.5 h-4 w-4 rounded border-brand-dark/20 dark:border-white/20 bg-white dark:bg-[#120E0E] text-brand-accent focus:ring-brand-accent focus:ring-offset-0 cursor-pointer accent-brand-accent"
                 />
                 <span className="text-xs text-brand-dark/80 dark:text-brand-light/80 group-hover:text-brand-dark dark:group-hover:text-brand-light transition-colors">
-                  I agree to allow Hextel Tech to store and process my personal data. <span className="text-brand-accent">*</span>
+                  {extraCopy.consentData} <span className="text-brand-accent">*</span>
                 </span>
               </label>
 
@@ -568,15 +655,15 @@ export default function ContactForm() {
                   className="mt-0.5 h-4 w-4 rounded border-brand-dark/20 dark:border-white/20 bg-white dark:bg-[#120E0E] text-brand-accent focus:ring-brand-accent focus:ring-offset-0 cursor-pointer accent-brand-accent"
                 />
                 <span className="text-xs text-brand-dark/80 dark:text-brand-light/80 group-hover:text-brand-dark dark:group-hover:text-brand-light transition-colors">
-                  I agree to receive other communications from Hextel Tech.
+                  {extraCopy.consentComm}
                 </span>
               </label>
 
               {/* Privacy disclaimer */}
               <p className="text-xs text-brand-dark/60 dark:text-brand-light/60 pt-1">
-                We care about your privacy. Learn how we handle your data in our{" "}
+                {extraCopy.privacyPrefix}{" "}
                 <Link href="/privacy-policy" className="text-brand-dark dark:text-brand-light font-medium underline hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
-                  Privacy Policy
+                  {extraCopy.privacyLink}
                 </Link>.
               </p>
             </div>
@@ -629,9 +716,9 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="font-heading text-sm font-bold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors">
-                    Explore Careers
+                    {extraCopy.careersTitle}
                   </h4>
-                  <p className="text-xs text-brand-dark/60 dark:text-brand-light/60">Apply for open roles</p>
+                  <p className="text-xs text-brand-dark/60 dark:text-brand-light/60">{extraCopy.careersSub}</p>
                 </div>
               </div>
               <span className="text-brand-dark/40 dark:text-brand-light/40 text-sm group-hover:text-brand-accent group-hover:translate-x-1 transition-all">
@@ -652,9 +739,9 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="font-heading text-sm font-bold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors">
-                    Partner With Us
+                    {extraCopy.partnerTitle}
                   </h4>
-                  <p className="text-xs text-brand-dark/60 dark:text-brand-light/60">Join our partner program</p>
+                  <p className="text-xs text-brand-dark/60 dark:text-brand-light/60">{extraCopy.partnerSub}</p>
                 </div>
               </div>
               <span className="text-brand-dark/40 dark:text-brand-light/40 text-sm group-hover:text-brand-accent group-hover:translate-x-1 transition-all">

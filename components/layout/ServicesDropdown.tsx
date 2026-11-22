@@ -2,8 +2,286 @@
 
 import React from "react";
 import Link from "next/link";
-import { SERVICE_COLUMNS, DetailedService } from "@/lib/constants";
+import { SERVICE_COLUMNS, DetailedService, ServiceColumn } from "@/lib/constants";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import type { SupportedLanguage } from "@/lib/i18n/types";
+
+const COLUMN_TRANSLATIONS: Record<
+  SupportedLanguage,
+  Array<{ title: string; subtitle: string }>
+> = {
+  en: [
+    { title: "Talent & Core Engineering", subtitle: "Scale engineering & core foundation" },
+    { title: "Cloud, DevOps & AI", subtitle: "Intelligent systems & cloud resilience" },
+    { title: "Custom Apps & Software", subtitle: "Tailored multi-platform products" },
+  ],
+  pl: [
+    { title: "Talent i Inżynieria", subtitle: "Skalowanie zespołu i fundamenty" },
+    { title: "Chmura, DevOps i AI", subtitle: "Inteligentne systemy i niezawodność" },
+    { title: "Dedykowane Aplikacje", subtitle: "Produkty wieloplatformowe na miarę" },
+  ],
+  de: [
+    { title: "Talent & Core Engineering", subtitle: "Team-Skalierung & Systemarchitektur" },
+    { title: "Cloud, DevOps & KI", subtitle: "Intelligente Systeme & Cloud-Stabilität" },
+    { title: "Individuelle Apps & Software", subtitle: "Maßgeschneiderte digitale Produkte" },
+  ],
+  es: [
+    { title: "Talento e Ingeniería Base", subtitle: "Escalabilidad técnica y arquitectura" },
+    { title: "Nube, DevOps e IA", subtitle: "Sistemas inteligentes y resiliencia cloud" },
+    { title: "Apps y Software a Medida", subtitle: "Productos multiplataforma personalizados" },
+  ],
+};
+
+const SERVICE_ITEM_TRANSLATIONS: Record<
+  Exclude<SupportedLanguage, "en">,
+  Record<string, { title: string; shortDesc: string; tag?: string }>
+> = {
+  pl: {
+    "staff-aug": {
+      title: "IT Staff Augmentation / Dedykowani Programiści",
+      shortDesc: "Sprawdzeni inżynierowie seniorzy i talenty IT",
+      tag: "Popularne",
+    },
+    "mvp-dev": {
+      title: "Budowa MVP dla Startupów",
+      shortDesc: "Szybkie wdrożenie od koncepcji na rynek",
+      tag: "Szybko",
+    },
+    "data-eng": {
+      title: "Bazy Danych i Inżynieria Danych",
+      shortDesc: "Wydajne potoki danych i architektura",
+    },
+    cybersecurity: {
+      title: "Audyty Cyberbezpieczeństwa i Compliance",
+      shortDesc: "Testy podatności i zgodności z normami",
+    },
+    "api-integrations": {
+      title: "Tworzenie API i Integracje Systemów",
+      shortDesc: "Niezawodne mikroserwisy REST i GraphQL",
+    },
+    "qa-testing": {
+      title: "QA i Testy Automatyczne",
+      shortDesc: "Testy regresyjne E2E i wydajnościowe",
+    },
+    "ui-ux": {
+      title: "Projektowanie UI/UX i Product Discovery",
+      shortDesc: "Ścieżki użytkowników i wysokokonwertujący UX",
+    },
+    devops: {
+      title: "Inżynieria DevOps i CI/CD",
+      shortDesc: "Automatyzacja Kubernetes, Docker i GitOps",
+    },
+    "legacy-modernization": {
+      title: "Modernizacja i Utrzymanie Systemów Legacy",
+      shortDesc: "Migracja monolitów do nowoczesnej chmury",
+    },
+    "cloud-mgmt": {
+      title: "Zarządzanie Serwerami i Chmurą",
+      shortDesc: "Niezawodność 24/7 w AWS, GCP i Azure",
+    },
+    "ai-agents": {
+      title: "Dedykowani Agenci AI i Copiloty",
+      shortDesc: "Autonomiczni agenci LLM i systemy AI",
+      tag: "AI",
+    },
+    "ai-automation": {
+      title: "Automatyzacja Procesów AI",
+      shortDesc: "Inteligentna robotyzacja i przepływy pracy",
+      tag: "Top",
+    },
+    erp: {
+      title: "Systemy i Rozwiązania ERP",
+      shortDesc: "Zintegrowane operacje i dane biznesowe",
+    },
+    "custom-software": {
+      title: "Oprogramowanie Dedykowane (Custom)",
+      shortDesc: "Szyte na miarę systemy klasy enterprise",
+    },
+    "desktop-app": {
+      title: "Aplikacje Desktopowe / Windows",
+      shortDesc: "Wydajne natywne aplikacje komputerowe",
+    },
+    "mobile-app": {
+      title: "Aplikacje Mobilne (iOS i Android)",
+      shortDesc: "Płynne aplikacje mobilne React Native / Flutter",
+    },
+    "web-app": {
+      title: "Tworzenie Aplikacji Webowych",
+      shortDesc: "Skalowalne, szybkie i bezpieczne platformy",
+    },
+  },
+  de: {
+    "staff-aug": {
+      title: "IT-Staff-Augmentation / Dedizierte Entwickler",
+      shortDesc: "Geprüfte Senior-Ingenieure & Entwickler",
+      tag: "Beliebt",
+    },
+    "mvp-dev": {
+      title: "MVP-Entwicklung für Startups",
+      shortDesc: "Schneller Marktstart vom Konzept zum Produkt",
+      tag: "Schnell",
+    },
+    "data-eng": {
+      title: "Datenbank- & Data-Engineering",
+      shortDesc: "Hochdurchsatz-Datenpipelines & Architektur",
+    },
+    cybersecurity: {
+      title: "Cybersecurity- & Compliance-Audits",
+      shortDesc: "Schwachstellenanalysen & Sicherheitsprüfungen",
+    },
+    "api-integrations": {
+      title: "API-Entwicklung & Systemintegration",
+      shortDesc: "Robuste REST- & GraphQL-Microservices",
+    },
+    "qa-testing": {
+      title: "QA & Automatisierte Tests",
+      shortDesc: "End-to-End-Regressions- & Lasttests",
+    },
+    "ui-ux": {
+      title: "UI/UX-Design & Product Discovery",
+      shortDesc: "User-Journeys & konversionsstarkes Design",
+    },
+    devops: {
+      title: "DevOps & CI/CD-Engineering",
+      shortDesc: "Kubernetes-, Docker- & GitOps-Automatisierung",
+    },
+    "legacy-modernization": {
+      title: "Legacy-Wartung & Software-Modernisierung",
+      shortDesc: "Migration von Monolithen in moderne Cloud-Stacks",
+    },
+    "cloud-mgmt": {
+      title: "Server- & Cloud-Infrastruktur-Management",
+      shortDesc: "24/7-Zuverlässigkeit auf AWS, GCP & Azure",
+    },
+    "ai-agents": {
+      title: "Individuelle KI-Agenten & Copiloten",
+      shortDesc: "Autonome LLM-Agenten & maßgeschneiderte KI",
+      tag: "KI",
+    },
+    "ai-automation": {
+      title: "KI-Workflow-Automatisierung",
+      shortDesc: "Intelligente Prozess- & Workflow-Automatisierung",
+      tag: "Trend",
+    },
+    erp: {
+      title: "ERP-Systeme & Unternehmenslösungen",
+      shortDesc: "Vernetzte Geschäftsprozesse & Unternehmensdaten",
+    },
+    "custom-software": {
+      title: "Individuelle Softwareentwicklung",
+      shortDesc: "Maßgeschneiderte Full-Stack-Enterprise-Systeme",
+    },
+    "desktop-app": {
+      title: "Windows- / Desktop-App-Entwicklung",
+      shortDesc: "Performante native Desktop-Anwendungen",
+    },
+    "mobile-app": {
+      title: "Mobile App-Entwicklung",
+      shortDesc: "Reaktive iOS- & Android-Anwendungen",
+    },
+    "web-app": {
+      title: "Webanwendungs-Entwicklung",
+      shortDesc: "Skalierbare, reaktive & sichere Webplattformen",
+    },
+  },
+  es: {
+    "staff-aug": {
+      title: "IT Staff Augmentation / Desarrolladores Dedicados",
+      shortDesc: "Ingenieros sénior verificados y talento dedicado",
+      tag: "Popular",
+    },
+    "mvp-dev": {
+      title: "Desarrollo de MVP para Startups",
+      shortDesc: "Lanzamiento rápido del concepto al mercado",
+      tag: "Rápido",
+    },
+    "data-eng": {
+      title: "Bases de Datos e Ingeniería de Datos",
+      shortDesc: "Pipelines y arquitectura de alto rendimiento",
+    },
+    cybersecurity: {
+      title: "Auditorías de Ciberseguridad y Cumplimiento",
+      shortDesc: "Análisis de vulnerabilidades y normativas",
+    },
+    "api-integrations": {
+      title: "Desarrollo de APIs e Integración de Sistemas",
+      shortDesc: "Microservicios robustos en REST y GraphQL",
+    },
+    "qa-testing": {
+      title: "QA y Pruebas Automatizadas",
+      shortDesc: "Pruebas de regresión E2E y estrés",
+    },
+    "ui-ux": {
+      title: "Diseño UI/UX y Product Discovery",
+      shortDesc: "Mapeo de usuarios y UX de alta conversión",
+    },
+    devops: {
+      title: "Ingeniería DevOps y CI/CD",
+      shortDesc: "Automatización con Kubernetes, Docker y GitOps",
+    },
+    "legacy-modernization": {
+      title: "Mantenimiento y Modernización de Software",
+      shortDesc: "Migración de monolitos a arquitecturas cloud",
+    },
+    "cloud-mgmt": {
+      title: "Gestión de Servidores e Infraestructura Cloud",
+      shortDesc: "Fiabilidad 24/7 en AWS, GCP y Azure",
+    },
+    "ai-agents": {
+      title: "Agentes de IA y Copilotos a Medida",
+      shortDesc: "Agentes LLM autónomos e IA personalizada",
+      tag: "IA",
+    },
+    "ai-automation": {
+      title: "Automatización de Flujos con IA",
+      shortDesc: "Robótica inteligente de procesos empresariales",
+      tag: "Top",
+    },
+    erp: {
+      title: "Sistemas y Soluciones ERP",
+      shortDesc: "Operaciones empresariales y datos unificados",
+    },
+    "custom-software": {
+      title: "Desarrollo de Software a Medida",
+      shortDesc: "Sistemas empresariales full-stack personalizados",
+    },
+    "desktop-app": {
+      title: "Desarrollo de Apps de Escritorio / Windows",
+      shortDesc: "Aplicaciones nativas de escritorio de alto rendimiento",
+    },
+    "mobile-app": {
+      title: "Desarrollo de Aplicaciones Móviles",
+      shortDesc: "Apps móviles fluidas para iOS y Android",
+    },
+    "web-app": {
+      title: "Desarrollo de Aplicaciones Web",
+      shortDesc: "Plataformas web escalables, reactivas y seguras",
+    },
+  },
+};
+
+export function getLocalizedServiceColumns(language: SupportedLanguage): ServiceColumn[] {
+  if (language === "en") {
+    return SERVICE_COLUMNS;
+  }
+
+  const colMeta = COLUMN_TRANSLATIONS[language] || COLUMN_TRANSLATIONS.en;
+  const itemDict = SERVICE_ITEM_TRANSLATIONS[language];
+
+  return SERVICE_COLUMNS.map((col, idx) => ({
+    title: colMeta[idx]?.title || col.title,
+    subtitle: colMeta[idx]?.subtitle || col.subtitle,
+    services: col.services.map((srv) => {
+      const tr = itemDict?.[srv.id];
+      return {
+        ...srv,
+        title: tr?.title || srv.title,
+        shortDesc: tr?.shortDesc || srv.shortDesc,
+        tag: tr?.tag !== undefined ? tr.tag : srv.tag,
+      };
+    }),
+  }));
+}
 
 export function ServiceIcon({ name, className = "w-4 h-4" }: { name: string; className?: string }) {
   switch (name) {
@@ -131,6 +409,8 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
   const { t, language } = useLanguage();
   if (!isOpen) return null;
 
+  const localizedColumns = getLocalizedServiceColumns(language);
+
   const catalogTitle =
     language === "de"
       ? "Vollständiger Leistungs- & Lösungskatalog"
@@ -191,7 +471,7 @@ export default function ServicesDropdown({ isOpen, onClose }: ServicesDropdownPr
 
         {/* 3 Columns Grid (Equal Parts: 6, 6, 5) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10 dark:divide-white/10">
-          {SERVICE_COLUMNS.map((column, colIdx) => (
+          {localizedColumns.map((column, colIdx) => (
             <div
               key={column.title}
               className={colIdx > 0 ? "md:pl-6 pt-4 md:pt-0" : "pt-4 md:pt-0"}

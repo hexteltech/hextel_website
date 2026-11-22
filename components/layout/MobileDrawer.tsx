@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BRAND_CONFIG, SERVICE_COLUMNS } from "@/lib/constants";
+import { BRAND_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import LanguageSelector from "@/components/ui/LanguageSelector";
-import { ServiceIcon } from "./ServicesDropdown";
+import { ServiceIcon, getLocalizedServiceColumns } from "./ServicesDropdown";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -18,7 +18,8 @@ interface MobileDrawerProps {
 export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const { resolvedTheme, toggleTheme } = useTheme();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const localizedServiceColumns = getLocalizedServiceColumns(language);
 
   const navLinks = [
     { label: t.nav.home, href: "/" },
@@ -168,7 +169,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
                     {servicesExpanded && (
                       <div className="mt-3 space-y-4 pl-1 pr-1 pb-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                        {SERVICE_COLUMNS.map((col) => (
+                        {localizedServiceColumns.map((col) => (
                           <div key={col.title} className="space-y-1.5">
                             <div className="text-[10px] font-bold uppercase tracking-wider text-brand-accent px-1">
                               {col.title}

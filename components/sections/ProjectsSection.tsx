@@ -69,7 +69,73 @@ function ProjectCardMedia({ project }: { project: ProjectItem }) {
 }
 
 export default function ProjectsSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const PROJECT_LOCALIZATION: Record<
+    string,
+    Record<string, { title: string; category: string; badge?: string }>
+  > = {
+    pl: {
+      "project-jobhunt": {
+        title: "Job Hunt Copilot — Autonomiczne Centrum Inżynierii Kariery AI",
+        category: "Własny SaaS • Centrum Dowodzenia AI",
+        badge: "Nasz Produkt SaaS",
+      },
+      "project-tracelens": {
+        title: "TraceLens — Silnik Telemetrii i Obserwowalności Wysokiej Wydajności",
+        category: "Własny SaaS • Obserwowalność AI",
+        badge: "Nasz Produkt SaaS",
+      },
+      "project-1": {
+        title: "Nayyab Jewellers – Dedykowany Luksusowy Sklep E-Commerce",
+        category: "Aplikacja Webowa Full-Stack",
+      },
+      "project-2": {
+        title: "Al Moman Frozen Foods — E-Commerce i System Zamówień na Żywo",
+        category: "Aplikacja Webowa Full-Stack",
+      },
+    },
+    de: {
+      "project-jobhunt": {
+        title: "Job Hunt Copilot — Autonomes KI-Karriere-Command-Center",
+        category: "Eigenes SaaS • KI-Command-Center",
+        badge: "Unser SaaS-Produkt",
+      },
+      "project-tracelens": {
+        title: "TraceLens — Hochdurchsatz-Telemetrie- & Observability-Engine",
+        category: "Eigenes SaaS • KI-Observability",
+        badge: "Unser SaaS-Produkt",
+      },
+      "project-1": {
+        title: "Nayyab Jewellers – Maßgeschneiderter Luxus-E-Commerce",
+        category: "Full-Stack-Webanwendung",
+      },
+      "project-2": {
+        title: "Al Moman Frozen Foods — E-Commerce & Live-Bestellsystem",
+        category: "Full-Stack-Webanwendung",
+      },
+    },
+    es: {
+      "project-jobhunt": {
+        title: "Job Hunt Copilot — Centro de Comando Autónomo de Carrera con IA",
+        category: "SaaS Propio • Centro de Comando IA",
+        badge: "Nuestro Producto SaaS",
+      },
+      "project-tracelens": {
+        title: "TraceLens — Motor de Telemetría y Observabilidad de Alto Rendimiento",
+        category: "SaaS Propio • Observabilidad IA",
+        badge: "Nuestro Producto SaaS",
+      },
+      "project-1": {
+        title: "Nayyab Jewellers – E-Commerce de Joyería de Lujo a Medida",
+        category: "Aplicación Web Full-Stack",
+      },
+      "project-2": {
+        title: "Al Moman Frozen Foods — E-Commerce y Sistema de Pedidos en Vivo",
+        category: "Aplicación Web Full-Stack",
+      },
+    },
+  };
 
   return (
     <section id="projects" className="relative z-10 bg-brand-light dark:bg-[#120E0E] py-20 sm:py-28 transition-colors">
@@ -107,9 +173,11 @@ export default function ProjectsSection() {
           staggerDelay={0.2}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
-          {PROJECTS.map((project, idx) => {
-            const title = project.title;
-            const category = project.category;
+          {PROJECTS.map((project) => {
+            const loc = PROJECT_LOCALIZATION[language]?.[project.id];
+            const title = loc?.title || project.title;
+            const category = loc?.category || project.category;
+            const badge = loc?.badge || project.badge;
 
             return (
               <StaggerItem key={project.id}>
@@ -118,11 +186,11 @@ export default function ProjectsSection() {
                   className="group relative block overflow-hidden rounded-2xl bg-brand-dark/5 dark:bg-white/5 border border-brand-dark/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-brand-accent/50 transition-all duration-500 hover:-translate-y-2 h-full"
                 >
                   {/* Floating In-House SaaS badge */}
-                  {project.badge && (
+                  {badge && (
                     <div className="absolute top-3 left-3 xs:top-4 xs:left-4 z-20">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-accent text-brand-dark font-extrabold text-[11px] tracking-wider uppercase shadow-lg border border-white/20 backdrop-blur-md">
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
-                        {project.badge}
+                        {badge}
                       </span>
                     </div>
                   )}

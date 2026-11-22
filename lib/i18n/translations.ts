@@ -104,12 +104,12 @@ export const translations: Record<SupportedLanguage, TranslationSchema> = {
       ],
     },
     team: {
-      badge: "Our Team & Values",
-      heading: "People who create value",
+      badge: "Our Founders & Values",
+      heading: "Built by 3 dedicated founders",
       description:
-        "We are a dedicated team of engineers, architects, and visual designers who combine deep passion for modern cloud technology with a sharp eye for functional design. Every digital solution is engineered around your enterprise goals and target audience.",
-      specialistsBadge: "10+ Senior Specialists",
-      specialistsSub: "Distributed across product & systems",
+        "We are 3 friends and builders combining full-stack development, AI automation, and business growth. When you work with Hextel Tech, you collaborate directly with the founders building your software—zero corporate bureaucracy, pure velocity.",
+      specialistsBadge: "3 Co-Founders & Builders",
+      specialistsSub: "Hasaan · Muhammad Faseeh · Moman",
       values: [
         "Strategic engineering & architecture",
         "Tailored, human-centered UX design",
@@ -367,12 +367,12 @@ export const translations: Record<SupportedLanguage, TranslationSchema> = {
       ],
     },
     team: {
-      badge: "Nasz Zespół i Wartości",
-      heading: "Ludzie, którzy tworzą wartość",
+      badge: "Nasi Założyciele i Wartości",
+      heading: "Stworzone przez 3 zaangażowanych założycieli",
       description:
-        "Jesteśmy dedykowanym zespołem inżynierów, architektów i projektantów wizualnych łączących pasję do nowoczesnych technologii chmurowych z wyczuciem funkcjonalnego designu. Każde rozwiązanie jest dostosowane do celów Twojej firmy.",
-      specialistsBadge: "10+ Doświadczonych Specjalistów",
-      specialistsSub: "Zespoły produktowe i systemowe",
+        "Jesteśmy trójką przyjaciół i inżynierów łączących programowanie full-stack, automatyzację AI i rozwój biznesu. Współpracując z Hextel Tech, pracujesz bezpośrednio z założycielami tworzącymi Twoje oprogramowanie — bez korporacyjnej biurokracji.",
+      specialistsBadge: "3 Współzałożycieli i Inżynierów",
+      specialistsSub: "Hasaan · Muhammad Faseeh · Moman",
       values: [
         "Strategiczna inżynieria i architektura",
         "Dopasowany, zorientowany na człowieka UX",
@@ -630,12 +630,12 @@ export const translations: Record<SupportedLanguage, TranslationSchema> = {
       ],
     },
     team: {
-      badge: "Team & Werte",
-      heading: "Menschen, die Werte schaffen",
+      badge: "Unsere Gründer & Werte",
+      heading: "Aufgebaut von 3 engagierten Gründern",
       description:
-        "Wir sind ein engagiertes Team von Ingenieuren, Architekten und Designern, die Leidenschaft für moderne Cloud-Technologien mit Sinn für funktionale Gestaltung vereinen.",
-      specialistsBadge: "10+ Senior-Spezialisten",
-      specialistsSub: "Fokussiert auf Produkte und Systeme",
+        "Wir sind 3 Freunde und Entwickler, die Full-Stack-Engineering, KI-Automatisierung und Unternehmenswachstum vereinen. Bei Hextel Tech arbeiten Sie direkt mit den Gründern zusammen, die Ihre Software entwickeln – ohne Bürokratie.",
+      specialistsBadge: "3 Mitgründer & Entwickler",
+      specialistsSub: "Hasaan · Muhammad Faseeh · Moman",
       values: [
         "Strategische Softwarearchitektur",
         "Menschzentriertes UX-Design",
@@ -893,12 +893,12 @@ export const translations: Record<SupportedLanguage, TranslationSchema> = {
       ],
     },
     team: {
-      badge: "Equipo & Valores",
-      heading: "Personas que crean valor",
+      badge: "Nuestros Fundadores y Valores",
+      heading: "Creado por 3 fundadores dedicados",
       description:
-        "Somos un equipo dedicado de ingenieros, arquitectos y diseñadores que combinan pasión por la nube con sensibilidad para el diseño funcional.",
-      specialistsBadge: "10+ Especialistas Senior",
-      specialistsSub: "Distribuidos en sistemas y producto",
+        "Somos 3 amigos e ingenieros que combinamos desarrollo full-stack, automatización con IA y crecimiento empresarial. Al trabajar con Hextel Tech, colaboras directamente con los fundadores que construyen tu software, sin burocracia corporativa.",
+      specialistsBadge: "3 Cofundadores e Ingenieros",
+      specialistsSub: "Hasaan · Muhammad Faseeh · Moman",
       values: [
         "Ingeniería estratégica y arquitectura robusta",
         "Diseño UX centrado en las personas",
