@@ -92,27 +92,31 @@ img, video {
 /* ==============================================================================
    Chatbot Widget Theme Integration (@hasaan_6/rag-chatbot-widget)
    ============================================================================== */
-:root {
+:root,
+.chatbot-widget-shell,
+.chatbot-widget-shell.chatbot-theme-light {
   --chatbot-primary: #5C1F1F;
   --chatbot-primary-strong: #782828;
-  --chatbot-secondary: #120E0E;
+  --chatbot-secondary: #5C1F1F;
   --chatbot-bg: #FFFFFF;
   --chatbot-surface: #EDE9E1;
   --chatbot-text: #120E0E;
-  --chatbot-muted: rgba(92, 31, 31, 0.7);
-  --chatbot-border: rgba(92, 31, 31, 0.15);
+  --chatbot-muted: rgba(92, 31, 31, 0.72);
+  --chatbot-border: rgba(92, 31, 31, 0.16);
   --chatbot-border-radius: 16px;
 }
 
-.dark {
+.dark,
+.dark .chatbot-widget-shell,
+.chatbot-widget-shell.chatbot-theme-dark {
   --chatbot-primary: #B88849;
   --chatbot-primary-strong: #D4A362;
-  --chatbot-secondary: #120E0E;
+  --chatbot-secondary: #5C1F1F;
   --chatbot-bg: #1A1414;
   --chatbot-surface: #231B1B;
   --chatbot-text: #F3EFE6;
-  --chatbot-muted: rgba(243, 239, 230, 0.65);
-  --chatbot-border: rgba(243, 239, 230, 0.15);
+  --chatbot-muted: rgba(243, 239, 230, 0.68);
+  --chatbot-border: rgba(243, 239, 230, 0.16);
 }
 
 .chatbot-toggle {

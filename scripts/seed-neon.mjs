@@ -44,26 +44,8 @@ if (!geminiApiKey && !openAiApiKey) {
 
 async function getEmbedding(text) {
   if (geminiApiKey) {
-    // Primary: Gemini Embedding 2 (latest 3072-dimension)
+    // Primary: Gemini Embedding 001 (3072-dimension)
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${geminiApiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "models/gemini-embedding-2",
-          content: { parts: [{ text }] },
-        }),
-      }
-    );
-
-    if (res.ok) {
-      const data = await res.json();
-      return data.embedding.values;
-    }
-
-    // Fallback: Gemini Embedding 001
-    const fallbackRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key=${geminiApiKey}`,
       {
         method: "POST",
@@ -75,8 +57,8 @@ async function getEmbedding(text) {
       }
     );
 
-    if (fallbackRes.ok) {
-      const data = await fallbackRes.json();
+    if (res.ok) {
+      const data = await res.json();
       return data.embedding.values;
     }
 
