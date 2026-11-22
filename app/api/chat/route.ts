@@ -173,9 +173,9 @@ const INTENT_PATTERNS: IntentPattern[] = [
     suggestedQuestions: [
       "What is your development timeline?",
       "What services do you offer?",
-      "Can we sign an NDA?",
+      "Request a Quote",
     ],
-    needsHumanHandoff: true,
+    needsHumanHandoff: false,
   },
 
   // 4. Timelines, Turnaround & Onboarding Speed (Placed before product categories so "What is your mobile development timeline?" matches Timelines!)
@@ -673,14 +673,14 @@ const INTENT_PATTERNS: IntentPattern[] = [
       "reach out",
     ],
     answer:
-      `You can reach our founding team directly by email at ${BRAND_CONFIG.email} or by phone/WhatsApp at ${BRAND_CONFIG.phone}. You can also fill out the project form below and we will schedule a discovery call within 24 hours.`,
+      `You can reach our founding team directly by email at ${BRAND_CONFIG.email} or by phone/WhatsApp at ${BRAND_CONFIG.phone}, or visit our Contact page to schedule a discovery call within 24 hours.`,
     sources: [{ title: "Contact Hextel Tech", url: "/contact" }],
     suggestedQuestions: [
       "What services do you offer?",
       "How much does an MVP cost?",
-      "Who are the founders?",
+      "Request a Quote",
     ],
-    needsHumanHandoff: true,
+    needsHumanHandoff: false,
   },
 
   // 20. Location, Office & Company Background
@@ -943,23 +943,15 @@ export async function POST(req: Request) {
         extraContext
       );
       if (aiAnswer) {
-        const lowerAns = aiAnswer.toLowerCase();
-        const shouldOpenLead =
-          matchesKeyword(qLower, "hire") ||
-          matchesKeyword(qLower, "build for me") ||
-          matchesKeyword(qLower, "need a website") ||
-          matchesKeyword(qLower, "need an app") ||
-          lowerAns.includes("inquiry form below");
-
         return NextResponse.json({
           answer: aiAnswer,
           sources,
           suggestedQuestions: [
             "What services do you offer?",
             "How much does an MVP cost?",
-            "Request a custom estimate",
+            "Request a Quote",
           ],
-          needsHumanHandoff: shouldOpenLead,
+          needsHumanHandoff: false,
         });
       }
     }
