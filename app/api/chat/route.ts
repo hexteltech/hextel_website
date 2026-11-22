@@ -2698,17 +2698,33 @@ ${extraContext ? `\nAdditional Retrieved Context:\n${extraContext}` : ""}`;
       : [...recentTurns, { role: "user", parts: [{ text: question }] }];
 
   const candidateModels = [
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-flash-lite-latest",
+    {
+      name: "gemini-3.5-flash-lite",
+      generationConfig: {
+        temperature: 0.25,
+        thinkingConfig: { thinkingLevel: "MINIMAL" },
+      },
+    },
+    {
+      name: "gemini-3.1-flash-lite",
+      generationConfig: {
+        temperature: 0.25,
+      },
+    },
+    {
+      name: "gemini-2.5-flash",
+      generationConfig: {
+        temperature: 0.25,
+      },
+    },
   ];
 
   for (const model of candidateModels) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4500);
+    const timeout = setTimeout(() => controller.abort(), 7000);
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${model.name}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           signal: controller.signal,
@@ -2716,17 +2732,19 @@ ${extraContext ? `\nAdditional Retrieved Context:\n${extraContext}` : ""}`;
           body: JSON.stringify({
             system_instruction: { parts: [{ text: systemPrompt }] },
             contents,
-            generationConfig: {
-              maxOutputTokens: 320,
-              temperature: 0.25,
-            },
+            generationConfig: model.generationConfig,
           }),
         }
       );
       clearTimeout(timeout);
       if (res.ok) {
         const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        const parts: Array<{ text?: string; thought?: boolean }> =
+          data.candidates?.[0]?.content?.parts || [];
+        const answerPart =
+          parts.find((p) => !p.thought && typeof p.text === "string" && p.text.trim().length > 0) ||
+          parts[parts.length - 1];
+        const text = answerPart?.text;
         if (text && text.trim().length > 0) {
           return text.trim();
         }
@@ -2738,6 +2756,97 @@ ${extraContext ? `\nAdditional Retrieved Context:\n${extraContext}` : ""}`;
 
   return null;
 }
+
+// Exact UI button labels (Quick Actions & Suggested Questions) for 0ms instant response
+const INSTANT_UI_BUTTON_QUERIES = new Set([
+  // EN
+  "web & app development",
+  "how we build",
+  "client reviews",
+  "what services do you offer?",
+  "how much does an mvp cost?",
+  "show me your portfolio projects",
+  "what is your development timeline?",
+  "what is your development process?",
+  "can we sign an nda?",
+  "who are the founders?",
+  "tell me about job hunt copilot",
+  "tell me about tracelens",
+  "tell me about the nayyab jewellers case study",
+  "how much does an e-commerce platform cost?",
+  "what is your mobile development timeline?",
+  "how much does a mobile app cost?",
+  "what tech stack do you use?",
+  "can you build custom ai agents?",
+  "can you build web applications?",
+  "do you provide dedicated developers?",
+  "what tech stacks do you cover?",
+  "how quickly can we onboard developers?",
+  "how do we start a project?",
+  // PL
+  "aplikacje web i mobile",
+  "jak budujemy",
+  "opinie klientów",
+  "jakie usługi oferujecie?",
+  "ile kosztuje budowa mvp?",
+  "pokaż wasze projekty z portfolio",
+  "jaki jest czas realizacji projektu?",
+  "jak wygląda proces tworzenia?",
+  "czy podpisujecie nda?",
+  "kim są założyciele?",
+  "opowiedz o job hunt copilot",
+  "opowiedz o tracelens",
+  "opowiedz o projekcie nayyab jewellers",
+  "ile kosztuje platforma e-commerce?",
+  "jakiego stacku technologicznego używacie?",
+  "czy tworzycie dedykowanych agentów ai?",
+  "czy oferujecie dedykowanych programistów?",
+  // DE
+  "web- & app-entwicklung",
+  "wie wir bauen",
+  "kundenbewertungen",
+  "welche leistungen bieten sie an?",
+  "wie viel kostet ein mvp?",
+  "zeigen sie mir ihre portfolio-projekte",
+  "wie sieht ihr entwicklungszeitplan aus?",
+  "wie läuft ihr entwicklungsprozess ab?",
+  "können wir ein nda unterzeichnen?",
+  "wer sind die gründer?",
+  "erzählen sie mir von job hunt copilot",
+  "erzählen sie mir von tracelens",
+  "erzählen sie mir von nayyab jewellers",
+  "wie viel kostet eine e-commerce-plattform?",
+  "welchen tech-stack nutzen sie?",
+  "können sie individuelle ki-agenten entwickeln?",
+  "bieten sie dedizierte entwickler an?",
+  // ES
+  "desarrollo web y apps",
+  "cómo construimos",
+  "reseñas de clientes",
+  "¿qué servicios ofrecen?",
+  "¿cuánto cuesta un mvp?",
+  "muéstrame sus proyectos de portafolio",
+  "¿cuál es el tiempo de entrega?",
+  "¿cuál es su proceso de desarrollo?",
+  "¿podemos firmar un nda?",
+  "¿quiénes son los fundadores?",
+  "háblame sobre job hunt copilot",
+  "háblame sobre tracelens",
+  "háblame del caso nayyab jewellers",
+  "¿cuánto cuesta una plataforma e-commerce?",
+  "¿qué tecnologías utilizan?",
+  "¿pueden crear agentes de ia personalizados?",
+  "¿ofrecen desarrolladores dedicados?",
+]);
+
+const CONVERSATIONAL_INTENT_IDS = new Set([
+  "action-request",
+  "how-are-you-smalltalk",
+  "islamic-greeting",
+  "thanks-acknowledgement",
+  "goodbye-farewell",
+  "general-greeting",
+]);
 
 export async function POST(req: Request) {
   try {
@@ -2779,31 +2888,49 @@ export async function POST(req: Request) {
       });
     }
 
-    // 2. Priority-Ordered Word-Boundary Intent Matcher (when query is in en/pl/de/es)
+    // 2. Find matching intent pattern (used immediately for UI buttons, quote actions & greetings, or as context/fallback for natural typed queries)
+    let matchedPattern: IntentPattern | null = null;
     if (detectedLang !== "other") {
       for (const pattern of INTENT_PATTERNS) {
         const matched = pattern.keywords.some((kw) => matchesKeyword(qLower, kw));
-
         if (matched) {
-          const localized =
-            pattern.responses[activeLang] || pattern.responses.en;
-          return NextResponse.json({
-            answer: localized.answer,
-            sources: localized.sources,
-            suggestedQuestions: localized.suggestedQuestions,
-            needsHumanHandoff: Boolean(pattern.needsHumanHandoff),
-          });
+          matchedPattern = pattern;
+          break;
         }
       }
     }
 
-    // 3. Open-ended or other-language questions -> query Gemini (with optional Neon pgvector enrichment)
     const geminiKey = process.env.GEMINI_API_KEY;
-    const dbUrl = process.env.DATABASE_URL;
+    const isInstantQuery =
+      INSTANT_UI_BUTTON_QUERIES.has(qLower) ||
+      (matchedPattern !== null && CONVERSATIONAL_INTENT_IDS.has(matchedPattern.id));
 
+    // Return instant response (<5ms) for UI button clicks, quote form requests, greetings/small talk, or if Gemini key is not configured
+    if (matchedPattern && (isInstantQuery || !geminiKey)) {
+      const localized =
+        matchedPattern.responses[activeLang] || matchedPattern.responses.en;
+      return NextResponse.json({
+        answer: localized.answer,
+        sources: localized.sources,
+        suggestedQuestions: localized.suggestedQuestions,
+        needsHumanHandoff: Boolean(matchedPattern.needsHumanHandoff),
+      });
+    }
+
+    // 3. For natural typed questions, query Gemini 3.5 Flash Lite with full Hextel Tech knowledge + conversation memory
+    const dbUrl = process.env.DATABASE_URL;
     const fallback = FALLBACK_RESPONSES[activeLang] || FALLBACK_RESPONSES.en;
-    let extraContext = "";
-    let sources: SourceItem[] = fallback.sources;
+    const matchedLocalized = matchedPattern
+      ? matchedPattern.responses[activeLang] || matchedPattern.responses.en
+      : null;
+
+    let extraContext = matchedLocalized ? matchedLocalized.answer : "";
+    let sources: SourceItem[] = matchedLocalized
+      ? matchedLocalized.sources
+      : fallback.sources;
+    const suggestedQuestions: string[] = matchedLocalized
+      ? matchedLocalized.suggestedQuestions
+      : fallback.suggestedQuestions;
 
     if (dbUrl && geminiKey) {
       try {
@@ -2868,13 +2995,22 @@ export async function POST(req: Request) {
         return NextResponse.json({
           answer: aiAnswer,
           sources,
-          suggestedQuestions: fallback.suggestedQuestions,
+          suggestedQuestions,
           needsHumanHandoff: false,
         });
       }
     }
 
-    // 4. Localized Intelligent Fallback Response
+    // 4. If Gemini is unavailable, fall back to matched intent pattern first, then general fallback
+    if (matchedLocalized && matchedPattern) {
+      return NextResponse.json({
+        answer: matchedLocalized.answer,
+        sources: matchedLocalized.sources,
+        suggestedQuestions: matchedLocalized.suggestedQuestions,
+        needsHumanHandoff: Boolean(matchedPattern.needsHumanHandoff),
+      });
+    }
+
     return NextResponse.json({
       answer: fallback.answer,
       sources: fallback.sources,
