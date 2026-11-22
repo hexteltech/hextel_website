@@ -55,8 +55,8 @@ function detectQueryLanguage(
 
   // Polish markers
   if (
-    /[ąćęłńóśźż]/i.test(q) ||
-    /\b(cześć|dzień dobry|jak się masz|co słychać|dziękuję|dzięki|do widzenia|usługi|wycenę|wycena|jak budujemy|opinie klientów|ile kosztuje|aplikacje|tworzycie|zespół|założyciele|kontakt|projekt|czas realizacji)\b/i.test(
+    /[ąćęłńśćźż]/i.test(q) ||
+    /\b(cześć|dzień dobry|jak się masz|co słychać|dziękuję|dzięki|do widzenia|usługi|wycenę|wycena|jak budujemy|opinie klientów|ile kosztuje|ile czasu|zajmuje|stworzenie|aplikacje|aplikacji|tworzycie|zespół|założyciele|kontakt|projekt|czas realizacji)\b/i.test(
       q
     )
   ) {
@@ -2741,10 +2741,13 @@ ${extraContext ? `\nAdditional Retrieved Context:\n${extraContext}` : ""}`;
         const data = await res.json();
         const parts: Array<{ text?: string; thought?: boolean }> =
           data.candidates?.[0]?.content?.parts || [];
-        const answerPart =
-          parts.find((p) => !p.thought && typeof p.text === "string" && p.text.trim().length > 0) ||
-          parts[parts.length - 1];
-        const text = answerPart?.text;
+        const nonThoughtText = parts
+          .filter((p) => !p.thought && typeof p.text === "string")
+          .map((p) => p.text)
+          .join("");
+        const text =
+          nonThoughtText ||
+          parts.map((p) => p.text || "").join("");
         if (text && text.trim().length > 0) {
           return text.trim();
         }
@@ -2851,7 +2854,8 @@ const CONVERSATIONAL_INTENT_IDS = new Set([
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { question, conversation = [], language: rawLang } = body;
+    const { question, conversation = [], language, lang } = body;
+    const rawLang = language || lang;
 
     if (!question || typeof question !== "string") {
       return NextResponse.json(
