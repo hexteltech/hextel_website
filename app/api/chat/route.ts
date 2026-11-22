@@ -56,7 +56,7 @@ function detectQueryLanguage(
   // Polish markers
   if (
     /[ąćęłńóśźż]/i.test(q) ||
-    /\b(cześć|dzień dobry|usługi|wycenę|wycena|jak budujemy|opinie klientów|ile kosztuje|aplikacje|tworzycie|zespół|założyciele|kontakt|projekt|czas realizacji)\b/i.test(
+    /\b(cześć|dzień dobry|jak się masz|co słychać|dziękuję|dzięki|do widzenia|usługi|wycenę|wycena|jak budujemy|opinie klientów|ile kosztuje|aplikacje|tworzycie|zespół|założyciele|kontakt|projekt|czas realizacji)\b/i.test(
       q
     )
   ) {
@@ -66,7 +66,7 @@ function detectQueryLanguage(
   // German markers
   if (
     /[äöüß]/i.test(q) ||
-    /\b(hallo|guten tag|leistungen|angebot anfordern|wie wir bauen|kundenbewertungen|wie viel kostet|kosten|entwicklung|können sie|zeitplan|gründer|kontakt|projekte)\b/i.test(
+    /\b(hallo|guten tag|guten morgen|wie geht es|wie gehts|danke|vielen dank|tschüss|auf wiedersehen|leistungen|angebot anfordern|wie wir bauen|kundenbewertungen|wie viel kostet|kosten|entwicklung|können sie|zeitplan|gründer|kontakt|projekte)\b/i.test(
       q
     )
   ) {
@@ -76,7 +76,7 @@ function detectQueryLanguage(
   // Spanish markers
   if (
     /[¿¡ñáéíóú]/i.test(q) ||
-    /\b(hola|buenos días|buenas tardes|servicios|solicitar presupuesto|cómo construimos|reseñas de clientes|cuánto cuesta|precio|presupuesto|desarrollo|pueden|proyectos|fundadores|contacto)\b/i.test(
+    /\b(hola|buenos días|buenas tardes|cómo estás|como estas|qué tal|que tal|gracias|adiós|hasta luego|servicios|solicitar presupuesto|cómo construimos|reseñas de clientes|cuánto cuesta|precio|presupuesto|desarrollo|pueden|proyectos|fundadores|contacto)\b/i.test(
       q
     )
   ) {
@@ -2019,6 +2019,13 @@ const INTENT_PATTERNS: IntentPattern[] = [
       "pakistan",
       "gujranwala",
       "who are you",
+      "what are you",
+      "what is your name",
+      "whats your name",
+      "your name",
+      "are you a bot",
+      "are you ai",
+      "are you human",
       "about hextel",
       "about us",
       "company",
@@ -2026,16 +2033,20 @@ const INTENT_PATTERNS: IntentPattern[] = [
       "lokalizacja",
       "siedziba",
       "gdzie jesteście",
+      "kim jesteś",
       "o nas",
       "standort",
+      "wer bist du",
+      "wer sind sie",
       "über uns",
       "ubicación",
       "dónde están",
+      "quién eres",
       "sobre nosotros",
     ],
     responses: {
       en: {
-        answer: `Hextel Tech is a digital engineering consultancy headquartered in ${BRAND_CONFIG.address}, led by co-founders Hasaan Ahmad, Muhammad Faseeh Altaf, and Moman Salman. We partner with startups and enterprises across the US, UK, Europe, and the Middle East, with 25+ delivered products and $100K+ in client revenue generated.`,
+        answer: `I'm the Hextel Assistant, the AI Digital Consultant for Hextel Tech—a digital engineering consultancy headquartered in ${BRAND_CONFIG.address} and led by co-founders Hasaan Ahmad, Muhammad Faseeh Altaf, and Moman Salman. We partner with startups and enterprises across the US, UK, Europe, and the Middle East, with 25+ delivered products and $100K+ in client revenue generated.`,
         sources: [
           { title: "About Hextel Tech", url: "/about" },
           { title: "Contact Us", url: "/contact" },
@@ -2047,7 +2058,7 @@ const INTENT_PATTERNS: IntentPattern[] = [
         ],
       },
       pl: {
-        answer: `Hextel Tech to firma inżynierii oprogramowania z siedzibą w ${BRAND_CONFIG.address}, prowadzona przez współzałożycieli: Hasaana Ahmada, Muhammada Faseeha Altafa i Momana Salmana. Współpracujemy ze startupami i firmami z Europy, USA, Wielkiej Brytanii i Bliskiego Wschodu (25+ wdrożonych produktów i $100K+ wygenerowanego przychodu).`,
+        answer: `Jestem Asystentem Hextel — cyfrowym konsultantem AI firmy Hextel Tech z siedzibą w ${BRAND_CONFIG.address}, prowadzonej przez współzałożycieli: Hasaana Ahmada, Muhammada Faseeha Altafa i Momana Salmana. Współpracujemy ze startupami i firmami z Europy, USA, Wielkiej Brytanii i Bliskiego Wschodu (25+ wdrożonych produktów i $100K+ wygenerowanego przychodu).`,
         sources: [
           { title: "O Hextel Tech", url: "/about" },
           { title: "Kontakt", url: "/contact" },
@@ -2059,7 +2070,7 @@ const INTENT_PATTERNS: IntentPattern[] = [
         ],
       },
       de: {
-        answer: `Hextel Tech ist ein Digital-Engineering-Beratungsunternehmen mit Hauptsitz in ${BRAND_CONFIG.address} unter der Leitung der Mitgründer Hasaan Ahmad, Muhammad Faseeh Altaf und Moman Salman. Wir arbeiten mit Startups und Unternehmen in Europa, den USA, Großbritannien und dem Nahen Osten zusammen (25+ gelieferte Produkte, $100K+ Kundenumsatz).`,
+        answer: `Ich bin der Hextel Assistent, der digitale KI-Berater von Hextel Tech – einem Digital-Engineering-Unternehmen mit Hauptsitz in ${BRAND_CONFIG.address} unter der Leitung der Mitgründer Hasaan Ahmad, Muhammad Faseeh Altaf und Moman Salman. Wir arbeiten mit Startups und Unternehmen in Europa, den USA, Großbritannien und dem Nahen Osten zusammen (25+ gelieferte Produkte, $100K+ Kundenumsatz).`,
         sources: [
           { title: "Über Hextel Tech", url: "/about" },
           { title: "Kontakt", url: "/contact" },
@@ -2071,7 +2082,7 @@ const INTENT_PATTERNS: IntentPattern[] = [
         ],
       },
       es: {
-        answer: `Hextel Tech es una consultora de ingeniería digital con sede en ${BRAND_CONFIG.address}, liderada por sus cofundadores Hasaan Ahmad, Muhammad Faseeh Altaf y Moman Salman. Colaboramos con startups y empresas en Europa, EE. UU., Reino Unido y Medio Oriente (25+ productos entregados y $100K+ en ingresos generados).`,
+        answer: `Soy el Asistente Hextel, el consultor digital de IA de Hextel Tech, una consultora de ingeniería digital con sede en ${BRAND_CONFIG.address}, liderada por sus cofundadores Hasaan Ahmad, Muhammad Faseeh Altaf y Moman Salman. Colaboramos con startups y empresas en Europa, EE. UU., Reino Unido y Medio Oriente (25+ productos entregados y $100K+ en ingresos generados).`,
         sources: [
           { title: "Sobre Hextel Tech", url: "/about" },
           { title: "Contacto", url: "/contact" },
@@ -2083,6 +2094,422 @@ const INTENT_PATTERNS: IntentPattern[] = [
         ],
       },
     },
+    needsHumanHandoff: false,
+  },
+
+  // 21. "How are you?" & Conversational Small Talk
+  {
+    id: "how-are-you-smalltalk",
+    keywords: [
+      // EN
+      "how are you",
+      "how are u",
+      "how r u",
+      "how r you",
+      "how are you doing",
+      "how is it going",
+      "hows it going",
+      "how's it going",
+      "how do you do",
+      "how are things",
+      "how have you been",
+      "whats up",
+      "what's up",
+      "what is up",
+      "wassup",
+      "sup",
+      "are you there",
+      "anyone there",
+      // PL
+      "jak się masz",
+      "jak sie masz",
+      "co słychać",
+      "co slychac",
+      "jak leci",
+      "co tam",
+      "wszystko dobrze",
+      // DE
+      "wie geht es",
+      "wie gehts",
+      "wie geht's",
+      "alles gut",
+      "was geht",
+      // ES
+      "cómo estás",
+      "como estas",
+      "qué tal",
+      "que tal",
+      "cómo va",
+      "como va",
+      "todo bien",
+    ],
+    responses: {
+      en: {
+        answer:
+          "I'm doing great, thank you for asking! I'm ready to help you explore Hextel Tech's software engineering services, project case studies, or pricing estimates. What are you looking to build today?",
+        sources: [{ title: "Hextel Tech Overview", url: "/" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "How much does an MVP cost?",
+          "Show me your portfolio projects",
+        ],
+      },
+      pl: {
+        answer:
+          "Dziękuję, świetnie! Jestem gotowy, aby pomóc Ci poznać usługi programistyczne Hextel Tech, nasze projekty lub przygotować wycenę. Jaki projekt planujesz zrealizować?",
+        sources: [{ title: "Przegląd Hextel Tech", url: "/" }],
+        suggestedQuestions: [
+          "Jakie usługi oferujecie?",
+          "Ile kosztuje budowa MVP?",
+          "Pokaż Wasze projekty z portfolio",
+        ],
+      },
+      de: {
+        answer:
+          "Mir geht es hervorragend, vielen Dank der Nachfrage! Ich helfe Ihnen gerne bei Fragen zu unseren Software-Engineering-Leistungen, Fallstudien oder Kostenschätzungen. Welches Projekt planen Sie?",
+        sources: [{ title: "Hextel Tech Übersicht", url: "/" }],
+        suggestedQuestions: [
+          "Welche Leistungen bieten Sie an?",
+          "Wie viel kostet ein MVP?",
+          "Zeigen Sie mir Ihre Portfolio-Projekte",
+        ],
+      },
+      es: {
+        answer:
+          "¡Todo muy bien, gracias por preguntar! Estoy listo para ayudarte a explorar los servicios de ingeniería de software de Hextel Tech, nuestros casos de estudio o presupuestos. ¿Qué proyecto tienes en mente?",
+        sources: [{ title: "Resumen de Hextel Tech", url: "/" }],
+        suggestedQuestions: [
+          "¿Qué servicios ofrecen?",
+          "¿Cuánto cuesta un MVP?",
+          "Muéstrame sus proyectos de portafolio",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 22. Assalamu Alaikum / Salam Greeting
+  {
+    id: "islamic-greeting",
+    keywords: [
+      "assalamu alaikum",
+      "assalam o alaikum",
+      "assalam u alaikum",
+      "asalamualaikum",
+      "assalamualaikum",
+      "salam",
+      "salaam",
+      "slaam",
+      "aoa",
+      "wa alaikum assalam",
+      "walaikum assalam",
+    ],
+    responses: {
+      en: {
+        answer:
+          "Wa Alaikum Assalam! Welcome to Hextel Tech. How can I assist you today with our web & mobile development, custom AI agents, startup MVPs, or project estimates?",
+        sources: [{ title: "Hextel Tech Overview", url: "/" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "How much does an MVP cost?",
+          "Show me your portfolio projects",
+        ],
+      },
+      pl: {
+        answer:
+          "Wa Alaikum Assalam! Witamy w Hextel Tech. W czym mogę Ci dzisiaj pomóc w zakresie aplikacji webowych i mobilnych, agentów AI, budowy MVP lub wyceny projektu?",
+        sources: [{ title: "Przegląd Hextel Tech", url: "/" }],
+        suggestedQuestions: [
+          "Jakie usługi oferujecie?",
+          "Ile kosztuje budowa MVP?",
+          "Pokaż Wasze projekty z portfolio",
+        ],
+      },
+      de: {
+        answer:
+          "Wa Alaikum Assalam! Willkommen bei Hextel Tech. Wie kann ich Ihnen heute bei Web- und Mobile-Entwicklung, KI-Agenten, Startup-MVPs oder Projektschätzungen helfen?",
+        sources: [{ title: "Hextel Tech Übersicht", url: "/" }],
+        suggestedQuestions: [
+          "Welche Leistungen bieten Sie an?",
+          "Wie viel kostet ein MVP?",
+          "Zeigen Sie mir Ihre Portfolio-Projekte",
+        ],
+      },
+      es: {
+        answer:
+          "¡Wa Alaikum Assalam! Bienvenido a Hextel Tech. ¿Cómo puedo ayudarte hoy con desarrollo web y móvil, agentes de IA, MVPs para startups o presupuestos?",
+        sources: [{ title: "Resumen de Hextel Tech", url: "/" }],
+        suggestedQuestions: [
+          "¿Qué servicios ofrecen?",
+          "¿Cuánto cuesta un MVP?",
+          "Muéstrame sus proyectos de portafolio",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 23. General Help & Project Starter Prompts
+  {
+    id: "help-starter",
+    keywords: [
+      "can you help",
+      "can you help me",
+      "help me",
+      "i need help",
+      "need help",
+      "i have a question",
+      "can i ask",
+      "help",
+      "pomoc",
+      "potrzebuję pomocy",
+      "pomożesz",
+      "hilfe",
+      "können sie mir helfen",
+      "ich brauche hilfe",
+      "ayuda",
+      "necesito ayuda",
+      "puedes ayudarme",
+    ],
+    responses: {
+      en: {
+        answer:
+          "Of course! I'd love to help. Tell me a bit about what you're looking to build—whether it's a web platform, iOS/Android mobile app, custom AI agent, e-commerce store, or startup MVP—or pick one of the topics below!",
+        sources: [{ title: "All 17 Services", url: "/services" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "How much does an MVP cost?",
+          "Request a Quote",
+        ],
+      },
+      pl: {
+        answer:
+          "Oczywiście! Chętnie pomogę. Opowiedz krótko, co chcesz zbudować — aplikację webową, mobilną iOS/Android, agenta AI, sklep e-commerce czy MVP dla startupu — albo wybierz jeden z poniższych tematów!",
+        sources: [{ title: "Wszystkie 17 Usług", url: "/services" }],
+        suggestedQuestions: [
+          "Jakie usługi oferujecie?",
+          "Ile kosztuje budowa MVP?",
+          "Poproś o wycenę",
+        ],
+      },
+      de: {
+        answer:
+          "Natürlich, sehr gerne! Erzählen Sie mir kurz, was Sie entwickeln möchten – ob Webplattform, iOS-/Android-App, KI-Agent, E-Commerce-Shop oder Startup-MVP – oder wählen Sie eines der Themen unten!",
+        sources: [{ title: "Alle 17 Leistungen", url: "/services" }],
+        suggestedQuestions: [
+          "Welche Leistungen bieten Sie an?",
+          "Wie viel kostet ein MVP?",
+          "Angebot anfordern",
+        ],
+      },
+      es: {
+        answer:
+          "¡Por supuesto, encantado de ayudarte! Cuéntame qué te gustaría construir —ya sea una plataforma web, app móvil iOS/Android, agente de IA, tienda e-commerce o MVP— o elige uno de los temas a continuación:",
+        sources: [{ title: "Los 17 Servicios", url: "/services" }],
+        suggestedQuestions: [
+          "¿Qué servicios ofrecen?",
+          "¿Cuánto cuesta un MVP?",
+          "Solicitar presupuesto",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 24. Thanks, Appreciation & Positive Acknowledgements
+  {
+    id: "thanks-acknowledgement",
+    keywords: [
+      "thank you",
+      "thanks",
+      "many thanks",
+      "thx",
+      "tysm",
+      "ty",
+      "appreciate it",
+      "awesome",
+      "great",
+      "perfect",
+      "cool",
+      "nice",
+      "sounds good",
+      "got it",
+      "understood",
+      "ok thanks",
+      "okay thanks",
+      "dziękuję",
+      "dziekuje",
+      "dzięki",
+      "dzieki",
+      "świetnie",
+      "danke",
+      "vielen dank",
+      "dankeschön",
+      "prima",
+      "klasse",
+      "gracias",
+      "muchas gracias",
+      "genial",
+      "perfecto",
+      "excelente",
+    ],
+    responses: {
+      en: {
+        answer:
+          "You're very welcome! Let me know if you have any other questions about our services, tech stack, or pricing—we're always happy to help.",
+        sources: [{ title: "Contact Us", url: "/contact" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "Show me your portfolio projects",
+          "Request a Quote",
+        ],
+      },
+      pl: {
+        answer:
+          "Cała przyjemność po mojej stronie! Daj znać, jeśli masz jeszcze jakieś pytania dotyczące naszych usług, technologii lub wyceny.",
+        sources: [{ title: "Kontakt", url: "/contact" }],
+        suggestedQuestions: [
+          "Jakie usługi oferujecie?",
+          "Pokaż Wasze projekty z portfolio",
+          "Poproś o wycenę",
+        ],
+      },
+      de: {
+        answer:
+          "Sehr gerne! Lassen Sie mich wissen, wenn Sie weitere Fragen zu unseren Leistungen, Technologien oder Preisen haben – wir helfen jederzeit gerne.",
+        sources: [{ title: "Kontakt", url: "/contact" }],
+        suggestedQuestions: [
+          "Welche Leistungen bieten Sie an?",
+          "Zeigen Sie mir Ihre Portfolio-Projekte",
+          "Angebot anfordern",
+        ],
+      },
+      es: {
+        answer:
+          "¡De nada, es un placer ayudar! Avísame si tienes cualquier otra pregunta sobre nuestros servicios, tecnologías o presupuestos.",
+        sources: [{ title: "Contacto", url: "/contact" }],
+        suggestedQuestions: [
+          "¿Qué servicios ofrecen?",
+          "Muéstrame sus proyectos de portafolio",
+          "Solicitar presupuesto",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 25. Goodbyes & Farewells
+  {
+    id: "goodbye-farewell",
+    keywords: [
+      "bye",
+      "bye bye",
+      "goodbye",
+      "good bye",
+      "see you",
+      "see ya",
+      "cya",
+      "talk to you later",
+      "take care",
+      "have a good day",
+      "have a great day",
+      "good night",
+      "goodnight",
+      "do widzenia",
+      "na razie",
+      "dobranoc",
+      "tschüss",
+      "auf wiedersehen",
+      "bis bald",
+      "gute nacht",
+      "adiós",
+      "adios",
+      "hasta luego",
+      "hasta pronto",
+      "chao",
+      "buenas noches",
+    ],
+    responses: {
+      en: {
+        answer: `Thank you for visiting Hextel Tech! Have a wonderful day, and feel free to reach out anytime at ${BRAND_CONFIG.email} or ${BRAND_CONFIG.phone} when you're ready to build.`,
+        sources: [{ title: "Contact Hextel Tech", url: "/contact" }],
+        suggestedQuestions: [
+          "What services do you offer?",
+          "Request a Quote",
+        ],
+      },
+      pl: {
+        answer: `Dziękujemy za odwiedzenie Hextel Tech! Życzymy wspaniałego dnia i zapraszamy do kontaktu pod adresem ${BRAND_CONFIG.email} lub ${BRAND_CONFIG.phone}.`,
+        sources: [{ title: "Kontakt z Hextel Tech", url: "/contact" }],
+        suggestedQuestions: [
+          "Jakie usługi oferujecie?",
+          "Poproś o wycenę",
+        ],
+      },
+      de: {
+        answer: `Vielen Dank für Ihren Besuch bei Hextel Tech! Ich wünsche Ihnen einen großartigen Tag. Sie erreichen uns jederzeit unter ${BRAND_CONFIG.email} oder ${BRAND_CONFIG.phone}.`,
+        sources: [{ title: "Hextel Tech Kontakt", url: "/contact" }],
+        suggestedQuestions: [
+          "Welche Leistungen bieten Sie an?",
+          "Angebot anfordern",
+        ],
+      },
+      es: {
+        answer: `¡Gracias por visitar Hextel Tech! Que tengas un excelente día. Puedes contactarnos en cualquier momento en ${BRAND_CONFIG.email} o al ${BRAND_CONFIG.phone}.`,
+        sources: [{ title: "Contactar a Hextel Tech", url: "/contact" }],
+        suggestedQuestions: [
+          "¿Qué servicios ofrecen?",
+          "Solicitar presupuesto",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 26. General Greetings (Hi, Hello, Hey, Good morning/afternoon/evening)
+  {
+    id: "general-greeting",
+    keywords: [
+      "hi",
+      "hello",
+      "hey",
+      "hi there",
+      "hello there",
+      "hey there",
+      "hi team",
+      "hello team",
+      "hey team",
+      "good morning",
+      "good afternoon",
+      "good evening",
+      "morning",
+      "afternoon",
+      "evening",
+      "greetings",
+      "howdy",
+      "hiya",
+      "yo",
+      "cześć",
+      "czesc",
+      "hej",
+      "dzień dobry",
+      "dzien dobry",
+      "dobry wieczór",
+      "witam",
+      "hallo",
+      "guten morgen",
+      "guten tag",
+      "guten abend",
+      "servus",
+      "moin",
+      "grüß gott",
+      "hola",
+      "buenos días",
+      "buenos dias",
+      "buenas tardes",
+      "buenas",
+    ],
+    responses: GREETING_RESPONSES,
     needsHumanHandoff: false,
   },
 ];
@@ -2239,10 +2666,10 @@ export async function POST(req: Request) {
     const activeLang: SupportedLanguage =
       detectedLang === "other" ? uiLanguage : detectedLang;
 
-    // 1. Instant Greeting Filter (0ms delay) in all supported languages
+    // 1. Instant Pure Greeting Filter (0ms delay) in all supported languages
     if (
       detectedLang !== "other" &&
-      /^(hi|hello|hey|greetings|good\s+morning|good\s+afternoon|good\s+evening|help|assalamu\s*alaikum|salam|cześć|czesc|hej|dzień\s+dobry|dzien\s+dobry|dobry\s+wieczór|witam|hallo|guten\s+morgen|guten\s+tag|guten\s+abend|servus|moin|hola|buenos\s+días|buenos\s+dias|buenas\s+tardes|buenas\s+noches|buenas)([!.,?\s]*)$/iu.test(
+      /^(hi|hello|hey|hi\s+there|hello\s+there|hey\s+there|howdy|hiya|yo|greetings|good\s+morning|good\s+afternoon|good\s+evening|morning|afternoon|evening|cześć|czesc|hej|dzień\s+dobry|dzien\s+dobry|dobry\s+wieczór|witam|hallo|guten\s+morgen|guten\s+tag|guten\s+abend|servus|moin|hola|buenos\s+días|buenos\s+dias|buenas\s+tardes|buenas)([!.,?\s]*)$/iu.test(
         qTrimmed
       )
     ) {
