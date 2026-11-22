@@ -543,7 +543,197 @@ const INTENT_PATTERNS: IntentPattern[] = [
     needsHumanHandoff: false,
   },
 
-  // 3. Pricing, Costs, Rates & Budgets
+  // 3. Timelines, Turnaround, Time Required & Onboarding Speed (Placed BEFORE pricing so "how much time is required?" matches Timeline!)
+  {
+    id: "timeline",
+    keywords: [
+      // EN
+      "how much time",
+      "time is required",
+      "time required",
+      "time does it take",
+      "time will it take",
+      "time it takes",
+      "time to build",
+      "time to develop",
+      "time to deliver",
+      "time to complete",
+      "take to build",
+      "takes to build",
+      "timeline",
+      "timelines",
+      "how long",
+      "duration",
+      "turnaround",
+      "delivery time",
+      "how quickly",
+      "how fast",
+      "onboard developers",
+      "weeks",
+      "months",
+      "days",
+      "deadline",
+      // PL
+      "czas realizacji",
+      "ile czasu",
+      "jak długo",
+      "termin",
+      "tygodnie",
+      "dni",
+      // DE
+      "wie viel zeit",
+      "zeitplan",
+      "wie lange",
+      "dauer",
+      "lieferzeit",
+      "wochen",
+      "tage",
+      // ES
+      "tiempo de entrega",
+      "tiempo se requiere",
+      "tiempo requerido",
+      "tiempo toma",
+      "cuánto tiempo",
+      "cuanto tiempo",
+      "cuánto tarda",
+      "cuanto tarda",
+      "plazo",
+      "duración",
+      "semanas",
+      "días",
+    ],
+    responses: {
+      en: {
+        answer:
+          "Startup MVPs take 2 to 6 weeks from concept to launch, while full enterprise platforms typically take 4 to 8 weeks in transparent 2-week agile sprints with bi-weekly preview deployments. For IT staff augmentation, we can onboard dedicated senior engineers within 48 to 72 hours.",
+        sources: [
+          { title: "How We Build", url: "/how-we-build" },
+          { title: "MVP Development", url: "/services/mvp-development" },
+        ],
+        suggestedQuestions: [
+          "How much does an MVP cost?",
+          "What is your development process?",
+          "Request a Quote",
+        ],
+      },
+      pl: {
+        answer:
+          "Budowa MVP dla startupu zajmuje od 2 do 6 tygodni od koncepcji do wdrożenia, a rozbudowane platformy enterprise od 4 do 8 tygodni w przejrzystych 2-tygodniowych sprintach z regularnymi wersjami demo. W ramach IT Staff Augmentation wdrażamy dedykowanych inżynierów w 48–72 godziny.",
+        sources: [
+          { title: "Jak budujemy", url: "/how-we-build" },
+          { title: "Budowa MVP", url: "/services/mvp-development" },
+        ],
+        suggestedQuestions: [
+          "Ile kosztuje budowa MVP?",
+          "Jak wygląda proces tworzenia?",
+          "Poproś o wycenę",
+        ],
+      },
+      de: {
+        answer:
+          "Startup-MVPs dauern 2 bis 6 Wochen vom Konzept bis zum Launch, während umfassende Enterprise-Plattformen in 4 bis 8 Wochen in transparenten 2-Wochen-Sprints umgesetzt werden. Für IT-Staff-Augmentation können wir Senior-Entwickler innerhalb von 48 bis 72 Stunden integrieren.",
+        sources: [
+          { title: "Wie wir bauen", url: "/how-we-build" },
+          { title: "MVP-Entwicklung", url: "/services/mvp-development" },
+        ],
+        suggestedQuestions: [
+          "Wie viel kostet ein MVP?",
+          "Wie läuft Ihr Entwicklungsprozess ab?",
+          "Angebot anfordern",
+        ],
+      },
+      es: {
+        answer:
+          "Los MVPs para startups toman de 2 a 6 semanas desde el concepto hasta el lanzamiento, mientras que las plataformas empresariales toman de 4 a 8 semanas en sprints ágiles de 2 semanas. Para staff augmentation, incorporamos ingenieros sénior en 48 a 72 horas.",
+        sources: [
+          { title: "Cómo construimos", url: "/how-we-build" },
+          { title: "Desarrollo de MVP", url: "/services/mvp-development" },
+        ],
+        suggestedQuestions: [
+          "¿Cuánto cuesta un MVP?",
+          "¿Cuál es su proceso de desarrollo?",
+          "Solicitar presupuesto",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 4. Experience & Track Record (Placed before pricing so "how much experience" matches Track Record!)
+  {
+    id: "experience-stats",
+    keywords: [
+      "how much experience",
+      "years of experience",
+      "your experience",
+      "how many projects",
+      "how many clients",
+      "how many years",
+      "ile lat doświadczenia",
+      "ile projektów",
+      "wie viel erfahrung",
+      "wie viele projekte",
+      "cuánta experiencia",
+      "cuántos proyectos",
+    ],
+    responses: {
+      en: {
+        answer:
+          "Hextel Tech has 3+ years of commercial software engineering experience, 2,000+ product engineering hours, and 25+ delivered platforms that have generated over $100K+ in client revenue, maintaining a 4.7 / 5.0 client satisfaction rating and 95% on-time milestone SLA.",
+        sources: [
+          { title: "Our Projects", url: "/projects" },
+          { title: "About Hextel Tech", url: "/about" },
+        ],
+        suggestedQuestions: [
+          "Show me your portfolio projects",
+          "Who are the founders?",
+          "Request a Quote",
+        ],
+      },
+      pl: {
+        answer:
+          "Hextel Tech posiada ponad 3 lata doświadczenia komercyjnego, 2,000+ godzin inżynieryjnych oraz 25+ wdrożonych produktów, które wygenerowały ponad $100K+ przychodu dla klientów przy średniej ocenie 4.7 / 5.0 i 95% terminowości SLA.",
+        sources: [
+          { title: "Nasze Projekty", url: "/projects" },
+          { title: "O Hextel Tech", url: "/about" },
+        ],
+        suggestedQuestions: [
+          "Pokaż Wasze projekty z portfolio",
+          "Kim są założyciele?",
+          "Poproś o wycenę",
+        ],
+      },
+      de: {
+        answer:
+          "Hextel Tech verfügt über mehr als 3 Jahre Erfahrung im Software-Engineering, 2.000+ Produktstunden und 25+ gelieferte Plattformen mit über $100K+ generiertem Kundenumsatz, einer Bewertung von 4,7 / 5,0 und 95% pünktlicher SLA-Erfüllung.",
+        sources: [
+          { title: "Unsere Projekte", url: "/projects" },
+          { title: "Über Hextel Tech", url: "/about" },
+        ],
+        suggestedQuestions: [
+          "Zeigen Sie mir Ihre Portfolio-Projekte",
+          "Wer sind die Gründer?",
+          "Angebot anfordern",
+        ],
+      },
+      es: {
+        answer:
+          "Hextel Tech cuenta con más de 3 años de experiencia en ingeniería de software, 2,000+ horas de producto y más de 25 plataformas entregadas que han generado más de $100K+ en ingresos para clientes, con una calificación de 4.7 / 5.0 y 95% de cumplimiento puntual de SLA.",
+        sources: [
+          { title: "Nuestros Proyectos", url: "/projects" },
+          { title: "Sobre Hextel Tech", url: "/about" },
+        ],
+        suggestedQuestions: [
+          "Muéstrame sus proyectos de portafolio",
+          "¿Quiénes son los fundadores?",
+          "Solicitar presupuesto",
+        ],
+      },
+    },
+    needsHumanHandoff: false,
+  },
+
+  // 5. Pricing, Costs, Rates & Budgets
   {
     id: "pricing",
     keywords: [
@@ -642,99 +832,6 @@ const INTENT_PATTERNS: IntentPattern[] = [
         suggestedQuestions: [
           "¿Cuál es el tiempo de entrega?",
           "¿Qué servicios ofrecen?",
-          "Solicitar presupuesto",
-        ],
-      },
-    },
-    needsHumanHandoff: false,
-  },
-
-  // 4. Timelines, Turnaround & Onboarding Speed
-  {
-    id: "timeline",
-    keywords: [
-      // EN
-      "timeline",
-      "timelines",
-      "how long",
-      "duration",
-      "turnaround",
-      "delivery time",
-      "how quickly",
-      "onboard developers",
-      "weeks",
-      "months",
-      "deadline",
-      // PL
-      "czas realizacji",
-      "ile czasu",
-      "jak długo",
-      "termin",
-      "tygodnie",
-      // DE
-      "zeitplan",
-      "wie lange",
-      "dauer",
-      "lieferzeit",
-      "wochen",
-      // ES
-      "tiempo de entrega",
-      "cuánto tiempo",
-      "cuanto tiempo",
-      "plazo",
-      "duración",
-      "semanas",
-    ],
-    responses: {
-      en: {
-        answer:
-          "Startup MVPs take 2 to 6 weeks from concept to launch, while full enterprise platforms typically take 4 to 8 weeks in transparent 2-week agile sprints with bi-weekly preview deployments. For IT staff augmentation, we can onboard dedicated senior engineers within 48 to 72 hours.",
-        sources: [
-          { title: "How We Build", url: "/how-we-build" },
-          { title: "MVP Development", url: "/services/mvp-development" },
-        ],
-        suggestedQuestions: [
-          "How much does an MVP cost?",
-          "What is your development process?",
-          "Request a Quote",
-        ],
-      },
-      pl: {
-        answer:
-          "Budowa MVP dla startupu zajmuje od 2 do 6 tygodni od koncepcji do wdrożenia, a rozbudowane platformy enterprise od 4 do 8 tygodni w przejrzystych 2-tygodniowych sprintach z regularnymi wersjami demo. W ramach IT Staff Augmentation wdrażamy dedykowanych inżynierów w 48–72 godziny.",
-        sources: [
-          { title: "Jak budujemy", url: "/how-we-build" },
-          { title: "Budowa MVP", url: "/services/mvp-development" },
-        ],
-        suggestedQuestions: [
-          "Ile kosztuje budowa MVP?",
-          "Jak wygląda proces tworzenia?",
-          "Poproś o wycenę",
-        ],
-      },
-      de: {
-        answer:
-          "Startup-MVPs dauern 2 bis 6 Wochen vom Konzept bis zum Launch, während umfassende Enterprise-Plattformen in 4 bis 8 Wochen in transparenten 2-Wochen-Sprints umgesetzt werden. Für IT-Staff-Augmentation können wir Senior-Entwickler innerhalb von 48 bis 72 Stunden integrieren.",
-        sources: [
-          { title: "Wie wir bauen", url: "/how-we-build" },
-          { title: "MVP-Entwicklung", url: "/services/mvp-development" },
-        ],
-        suggestedQuestions: [
-          "Wie viel kostet ein MVP?",
-          "Wie läuft Ihr Entwicklungsprozess ab?",
-          "Angebot anfordern",
-        ],
-      },
-      es: {
-        answer:
-          "Los MVPs para startups toman de 2 a 6 semanas desde el concepto hasta el lanzamiento, mientras que las plataformas empresariales toman de 4 a 8 semanas en sprints ágiles de 2 semanas. Para staff augmentation, incorporamos ingenieros sénior en 48 a 72 horas.",
-        sources: [
-          { title: "Cómo construimos", url: "/how-we-build" },
-          { title: "Desarrollo de MVP", url: "/services/mvp-development" },
-        ],
-        suggestedQuestions: [
-          "¿Cuánto cuesta un MVP?",
-          "¿Cuál es su proceso de desarrollo?",
           "Solicitar presupuesto",
         ],
       },
