@@ -352,4 +352,50 @@ export const REVIEW_STATS = [
   { value: "$100K+", label: "Client Revenue Generated", sub: "Direct commercial value delivered" },
 ];
 
-export const REVIEWS: ReviewItem[] = [];
+export const REVIEWS: ReviewItem[] = [
+  {
+    id: "review-nayyab",
+    quote:
+      "Hextel Tech engineered our luxury jewelry e-commerce platform from the ground up with Next.js. Page load speeds dropped below 1 second, our mobile checkout conversion increased significantly, and working directly with the founding engineers made every sprint effortless.",
+    author: "Nayyab Jewellers Management",
+    role: "Managing Director",
+    company: "Nayyab Jewellers",
+    rating: 5,
+    metric: "98 / 100",
+    metricLabel: "Lighthouse Performance",
+    project: "Bespoke Luxury E-Commerce Platform",
+    category: "web",
+    date: "2026",
+    verified: true,
+  },
+  {
+    id: "review-almoman",
+    quote:
+      "Our frozen food distribution needed real-time catalog management and live order tracking that works seamlessly on mobile devices. Hasaan, Faseeh, and Moman delivered a rock-solid full-stack platform ahead of schedule with complete source code handover.",
+    author: "Al Moman Operations Team",
+    role: "Head of Operations",
+    company: "Al Moman Frozen Foods",
+    rating: 5,
+    metric: "3.2x",
+    metricLabel: "Faster Order Processing",
+    project: "Full-Stack E-Commerce & Live Order System",
+    category: "web",
+    date: "2026",
+    verified: true,
+  },
+  {
+    id: "review-ai-copilot",
+    quote:
+      "The custom Gemini RAG pipeline and Playwright automation workflows built by Hextel Tech eliminated hours of manual triage every day. Their 5-layer zero-hallucination safety architecture gave us complete confidence in production.",
+    author: "Enterprise Product Lead",
+    role: "VP of Engineering",
+    company: "SaaS Automation Partner",
+    rating: 5,
+    metric: "85%",
+    metricLabel: "Workflow Automation Rate",
+    project: "Autonomous AI Command Center & RAG Pipeline",
+    category: "ai",
+    date: "2026",
+    verified: true,
+  },
+];

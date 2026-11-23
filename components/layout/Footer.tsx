@@ -138,12 +138,12 @@ export default function Footer() {
                   LinkedIn ↗
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://wa.me/923035696807"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-brand-accent transition-colors"
                 >
-                  X ↗
+                  WhatsApp ↗
                 </a>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function Footer() {
             <Link href="/privacy-policy" className="hover:text-brand-light transition-colors">
               {t.footer?.privacyPolicy || "Privacy Policy"}
             </Link>
-            <Link href="/contact" className="hover:text-brand-light transition-colors">
+            <Link href="/terms-of-service" className="hover:text-brand-light transition-colors">
               {t.footer?.termsOfService || "Terms of Service"}
             </Link>
           </div>
